@@ -244,38 +244,154 @@ function toggleNestedTable(index, delegates) {
 }
   
   
-  // Función para crear la subtabla con AG Grid
+// Función para crear la subtabla con AG Grid
 function createNestedTable(details, index) {
-    const gridOptions = {
-      columnDefs: [
-        { headerName: 'Full Name', field: 'fullName', sortable: true },
-        { headerName: 'NGAUS Member ID Number', field: 'ngausMemberId', sortable: true },
-        { headerName: 'Pay Grade', field: 'payGrade', sortable: true },
-        { headerName: 'Rank', field: 'rank', sortable: true },
-        { headerName: 'Branch', field: 'branch', sortable: true },
-        { headerName: 'Duty Status', field: 'dutyStatus', sortable: true },
-        { headerName: 'Warrant Officer Caucus Army', field: 'caucuses.warrantOfficerCaucusArmy', cellRenderer: 'checkboxRenderer', sortable: true },
-        { headerName: 'Area III Army Caucus', field: 'caucuses.areaIIIArmyCaucus', cellRenderer: 'checkboxRenderer', sortable: true },
-        { headerName: 'Retired Air Force', field: 'caucuses.retiredAirForce', cellRenderer: 'checkboxRenderer', sortable: true },
-        { headerName: 'Committee On Joint Resolutions', field: 'caucuses.committeeOnJointResolutions', cellRenderer: 'checkboxRenderer', sortable: true },
-        { headerName: 'Retired Army', field: 'caucuses.retiredArmy', cellRenderer: 'checkboxRenderer', sortable: true },
-        { headerName: 'Area III Air Force Caucus', field: 'caucuses.areaIIIAirForceCaucus', cellRenderer: 'checkboxRenderer', sortable: true },
-        { headerName: 'Committee On Air Force Resolutions', field: 'caucuses.committeeOnAirForceResolutions', cellRenderer: 'checkboxRenderer', sortable: true },
-        { headerName: 'Company Grade Air Force', field: 'caucuses.companyGradeAirForce', cellRenderer: 'checkboxRenderer', sortable: true },
-        { headerName: 'Company Grade Army', field: 'caucuses.companyGradeArmy', cellRenderer: 'checkboxRenderer', sortable: true },
-        { headerName: 'Committee On Nominations', field: 'caucuses.committeeOnNominations', cellRenderer: 'checkboxRenderer', sortable: true },
-        { headerName: 'Committee On Army Resolutions', field: 'caucuses.committeeOnArmyResolutions', cellRenderer: 'checkboxRenderer', sortable: true }
-      ],
-      rowData: details,
-      pagination: true,
-    };
-  
-    // Inicializa el grid de AG Grid para la subtabla solo si no está creado ya
-    const gridDiv = document.querySelector(`#ag-grid-${index}`);
-    if (!gridDiv.innerHTML.trim()) {
-      new agGrid.Grid(gridDiv, gridOptions);
-    }
+  const gridOptions = {
+    columnDefs: [
+      { 
+        headerName: 'Full Name', 
+        field: 'fullName', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'NGAUS Member ID Number', 
+        field: 'ngausMemberId', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Pay Grade', 
+        field: 'payGrade', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Rank', 
+        field: 'rank', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Branch', 
+        field: 'branch', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Duty Status', 
+        field: 'dutyStatus', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Warrant Officer Caucus Army', 
+        field: 'caucuses.warrantOfficerCaucusArmy', 
+        cellRenderer: 'checkboxRenderer', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Area III Army Caucus', 
+        field: 'caucuses.areaIIIArmyCaucus', 
+        cellRenderer: 'checkboxRenderer', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Retired Air Force', 
+        field: 'caucuses.retiredAirForce', 
+        cellRenderer: 'checkboxRenderer', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Committee On Joint Resolutions', 
+        field: 'caucuses.committeeOnJointResolutions', 
+        cellRenderer: 'checkboxRenderer', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Retired Army', 
+        field: 'caucuses.retiredArmy', 
+        cellRenderer: 'checkboxRenderer', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Area III Air Force Caucus', 
+        field: 'caucuses.areaIIIAirForceCaucus', 
+        cellRenderer: 'checkboxRenderer', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Committee On Air Force Resolutions', 
+        field: 'caucuses.committeeOnAirForceResolutions', 
+        cellRenderer: 'checkboxRenderer', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Company Grade Air Force', 
+        field: 'caucuses.companyGradeAirForce', 
+        cellRenderer: 'checkboxRenderer', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Company Grade Army', 
+        field: 'caucuses.companyGradeArmy', 
+        cellRenderer: 'checkboxRenderer', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Committee On Nominations', 
+        field: 'caucuses.committeeOnNominations', 
+        cellRenderer: 'checkboxRenderer', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      },
+      { 
+        headerName: 'Committee On Army Resolutions', 
+        field: 'caucuses.committeeOnArmyResolutions', 
+        cellRenderer: 'checkboxRenderer', 
+        sortable: true,
+        headerClass: 'custom-header', // Clave para aplicar el estilo
+      }
+    ],
+    rowData: details,
+    pagination: true,
+    getRowStyle: function(params) {
+      // Aquí puedes personalizar el estilo de las filas si lo necesitas
+      return { fontFamily: 'Inter', fontSize: '14px', color: '#6E6893' };
+    },
+  };
+
+  // Inicializa el grid de AG Grid para la subtabla solo si no está creado ya
+  const gridDiv = document.querySelector(`#ag-grid-${index}`);
+  if (!gridDiv.innerHTML.trim()) {  // Verifica si el grid ya está creado
+    new agGrid.Grid(gridDiv, gridOptions);
+  }
 }
+
+// Agrega los estilos directamente en el script
+const style = document.createElement('style');
+style.innerHTML = `
+  .ag-header-cell.custom-header {
+    font-family: var(--BodySmallFont);
+    font-size: var(--BodySmallSize);
+    font-weight: 400;
+    line-height: var(--BodySmallLineHeight);
+    letter-spacing: var(--BodySmallTracking);
+    text-align: left;
+    color: #12385C;
+  }
+`;
+document.head.appendChild(style);
+
   
   // Inicia la carga de los delegados al cargar la página
   loadDelegates();  
