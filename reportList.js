@@ -172,14 +172,14 @@ function createNav() {
       const row = document.createElement('tr');
   
       // Mover el botón "Expand" a la izquierda del nombre del delegado y cambiarlo por la flecha
-  row.innerHTML = `
-  <td>
-    <button class="btn btn-link expand-btn" onclick="toggleNestedTable(${index}, delegates)">
-      <i class="bi bi-arrow-down-circle"></i>
-    </button>
-    ${delegate.delegateName} <!-- Nombre del delegado -->
-  </td>
-  `;
+      row.innerHTML = `
+      <td>
+        <button class="btn btn-link expand-btn" onclick="toggleNestedTable(${index}, delegates)" style="color: inherit; text-decoration: none;">
+          <i class="bi bi-arrow-down-circle"></i>
+        </button>
+        ${delegate.delegateName} <!-- Nombre del delegado -->
+      </td>
+    `;
   
   
       // Fila secundaria para la tabla interna (subtabla)
