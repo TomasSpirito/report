@@ -1,3 +1,4 @@
+//--------------------------------------------NAV----------------------------------------------------------------//
 function createNav() {
     const nav = document.createElement('div'); // Cambiado a `div` para incluir los íconos además del menú
     nav.style.display = 'flex'; // Asegura que los elementos estén alineados en fila
@@ -127,11 +128,12 @@ function createNav() {
     }
   }
   
-  
+//--------------------------------------------TABLES----------------------------------------------------------------//
+
   let delegates = []; // Variable global para almacenar los datos de los delegados
-  
-  // Función para crear la tabla principal
-  async function loadDelegates() {
+
+  // Función para cargar los delegados y crear la tabla principal
+async function loadDelegates() {
     try {
       const response = await fetch('delegates.json');
       if (!response.ok) {
@@ -145,16 +147,15 @@ function createNav() {
     } catch (error) {
       console.error('Error al cargar los datos:', error);
     }
-  }
+}
   
-  // Modificar la función createMainTable
-  // Modificar la función createMainTable
-  function createMainTable(delegates) {
+// Función para crear la tabla principal
+function createMainTable(delegates) {
     const tableContainer = document.getElementById('table-container');
     tableContainer.innerHTML = ''; // Limpia cualquier contenido previo
   
     const table = document.createElement('table');
-    table.classList.add('table', 'table-bordered', 'table-striped', 'table-responsive'); // Clases de Bootstrap
+    table.classList.add('table', 'table-bordered', 'table-striped', 'table-responsive');
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
   
@@ -162,70 +163,89 @@ function createNav() {
     thead.innerHTML = `
       <tr>
         <th onclick="sortMainTable('delegateName', this)" class="sortable">
-          Delegate Name <span class="sort-indicator"></span>
+          <span class="sort-indicator"></span>
         </th>
       </tr>
     `;
   
     // Cuerpo de la tabla
     delegates.forEach((delegate, index) => {
-      const row = document.createElement('tr');
-  
-      // Mover el botón "Expand" a la izquierda del nombre del delegado y cambiarlo por la flecha
-      row.innerHTML = `
-      <td>
-        <button class="btn btn-link expand-btn" onclick="toggleNestedTable(${index}, delegates)" style="color: inherit; text-decoration: none;">
-          <i class="bi bi-arrow-down-circle"></i>
-        </button>
-        ${delegate.delegateName} <!-- Nombre del delegado -->
-      </td>
-    `;
-  
-  
-      // Fila secundaria para la tabla interna (subtabla)
-      const nestedRow = document.createElement('tr');
-      nestedRow.innerHTML = `
-        <td colspan="2">
-          <div class="nested-table" id="nested-table-${index}" style="display: none;">
-            <div class="ag-theme-alpine" id="ag-grid-${index}" style="width: 100%;"></div>
-          </div>
-        </td>
-      `;
-  
-      tbody.appendChild(row);
-      tbody.appendChild(nestedRow);
+        const row = document.createElement('tr');
+        const cellStyle = `
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 16.94px;
+            text-align: left;
+            color: #6E6893;
+        `;
+      
+        // Botón expand/collapse y nombre del delegado
+        row.innerHTML = `
+            <td style="${cellStyle}">
+            <button class="btn btn-link expand-btn" onclick="toggleNestedTable(${index}, delegates)" style="color: inherit; text-decoration: none; transition: transform 0.3s ease;">
+                <i class="bi bi-arrow-right-circle" id="expand-icon-${index}" style="transition: transform 0.3s ease;"></i>
+            </button>
+            ${delegate.delegateName}
+            </td>
+        `;
+        
+        // Fila secundaria para la tabla interna (subtabla)
+        const nestedRow = document.createElement('tr');
+        nestedRow.innerHTML = `
+            <td colspan="2">
+            <div class="nested-table" id="nested-table-${index}" style="display: none; overflow: hidden; max-height: 0; transition: max-height 0.3s ease-out;">
+                <div class="ag-theme-alpine" id="ag-grid-${index}" style="width: 100%;"></div>
+            </div>
+            </td>
+        `;
+
+        tbody.appendChild(row);
+        tbody.appendChild(nestedRow);
     });
   
     table.appendChild(thead);
     table.appendChild(tbody);
     tableContainer.appendChild(table);
-  }
+}
   
-  
-  
-  // Función para alternar la visibilidad de la subtabla
-  function toggleNestedTable(index, delegates) {
+  // Función para alternar la visibilidad de la subtabla y cambiar la flecha con transición
+function toggleNestedTable(index, delegates) {
     const nestedTable = document.getElementById(`nested-table-${index}`);
     const allNestedTables = document.querySelectorAll('.nested-table');
+    const expandButton = document.querySelector(`#expand-icon-${index}`);
   
     // Ocultar todas las subtablas excepto la actual
-    allNestedTables.forEach(table => {
-      if (table !== nestedTable) {
-        table.style.display = 'none'; // Ocultar las demás subtablas
+    allNestedTables.forEach((table, idx) => {
+      if (idx !== index) {
+        table.style.maxHeight = '0'; // Colapsa las subtablas
+        table.style.display = 'none';
+        const otherButton = document.querySelector(`#expand-icon-${idx}`);
+        if (otherButton) {
+          otherButton.classList.remove('bi-arrow-down-circle');
+          otherButton.classList.add('bi-arrow-right-circle'); // Restaurar flecha hacia la derecha
+        }
       }
     });
   
     // Si la subtabla no está visible, la mostramos y creamos la subtabla
     if (nestedTable.style.display === 'none') {
       nestedTable.style.display = 'block';
-      createNestedTable(delegates[index].details, index); // Solo creamos la subtabla si es necesario
+      nestedTable.style.maxHeight = '1000px'; // Expande la subtabla con animación
+      expandButton.classList.remove('bi-arrow-right-circle');
+      expandButton.classList.add('bi-arrow-down-circle'); // Cambia la flecha hacia abajo
+      createNestedTable(delegates[index].details, index);
     } else {
-      nestedTable.style.display = 'none'; // Si ya está visible, la ocultamos
+      nestedTable.style.maxHeight = '0'; // Colapsa la subtabla con animación
+      setTimeout(() => (nestedTable.style.display = 'none'), 300); // Oculta completamente tras la animación
+      expandButton.classList.remove('bi-arrow-down-circle');
+      expandButton.classList.add('bi-arrow-right-circle'); // Cambia la flecha hacia la derecha
     }
-  }
+}
+  
   
   // Función para crear la subtabla con AG Grid
-  function createNestedTable(details, index) {
+function createNestedTable(details, index) {
     const gridOptions = {
       columnDefs: [
         { headerName: 'Full Name', field: 'fullName', sortable: true },
@@ -252,46 +272,17 @@ function createNav() {
   
     // Inicializa el grid de AG Grid para la subtabla solo si no está creado ya
     const gridDiv = document.querySelector(`#ag-grid-${index}`);
-    if (!gridDiv.innerHTML.trim()) {  // Verifica si el grid ya está creado
+    if (!gridDiv.innerHTML.trim()) {
       new agGrid.Grid(gridDiv, gridOptions);
     }
-  }
+}
   
-  // Función para ordenar la tabla principal
-  let mainTableSortOrder = 1;
-  function sortMainTable(key, th) {
-    fetch('delegates.json')
-      .then(response => response.json())
-      .then(data => {
-        const sorted = data.delegates.sort((a, b) => {
-          if (a[key] < b[key]) return -mainTableSortOrder;
-          if (a[key] > b[key]) return mainTableSortOrder;
-          return 0;
-        });
-        mainTableSortOrder = -mainTableSortOrder;
-        createMainTable(sorted);
-        toggleSortIndicator(th);
-      });
-  }
-  
-  // Función para alternar el indicador de ordenamiento
-  function toggleSortIndicator(th) {
-    const indicators = document.querySelectorAll('.sort-indicator');
-    indicators.forEach(indicator => indicator.remove()); // Eliminar indicadores previos
-  
-    const indicator = document.createElement('span');
-    indicator.classList.add('sort-indicator');
-    if (mainTableSortOrder === 1) {
-      indicator.textContent = '↑'; // Orden ascendente
-    } else {
-      indicator.textContent = '↓'; // Orden descendente
-    }
-    th.appendChild(indicator);
-  }
+  // Inicia la carga de los delegados al cargar la página
+  loadDelegates();  
   
   // Cargar los datos y el nav cuando se carga la página
   window.onload = function() {
     loadDelegates();
     createNav(); // Llamada a la función para crear el nav
-  };
+    };
   
