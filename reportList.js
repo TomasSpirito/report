@@ -1,4 +1,15 @@
-//--------------------------------------------NAV----------------------------------------------------------------//
+//estilo Titulo principal
+function setH1Styles() {
+  const h1 = document.querySelector('h1'); // Selecciona el h1
+  if (h1) { // Verifica si existe
+      h1.style.fontFamily = "'Inter', sans-serif"; // Establece la fuente
+      h1.style.fontWeight = '700'; // Peso de la fuente
+      h1.style.fontSize = '24px'; // Tamaño de la fuente
+      h1.style.lineHeight = '29.05px'; // Altura de línea
+      h1.style.letterSpacing = '0.1em'; // Espaciado entre letras
+  }
+}  
+//------------------------------------------------------------------NAV---------------------------------------------------------------------------------//
 function createNav() {
   const nav = document.createElement('div'); // Cambiado a `div` para incluir los íconos además del menú
   nav.style.display = 'flex'; // Asegura que los elementos estén alineados en fila
@@ -156,42 +167,56 @@ function createMainTable(delegates) {
   
     const table = document.createElement('table');
     table.classList.add('table', 'table-bordered', 'table-striped', 'table-responsive');
+
+    // Agregar estilo de fondo blanco y sombra
+    table.style.backgroundColor = 'white'; // Fondo blanco
+    table.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)'; // Sombra uniforme en todos los costados
+    table.style.borderRadius = '80px'; // Esquinas redondeadas (opcional)
+
+
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
   
-    // Cabecera de la tabla principal con ordenamiento
-    thead.innerHTML = `
-      <tr>
-        <th onclick="sortMainTable('delegateName', this)" class="sortable">
-          State Afilliate<span class="sort-indicator"></span>
-        </th>
-      </tr>
-    `;
+    /// Cabecera de la tabla principal con ordenamiento
+    // thead.innerHTML = `
+    //   <tr>
+    //     <th onclick="sortMainTable('delegateName', this)" class="sortable">
+    //       State Afilliate<span class="sort-indicator"></span>
+    //     </th>
+    //   </tr>
+    // `;
   
     // Cuerpo de la tabla
     delegates.forEach((delegate, index) => {
         const row = document.createElement('tr');
+        //Estilo de las celdas de la tabla principal
         const cellStyle = `
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 16.94px;
-            text-align: left;
-            color: #6E6893;
+          font-family: 'Inter', sans-serif;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1.2; /* Ajusta el espacio vertical dentro de la celda */
+          text-align: left;
+          color: #6E6893;
+          padding: 2px 2px; /* Reduce el relleno dentro de la celda */
+          height: 2px; /* Define una altura fija para las filas */
         `;
       
         // Botón expand/collapse y nombre del delegado
         row.innerHTML = `
-            <td style="${cellStyle}">
-            <button class="btn btn-link expand-btn" onclick="toggleNestedTable(${index}, delegates)" style="color: inherit; text-decoration: none; transition: transform 0.3s ease;">
-                <i class="bi bi-arrow-right-circle" id="expand-icon-${index}" style="transition: transform 0.3s ease;"></i>
-            </button>
+          <td style="${cellStyle}">
+              <button 
+                  class="btn btn-link expand-btn" 
+                  onclick="toggleNestedTable(${index}, delegates)" 
+                  style="color: inherit; text-decoration: none; transition: transform 0.3s ease; padding: 1px; margin: 1px 8px;">
+                  <i class="bi bi-arrow-right-circle" id="expand-icon-${index}" style="transition: transform 0.3s ease;"></i>
+              </button>   
             ${delegate.delegateName}
-            </td>
+          </td>
         `;
-        
+
         // Fila secundaria para la tabla interna (subtabla)
         const nestedRow = document.createElement('tr');
+        nestedRow.style.display = 'none'; // Oculta la fila por defecto
         nestedRow.innerHTML = `
             <td colspan="2">
             <div class="nested-table" id="nested-table-${index}" style="display: none; overflow: hidden; max-height: 0; transition: max-height 0.3s ease-out;">
@@ -211,37 +236,45 @@ function createMainTable(delegates) {
   
 // Función para alternar la visibilidad de la subtabla y cambiar la flecha con transición
 function toggleNestedTable(index, delegates) {
-    const nestedTable = document.getElementById(`nested-table-${index}`);
-    const allNestedTables = document.querySelectorAll('.nested-table');
-    const expandButton = document.querySelector(`#expand-icon-${index}`);
-  
-    // Ocultar todas las subtablas excepto la actual
-    allNestedTables.forEach((table, idx) => {
-      if (idx !== index) {
-        table.style.maxHeight = '0'; // Colapsa las subtablas
-        table.style.display = 'none';
-        const otherButton = document.querySelector(`#expand-icon-${idx}`);
-        if (otherButton) {
-          otherButton.classList.remove('bi-arrow-down-circle');
-          otherButton.classList.add('bi-arrow-right-circle'); // Restaurar flecha hacia la derecha
-        }
+  const nestedTable = document.getElementById(`nested-table-${index}`);
+  const nestedRow = nestedTable.closest('tr'); // Obtiene la fila secundaria
+  const allNestedTables = document.querySelectorAll('.nested-table');
+  const expandButton = document.querySelector(`#expand-icon-${index}`);
+
+  // Ocultar todas las subtablas excepto la actual
+  allNestedTables.forEach((table, idx) => {
+    const otherRow = table.closest('tr');
+    if (idx !== index) {
+      table.style.maxHeight = '0'; // Colapsa las subtablas
+      table.style.display = 'none'; 
+      if (otherRow) otherRow.style.display = 'none'; // Oculta la fila secundaria
+      const otherButton = document.querySelector(`#expand-icon-${idx}`);
+      if (otherButton) {
+        otherButton.classList.remove('bi-arrow-down-circle');
+        otherButton.classList.add('bi-arrow-right-circle'); // Restaurar flecha hacia la derecha
       }
-    });
-  
-    // Si la subtabla no está visible, la mostramos y creamos la subtabla
-    if (nestedTable.style.display === 'none') {
-      nestedTable.style.display = 'block';
-      nestedTable.style.maxHeight = '1000px'; // Expande la subtabla con animación
-      expandButton.classList.remove('bi-arrow-right-circle');
-      expandButton.classList.add('bi-arrow-down-circle'); // Cambia la flecha hacia abajo
-      createNestedTable(delegates[index].details, index);
-    } else {
-      nestedTable.style.maxHeight = '0'; // Colapsa la subtabla con animación
-      setTimeout(() => (nestedTable.style.display = 'none'), 300); // Oculta completamente tras la animación
-      expandButton.classList.remove('bi-arrow-down-circle');
-      expandButton.classList.add('bi-arrow-right-circle'); // Cambia la flecha hacia la derecha
     }
+  });
+
+  // Si la subtabla no está visible, la mostramos y creamos la subtabla
+  if (nestedTable.style.display === 'none') {
+    nestedRow.style.display = ''; // Muestra la fila secundaria
+    nestedTable.style.display = 'block';
+    nestedTable.style.maxHeight = '1000px'; // Expande la subtabla con animación
+    expandButton.classList.remove('bi-arrow-right-circle');
+    expandButton.classList.add('bi-arrow-down-circle'); // Cambia la flecha hacia abajo
+    createNestedTable(delegates[index].details, index);
+  } else {
+    nestedTable.style.maxHeight = '0'; // Colapsa la subtabla con animación
+    setTimeout(() => {
+      nestedTable.style.display = 'none'; // Oculta completamente tras la animación
+      nestedRow.style.display = 'none'; // Oculta la fila secundaria
+    }, 300); 
+    expandButton.classList.remove('bi-arrow-down-circle');
+    expandButton.classList.add('bi-arrow-right-circle'); // Cambia la flecha hacia la derecha
+  }
 }
+
 
 class CustomHeader {
     init(params) {
@@ -291,8 +324,7 @@ function createNestedTable(details, index) {
         field: 'payGrade', 
         sortable: true,
         headerClass: 'custom-header', // Aplica el estilo de encabezado
-        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
-        cellStyle: { backgroundColor: backgroundColors[2] },
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] },// Centra el texto en las celdas
         headerComponent: CustomHeader,
       },
       { 
@@ -543,12 +575,10 @@ function createNestedTable(details, index) {
   }
 }
 
-  // Inicia la carga de los delegados al cargar la página
-  loadDelegates();  
-  
   // Cargar los datos y el nav cuando se carga la página
   window.onload = function() {
     loadDelegates();
+    setH1Styles();   // Estilo para el h1
     createNav(); // Llamada a la función para crear el nav
     };
   
