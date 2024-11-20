@@ -130,9 +130,9 @@ function createNav() {
   
 //--------------------------------------------TABLES----------------------------------------------------------------//
 
-  let delegates = []; // Variable global para almacenar los datos de los delegados
+let delegates = []; // Variable global para almacenar los datos de los delegados
 
-  // Función para cargar los delegados y crear la tabla principal
+// Función para cargar los delegados y crear la tabla principal
 async function loadDelegates() {
     try {
       const response = await fetch('delegates.json');
@@ -209,7 +209,7 @@ function createMainTable(delegates) {
     tableContainer.appendChild(table);
 }
   
-  // Función para alternar la visibilidad de la subtabla y cambiar la flecha con transición
+// Función para alternar la visibilidad de la subtabla y cambiar la flecha con transición
 function toggleNestedTable(index, delegates) {
     const nestedTable = document.getElementById(`nested-table-${index}`);
     const allNestedTables = document.querySelectorAll('.nested-table');
@@ -242,6 +242,23 @@ function toggleNestedTable(index, delegates) {
       expandButton.classList.add('bi-arrow-right-circle'); // Cambia la flecha hacia la derecha
     }
 }
+
+class CustomHeader {
+    init(params) {
+      this.params = params;
+      const eGui = document.createElement('div');
+      eGui.innerHTML = `
+        <div class="custom-header">
+          ${this.params.displayName}
+        </div>
+      `;
+      this.eGui = eGui;
+    }
+  
+    getGui() {
+      return this.eGui;
+    }
+  }
   
 function createNestedTable(details, index) {
   const gridOptions = {
@@ -251,36 +268,43 @@ function createNestedTable(details, index) {
         field: 'fullName', 
         sortable: true,
         headerClass: 'custom-header', // Aplica el estilo de encabezado
+        headerComponent: CustomHeader,
       },
       { 
-        headerName: 'NGAUS Member ID Number', 
+        headerName: 'NGAUS Member <br> ID Number', 
         field: 'ngausMemberId', 
         sortable: true,
         headerClass: 'custom-header', // Aplica el estilo de encabezado
+        headerComponent: CustomHeader,
       },
       { 
-        headerName: 'Pay Grade', 
+        headerName: 'Pay <br> Grade', 
         field: 'payGrade', 
         sortable: true,
         headerClass: 'custom-header', // Aplica el estilo de encabezado
+        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        headerComponent: CustomHeader,
       },
       { 
         headerName: 'Rank', 
         field: 'rank', 
         sortable: true,
         headerClass: 'custom-header', // Aplica el estilo de encabezado
+        headerComponent: CustomHeader,
       },
       { 
         headerName: 'Branch', 
         field: 'branch', 
         sortable: true,
         headerClass: 'custom-header', // Aplica el estilo de encabezado
+        headerComponent: CustomHeader,
       },
       { 
-        headerName: 'Duty Status', 
+        headerName: 'Duty <br> Status', 
         field: 'dutyStatus', 
         sortable: true,
         headerClass: 'custom-header', // Aplica el estilo de encabezado
+        headerComponent: CustomHeader,
         cellRenderer: function(params) {
           const dutyStatus = params.value; // Obtiene el valor de la columna (active o retired)
           const button = document.createElement('button');
@@ -328,10 +352,12 @@ function createNestedTable(details, index) {
         },
       },
       {
-        headerName: 'Warrant Officer Caucus Army',
+        headerName: 'Warrant <br> Officer <br>  Caucus Army',
         field: 'caucuses.warrantOfficerCaucusArmy',
         sortable: true,
         headerClass: 'custom-header',
+        cellStyle: { textAlign: 'center' },// Centra el texto en las celdas
+        headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -340,10 +366,12 @@ function createNestedTable(details, index) {
         }
       },
       {
-        headerName: 'Area III Army Caucus',
+        headerName: 'Area III <br> Army <br> Caucus',
         field: 'caucuses.areaIIIArmyCaucus',
-        sortable: true,
+        sortable: true,         
         headerClass: 'custom-header',
+        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -352,10 +380,12 @@ function createNestedTable(details, index) {
         }
       },
       {
-        headerName: 'Retired Air Force',
+        headerName: 'Retired <br> Air Force',
         field: 'caucuses.retiredAirForce',
         sortable: true,
         headerClass: 'custom-header',
+        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -364,10 +394,12 @@ function createNestedTable(details, index) {
         }
       },
       {
-        headerName: 'Committee On Joint Resolutions',
+        headerName: 'Committee <br> On Joint <br> Resolutions',
         field: 'caucuses.committeeOnJointResolutions',
         sortable: true,
         headerClass: 'custom-header',
+        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -376,10 +408,12 @@ function createNestedTable(details, index) {
         }
       },
       {
-        headerName: 'Retired Army',
+        headerName: 'Retired <br> Army',
         field: 'caucuses.retiredArmy',
         sortable: true,
         headerClass: 'custom-header',
+        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -388,10 +422,12 @@ function createNestedTable(details, index) {
         }
       },
       {
-        headerName: 'Area III Air Force Caucus',
+        headerName: 'Area III <br> Air Force <br> Caucus',
         field: 'caucuses.areaIIIAirForceCaucus',
         sortable: true,
         headerClass: 'custom-header',
+        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -400,10 +436,12 @@ function createNestedTable(details, index) {
         }
       },
       {
-        headerName: 'Committee On Air Force Resolutions',
+        headerName: 'Committee <br> On Air <br> Force Resolutions',
         field: 'caucuses.committeeOnAirForceResolutions',
         sortable: true,
         headerClass: 'custom-header',
+        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -412,10 +450,12 @@ function createNestedTable(details, index) {
         }
       },
       {
-        headerName: 'Company Grade Air Force',
+        headerName: 'Company <br> Grade Air <br> Force',
         field: 'caucuses.companyGradeAirForce',
         sortable: true,
         headerClass: 'custom-header',
+        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -424,10 +464,12 @@ function createNestedTable(details, index) {
         }
       },
       {
-        headerName: 'Company Grade Army',
+        headerName: 'Company <br> Grade <br> Army',
         field: 'caucuses.companyGradeArmy',
         sortable: true,
         headerClass: 'custom-header',
+        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -436,10 +478,12 @@ function createNestedTable(details, index) {
         }
       },
       {
-        headerName: 'Committee On Nominations',
+        headerName: 'Committee <br> On <br> Nominations',
         field: 'caucuses.committeeOnNominations',
         sortable: true,
         headerClass: 'custom-header',
+        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -447,11 +491,13 @@ function createNestedTable(details, index) {
             : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
         }
       },
-      {
-        headerName: 'Committee On Army Resolutions',
+      { 
+        headerName: 'Committee <br> On Army <br> Resolutions',
         field: 'caucuses.committeeOnArmyResolutions',
         sortable: true,
         headerClass: 'custom-header',
+        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -462,7 +508,8 @@ function createNestedTable(details, index) {
       
     ],
     rowData: details,
-    pagination: true,
+    pagination: false,
+    suppressMovableColumns: true,
     getRowStyle: function(params) {
       return {
         fontFamily: 'Inter',
