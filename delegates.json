@@ -34,7 +34,7 @@
             "caucuses": {
               "warrantOfficerCaucusArmy": false,
               "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
+              "retiredAirForce": true,
               "committeeOnJointResolutions": false,
               "retiredArmy": false,
               "areaIIIAirForceCaucus": true,

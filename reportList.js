@@ -261,6 +261,12 @@ class CustomHeader {
   }
   
 function createNestedTable(details, index) {
+  const backgroundColors = [
+    '#4F378A14', // 8% opacidad (HEX con opacidad en porcentaje)
+    '#4F378A29', // 16% opacidad
+    '#4F378A1F', // 12% opacidad
+  ];
+
   const gridOptions = {
     columnDefs: [
       { 
@@ -268,6 +274,7 @@ function createNestedTable(details, index) {
         field: 'fullName', 
         sortable: true,
         headerClass: 'custom-header', // Aplica el estilo de encabezado
+        cellStyle: { backgroundColor: backgroundColors[0] },
         headerComponent: CustomHeader,
       },
       { 
@@ -275,6 +282,8 @@ function createNestedTable(details, index) {
         field: 'ngausMemberId', 
         sortable: true,
         headerClass: 'custom-header', // Aplica el estilo de encabezado
+        cellStyle: { backgroundColor: backgroundColors[1] },
+
         headerComponent: CustomHeader,
       },
       { 
@@ -283,6 +292,7 @@ function createNestedTable(details, index) {
         sortable: true,
         headerClass: 'custom-header', // Aplica el estilo de encabezado
         cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        cellStyle: { backgroundColor: backgroundColors[2] },
         headerComponent: CustomHeader,
       },
       { 
@@ -290,6 +300,7 @@ function createNestedTable(details, index) {
         field: 'rank', 
         sortable: true,
         headerClass: 'custom-header', // Aplica el estilo de encabezado
+        cellStyle: { backgroundColor: backgroundColors[0] },
         headerComponent: CustomHeader,
       },
       { 
@@ -297,6 +308,7 @@ function createNestedTable(details, index) {
         field: 'branch', 
         sortable: true,
         headerClass: 'custom-header', // Aplica el estilo de encabezado
+        cellStyle: { backgroundColor: backgroundColors[1] },
         headerComponent: CustomHeader,
       },
       { 
@@ -304,6 +316,7 @@ function createNestedTable(details, index) {
         field: 'dutyStatus', 
         sortable: true,
         headerClass: 'custom-header', // Aplica el estilo de encabezado
+        cellStyle: { backgroundColor: backgroundColors[2] },
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
           const dutyStatus = params.value; // Obtiene el valor de la columna (active o retired)
@@ -356,7 +369,7 @@ function createNestedTable(details, index) {
         field: 'caucuses.warrantOfficerCaucusArmy',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center' },// Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] },// Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -370,7 +383,7 @@ function createNestedTable(details, index) {
         field: 'caucuses.areaIIIArmyCaucus',
         sortable: true,         
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[1] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -384,7 +397,7 @@ function createNestedTable(details, index) {
         field: 'caucuses.retiredAirForce',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -398,7 +411,7 @@ function createNestedTable(details, index) {
         field: 'caucuses.committeeOnJointResolutions',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -412,7 +425,7 @@ function createNestedTable(details, index) {
         field: 'caucuses.retiredArmy',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[1] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -426,7 +439,7 @@ function createNestedTable(details, index) {
         field: 'caucuses.areaIIIAirForceCaucus',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -440,7 +453,7 @@ function createNestedTable(details, index) {
         field: 'caucuses.committeeOnAirForceResolutions',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -454,7 +467,7 @@ function createNestedTable(details, index) {
         field: 'caucuses.companyGradeAirForce',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[1] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -468,7 +481,7 @@ function createNestedTable(details, index) {
         field: 'caucuses.companyGradeArmy',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -482,7 +495,7 @@ function createNestedTable(details, index) {
         field: 'caucuses.committeeOnNominations',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center' , backgroundColor: backgroundColors[0]}, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -496,7 +509,7 @@ function createNestedTable(details, index) {
         field: 'caucuses.committeeOnArmyResolutions',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center' }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center' , backgroundColor: backgroundColors[1]}, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
           return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
