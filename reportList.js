@@ -89,26 +89,20 @@ function createNav() {
 
   // Botón de imprimir
   const printButton = document.createElement('button');
-  printButton.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
-      <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/>
-      <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1"/>
-    </svg>
-  `;
+  printButton.innerHTML = `<i class="bi bi-printer"></i>`;
   printButton.style.border = 'none';
   printButton.style.background = 'none';
   printButton.style.cursor = 'pointer';
 
   // Botón de exportar CSV
   const exportButton = document.createElement('button');
-  exportButton.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-csv" viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zM3.517 14.841a1.13 1.13 0 0 0 .401.823q.195.162.478.252.284.091.665.091.507 0 .859-.158.354-.158.539-.44.187-.284.187-.656 0-.336-.134-.56a1 1 0 0 0-.375-.357 2 2 0 0 0-.566-.21l-.621-.144a1 1 0 0 1-.404-.176.37.37 0 0 1-.144-.299q0-.234.185-.384.188-.152.512-.152.214 0 .37.068a.6.6 0 0 1 .246.181.56.56 0 0 1 .12.258h.75a1.1 1.1 0 0 0-.2-.566 1.2 1.2 0 0 0-.5-.41 1.8 1.8 0 0 0-.78-.152q-.439 0-.776.15-.337.149-.527.421-.19.273-.19.639 0 .302.122.524.124.223.352.367.228.143.539.213l.618.144q.31.073.463.193a.39.39 0 0 1 .152.326.5.5 0 0 1-.085.29.56.56 0 0 1-.255.193q-.167.07-.413.07-.175 0-.32-.04a.8.8 0 0 1-.248-.115.58.58 0 0 1-.255-.384z"/>
-    </svg>
-  `;
-  exportButton.style.border = 'none';
-  exportButton.style.background = 'none';
-  exportButton.style.cursor = 'pointer';
+exportButton.innerHTML = `<i class="bi bi-filetype-csv"></i>`;
+exportButton.style.border = 'none';
+exportButton.style.background = 'none';
+exportButton.style.cursor = 'pointer';
+
+
+
 
   // Añadir botones al contenedor
   buttonContainer.appendChild(printButton);
@@ -277,21 +271,24 @@ function toggleNestedTable(index, delegates) {
 
 
 class CustomHeader {
-    init(params) {
-      this.params = params;
-      const eGui = document.createElement('div');
-      eGui.innerHTML = `
-        <div class="custom-header">
-          ${this.params.displayName}
-        </div>
-      `;
-      this.eGui = eGui;
-    }
-  
-    getGui() {
-      return this.eGui;
-    }
+  init(params) {
+    this.params = params;
+    const eGui = document.createElement('div');
+    
+    eGui.innerHTML = `
+      <div class="custom-header">
+        ${this.params.displayName}
+      </div>
+    `;
+    
+    this.eGui = eGui;
   }
+
+  getGui() {
+    return this.eGui;
+  }
+}
+
   
 function createNestedTable(details, index) {
   const backgroundColors = [
@@ -404,9 +401,7 @@ function createNestedTable(details, index) {
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] },// Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
-          return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                </svg>` 
+          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
             : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
         }
       },
@@ -418,9 +413,7 @@ function createNestedTable(details, index) {
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[1] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
-          return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                </svg>` 
+          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
             : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
         }
       },
@@ -432,9 +425,7 @@ function createNestedTable(details, index) {
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
-          return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                </svg>` 
+          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
             : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
         }
       },
@@ -446,9 +437,7 @@ function createNestedTable(details, index) {
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
-          return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                </svg>` 
+          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
             : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
         }
       },
@@ -460,9 +449,7 @@ function createNestedTable(details, index) {
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[1] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
-          return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                </svg>` 
+          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
             : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
         }
       },
@@ -474,9 +461,7 @@ function createNestedTable(details, index) {
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
-          return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                </svg>` 
+          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
             : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
         }
       },
@@ -488,9 +473,7 @@ function createNestedTable(details, index) {
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
-          return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                </svg>` 
+          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
             : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
         }
       },
@@ -502,9 +485,7 @@ function createNestedTable(details, index) {
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[1] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
-          return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                </svg>` 
+          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
             : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
         }
       },
@@ -516,9 +497,7 @@ function createNestedTable(details, index) {
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
-          return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                </svg>` 
+          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
             : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
         }
       },
@@ -530,9 +509,7 @@ function createNestedTable(details, index) {
         cellStyle: { textAlign: 'center' , backgroundColor: backgroundColors[0]}, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
-          return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                </svg>` 
+          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
             : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
         }
       },
@@ -544,9 +521,7 @@ function createNestedTable(details, index) {
         cellStyle: { textAlign: 'center' , backgroundColor: backgroundColors[1]}, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         cellRenderer: function(params) {
-          return params.value ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                </svg>` 
+          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
             : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
         }
       }
