@@ -5,9 +5,9 @@
         "details": [
           {
             "fullName": "John Doeass",
-            "ngausMemberId": "123456",
+            "ngausMemberId": "1234567891",
             "payGrade": "E-5",
-            "rank": "Sergeant",
+            "rank": "Captain",
             "branch": "Army",
             "dutyStatus": "Retired",
             "caucuses": {
@@ -28,8 +28,8 @@
             "fullName": "Michael Smithson",
             "ngausMemberId": "987654",
             "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
+            "rank": "Chief Warrant Officer 3",
+            "branch": "Air Force",
             "dutyStatus": "Active",
             "caucuses": {
               "warrantOfficerCaucusArmy": false,

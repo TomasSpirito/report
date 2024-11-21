@@ -96,12 +96,10 @@ function createNav() {
 
   // Botón de exportar CSV
   const exportButton = document.createElement('button');
-exportButton.innerHTML = `<i class="bi bi-filetype-csv"></i>`;
-exportButton.style.border = 'none';
-exportButton.style.background = 'none';
-exportButton.style.cursor = 'pointer';
-
-
+  exportButton.innerHTML = `<i class="bi bi-filetype-csv"></i>`;
+  exportButton.style.border = 'none';
+  exportButton.style.background = 'none';
+  exportButton.style.cursor = 'pointer';
 
 
   // Añadir botones al contenedor
@@ -212,10 +210,18 @@ function createMainTable(delegates) {
         const nestedRow = document.createElement('tr');
         nestedRow.style.display = 'none'; // Oculta la fila por defecto
         nestedRow.innerHTML = `
-            <td colspan="2">
-            <div class="nested-table" id="nested-table-${index}" style="display: none; overflow: hidden; max-height: 0; transition: max-height 0.3s ease-out;">
-                <div class="ag-theme-alpine" id="ag-grid-${index}" style="width: 100%;"></div>
-            </div>
+            <td colspan="2" style="padding: 0; margin: 0;"> <!-- Elimina los márgenes y el relleno -->
+                <div class="nested-table" 
+                    id="nested-table-${index}" 
+                    style="
+                        display: none; 
+                        overflow: hidden; 
+                        max-height: 0; 
+                        transition: max-height 0.3s ease-out;
+                        width: 100%; /* Asegura que ocupe el ancho completo */
+                    ">
+                    <div class="ag-theme-alpine" id="ag-grid-${index}" style="width: 100%;"></div>
+                </div>
             </td>
         `;
 
@@ -269,27 +275,55 @@ function toggleNestedTable(index, delegates) {
   }
 }
 
-
 class CustomHeader {
   init(params) {
     this.params = params;
     const eGui = document.createElement('div');
-    
     eGui.innerHTML = `
       <div class="custom-header">
         ${this.params.displayName}
       </div>
     `;
-    
     this.eGui = eGui;
   }
-
   getGui() {
     return this.eGui;
   }
 }
 
+// Estilo botón activo/retirado
+function getButtonStyles(status) {
+  const baseStyle = {
+    width: '53px',
+    height: '19px',
+    padding: '2px 8px',
+    gap: '8px',
+    borderRadius: '100px',
+    fontFamily: 'Inter',
+    fontSize: '12px',
+    fontWeight: '500',
+    lineHeight: '14.52px',
+    textAlign: 'left',
+    cursor: 'default',
+    border: '1px solid transparent', // Elimina el color negro del borde
+  };
+
+  if (status === 'Active') {
+    return { ...baseStyle, backgroundColor: '#CDFFCD', color: '#007F00', textContent: 'Active' };
+  } else if (status === 'Retired') {
+    return { ...baseStyle, backgroundColor: '#FFECCC', color: '#CE8500', textContent: 'Retired' };
+  }
+  return baseStyle;
+}
+
+//funcion para boton de check
+function iconRenderer(params) {
+  return params.value
+    ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>`
+    : ''; // Ícono si es true o vacío si es false
+}
   
+//funcion para crear subtabla
 function createNestedTable(details, index) {
   const backgroundColors = [
     '#4F378A14', // 8% opacidad (HEX con opacidad en porcentaje)
@@ -299,123 +333,102 @@ function createNestedTable(details, index) {
 
   const gridOptions = {
     columnDefs: [
-      { 
-        headerName: 'Full Name', 
-        field: 'fullName', 
+      {
+        headerName: 'Full Name',
+        field: 'fullName',
         sortable: true,
-        headerClass: 'custom-header', // Aplica el estilo de encabezado
+        headerClass: 'custom-header',
         cellStyle: { backgroundColor: backgroundColors[0] },
         headerComponent: CustomHeader,
-      },
-      { 
-        headerName: 'NGAUS Member <br> ID Number', 
-        field: 'ngausMemberId', 
-        sortable: true,
-        headerClass: 'custom-header', // Aplica el estilo de encabezado
-        cellStyle: { backgroundColor: backgroundColors[1] },
-
-        headerComponent: CustomHeader,
-      },
-      { 
-        headerName: 'Pay <br> Grade', 
-        field: 'payGrade', 
-        sortable: true,
-        headerClass: 'custom-header', // Aplica el estilo de encabezado
-        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] },// Centra el texto en las celdas
-        headerComponent: CustomHeader,
-      },
-      { 
-        headerName: 'Rank', 
-        field: 'rank', 
-        sortable: true,
-        headerClass: 'custom-header', // Aplica el estilo de encabezado
-        cellStyle: { backgroundColor: backgroundColors[0] },
-        headerComponent: CustomHeader,
-      },
-      { 
-        headerName: 'Branch', 
-        field: 'branch', 
-        sortable: true,
-        headerClass: 'custom-header', // Aplica el estilo de encabezado
-        cellStyle: { backgroundColor: backgroundColors[1] },
-        headerComponent: CustomHeader,
-      },
-      { 
-        headerName: 'Duty <br> Status', 
-        field: 'dutyStatus', 
-        sortable: true,
-        headerClass: 'custom-header', // Aplica el estilo de encabezado
-        cellStyle: { backgroundColor: backgroundColors[2] },
-        headerComponent: CustomHeader,
-        cellRenderer: function(params) {
-          const dutyStatus = params.value; // Obtiene el valor de la columna (active o retired)
-          const button = document.createElement('button');
-          button.style.padding = '5px 10px';
-          button.style.border = 'none';
-          button.style.borderRadius = '5px';
-          button.style.fontSize = '14px';
-          button.style.fontWeight = '400';
-          button.style.lineHeight = '16.94px';
-          button.style.letterSpacing = '0.05em';
-          button.style.textAlign = 'center';
-          
-          // Asigna el color y estilo del botón según el estado
-          if (dutyStatus === 'Active') {
-            button.style.width = '53px';
-            button.style.height = '19px';
-            button.style.padding = '2px 8px';
-            button.style.gap = '8px';
-            button.style.borderRadius = '100px';
-            button.style.backgroundColor = '#CDFFCD';
-            button.style.fontFamily = 'Inter';
-            button.style.fontSize = '12px';
-            button.style.fontWeight = '500';
-            button.style.lineHeight = '14.52px';
-            button.style.textAlign = 'left';
-            button.style.color = '#007F00';
-            button.textContent = 'Active';
-          } else if (dutyStatus === 'Retired') {
-            button.style.width = '53px';
-            button.style.height = '19px';
-            button.style.padding = '2px 8px';
-            button.style.gap = '8px';
-            button.style.borderRadius = '100px';
-            button.style.backgroundColor = '#FFECCC';
-            button.style.fontFamily = 'Inter';
-            button.style.fontSize = '12px';
-            button.style.fontWeight = '500';
-            button.style.lineHeight = '14.52px';
-            button.style.textAlign = 'left';
-            button.style.color = '#CE8500';
-            button.textContent = 'Retired';
-          }
-
-          return button;
-        },
+        width: 200,
+        minWidth: 175,
+        maxWidth: 225,
       },
       {
-        headerName: 'Warrant <br> Officer <br>  Caucus Army',
+        headerName: 'NGAUS Member <br> ID Number',
+        field: 'ngausMemberId',
+        sortable: true,
+        headerClass: 'custom-header',
+        cellStyle: { backgroundColor: backgroundColors[1] },
+        headerComponent: CustomHeader,
+        width: 150,
+        minWidth: 125,
+        maxWidth: 175,
+      },
+      {
+        headerName: 'Pay <br> Grade',
+        field: 'payGrade',
+        sortable: true,
+        headerClass: 'custom-header',
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] },
+        headerComponent: CustomHeader,
+        width: 70,
+        minWidth: 55,
+        maxWidth: 95,
+      },
+      {
+        headerName: 'Rank',
+        field: 'rank',
+        sortable: true,
+        headerClass: 'custom-header',
+        cellStyle: { backgroundColor: backgroundColors[0] },
+        headerComponent: CustomHeader,
+        width: 100,
+        minWidth: 85,
+        maxWidth: 200,
+      },
+      {
+        headerName: 'Branch',
+        field: 'branch',
+        sortable: true,
+        headerClass: 'custom-header',
+        cellStyle: { backgroundColor: backgroundColors[1] },
+        headerComponent: CustomHeader,
+        width: 100,
+        minWidth: 85,
+        maxWidth: 125,
+      },
+      {
+        headerName: 'Duty <br> Status',
+        field: 'dutyStatus',
+        sortable: true,
+        headerClass: 'custom-header',
+        cellStyle: { backgroundColor: backgroundColors[2] },
+        headerComponent: CustomHeader,
+        cellRenderer: function (params) {
+          const button = document.createElement('button');
+          const styles = getButtonStyles(params.value);
+          Object.assign(button.style, styles);
+          button.textContent = styles.textContent;
+          return button;
+        },
+        width: 90,
+        minWidth: 90,
+        maxWidth: 100,
+      },
+      {
+        headerName: 'Warrant <br> Officer <br> Caucus Army',
         field: 'caucuses.warrantOfficerCaucusArmy',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] },// Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] },
         headerComponent: CustomHeader,
-        cellRenderer: function(params) {
-          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
-            : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
-        }
+        width: 100,
+        minWidth: 80,
+        maxWidth: 125,
+        cellRenderer: iconRenderer,
       },
       {
         headerName: 'Area III <br> Army <br> Caucus',
         field: 'caucuses.areaIIIArmyCaucus',
-        sortable: true,         
+        sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[1] }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[1] },
         headerComponent: CustomHeader,
-        cellRenderer: function(params) {
-          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
-            : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
-        }
+        width: 100,
+        minWidth: 80,
+        maxWidth: 125,
+        cellRenderer: iconRenderer,
       },
       {
         headerName: 'Retired <br> Air Force',
@@ -424,10 +437,10 @@ function createNestedTable(details, index) {
         headerClass: 'custom-header',
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
-        cellRenderer: function(params) {
-          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
-            : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
-        }
+        width: 100, // Ancho inicial de la columna
+        minWidth: 80, // Ancho mínimo de la columna
+        maxWidth: 125, // Ancho maximo de la columna
+        cellRenderer: iconRenderer,
       },
       {
         headerName: 'Committee <br> On Joint <br> Resolutions',
@@ -436,10 +449,9 @@ function createNestedTable(details, index) {
         headerClass: 'custom-header',
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
-        cellRenderer: function(params) {
-          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
-            : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
-        }
+        width: 100, // Ancho inicial de la columna          minWidth: 80, // Ancho mínimo de la columna
+        maxWidth: 125, // Ancho maximo de la columna
+        cellRenderer: iconRenderer,
       },
       {
         headerName: 'Retired <br> Army',
@@ -448,10 +460,10 @@ function createNestedTable(details, index) {
         headerClass: 'custom-header',
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[1] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
-        cellRenderer: function(params) {
-          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
-            : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
-        }
+        width: 100, // Ancho inicial de la columna
+        minWidth: 80, // Ancho mínimo de la columna
+        maxWidth: 125, // Ancho maximo de la columna
+        cellRenderer: iconRenderer,
       },
       {
         headerName: 'Area III <br> Air Force <br> Caucus',
@@ -460,10 +472,10 @@ function createNestedTable(details, index) {
         headerClass: 'custom-header',
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
-        cellRenderer: function(params) {
-          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
-            : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
-        }
+        width: 100, // Ancho inicial de la columna
+        minWidth: 80, // Ancho mínimo de la columna
+        maxWidth: 125, // Ancho maximo de la columna
+        cellRenderer: iconRenderer,
       },
       {
         headerName: 'Committee <br> On Air <br> Force Resolutions',
@@ -472,10 +484,10 @@ function createNestedTable(details, index) {
         headerClass: 'custom-header',
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
-        cellRenderer: function(params) {
-          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
-            : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
-        }
+        width: 100, // Ancho inicial de la columna
+        minWidth: 80, // Ancho mínimo de la columna
+        maxWidth: 125, // Ancho maximo de la columna
+        cellRenderer: iconRenderer,
       },
       {
         headerName: 'Company <br> Grade Air <br> Force',
@@ -484,10 +496,10 @@ function createNestedTable(details, index) {
         headerClass: 'custom-header',
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[1] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
-        cellRenderer: function(params) {
-          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
-            : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
-        }
+        width: 100, // Ancho inicial de la columna
+        minWidth: 80, // Ancho mínimo de la columna
+        maxWidth: 125, // Ancho maximo de la columna
+        cellRenderer: iconRenderer,
       },
       {
         headerName: 'Company <br> Grade <br> Army',
@@ -496,10 +508,10 @@ function createNestedTable(details, index) {
         headerClass: 'custom-header',
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
-        cellRenderer: function(params) {
-          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
-            : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
-        }
+        width: 100, // Ancho inicial de la columna
+        minWidth: 80, // Ancho mínimo de la columna
+        maxWidth: 125, // Ancho maximo de la columna
+        cellRenderer: iconRenderer,
       },
       {
         headerName: 'Committee <br> On <br> Nominations',
@@ -508,10 +520,10 @@ function createNestedTable(details, index) {
         headerClass: 'custom-header',
         cellStyle: { textAlign: 'center' , backgroundColor: backgroundColors[0]}, // Centra el texto en las celdas
         headerComponent: CustomHeader,
-        cellRenderer: function(params) {
-          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
-            : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
-        }
+        width: 100, // Ancho inicial de la columna
+        minWidth: 80, // Ancho mínimo de la columna
+        maxWidth: 125, // Ancho maximo de la columna
+        cellRenderer: iconRenderer,
       },
       { 
         headerName: 'Committee <br> On Army <br> Resolutions',
@@ -520,19 +532,17 @@ function createNestedTable(details, index) {
         headerClass: 'custom-header',
         cellStyle: { textAlign: 'center' , backgroundColor: backgroundColors[1]}, // Centra el texto en las celdas
         headerComponent: CustomHeader,
-        cellRenderer: function(params) {
-          return params.value ? `<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>` 
-            : ''; // Muestra el icono SVG si es true, o deja la celda vacía si es false
-        }
-      }
-      
+        width: 100, // Ancho inicial de la columna
+        minWidth: 80, // Ancho mínimo de la columna
+        maxWidth: 125, // Ancho maximo de la columna
+        cellRenderer: iconRenderer,
+      } 
     ],
     rowData: details,
     pagination: false,
-    suppressMovableColumns: true,
+    suppressMovableColumns: true, //bloquea desplazar columnas
     getRowStyle: function(params) {
       return {
-        fontFamily: 'Inter',
         fontSize: '14px',
         fontWeight: '400',
         lineHeight: '16.94px',
