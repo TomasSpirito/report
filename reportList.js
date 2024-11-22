@@ -332,6 +332,8 @@ function getButtonStyles(status) {
     border: '1px solid transparent', // Elimina el color negro del borde
   };
 
+
+
   if (status === 'Active') {
     return { ...baseStyle, backgroundColor: '#CDFFCD', color: '#007F00', textContent: 'Active' };
   } else if (status === 'Retired') {
@@ -339,6 +341,8 @@ function getButtonStyles(status) {
   }
   return baseStyle;
 }
+
+
 
 //funcion para boton de check
 function iconRenderer(params) {
@@ -354,6 +358,20 @@ function createNestedTable(details, index) {
     '#4F378A29', // 16% opacidad
     '#4F378A1F', // 12% opacidad
   ];
+ // Agregar el estilo para los títulos de las columnas
+ const style = document.createElement('style');
+ style.innerHTML = `
+   .header-background {
+     background-color: ${backgroundColors[2]}; /* Aplica el color con opacidad para el primer título */
+   }
+   .header-background-2 {
+     background-color: ${backgroundColors[0]}; /* Aplica el color con opacidad para el segundo título */
+   }
+   .header-background-3 {
+     background-color: ${backgroundColors[1]}; /* Aplica el color con opacidad para el tercer título */
+   }
+ `;
+ 
 
   const gridOptions = {
     columnDefs: [
@@ -367,6 +385,8 @@ function createNestedTable(details, index) {
         width: 200,
         minWidth: 175,
         maxWidth: 225,
+        headerClass: 'header-background', 
+
       },
       {
         headerName: 'NGAUS Member <br> ID Number',
@@ -378,6 +398,7 @@ function createNestedTable(details, index) {
         width: 150,
         minWidth: 125,
         maxWidth: 175,
+        headerClass: 'header-background-2', 
       },
       {
         headerName: 'Pay <br> Grade',
@@ -389,6 +410,7 @@ function createNestedTable(details, index) {
         width: 70,
         minWidth: 55,
         maxWidth: 95,
+        headerClass: 'header-background-3', 
       },
       {
         headerName: 'Rank',
@@ -400,6 +422,7 @@ function createNestedTable(details, index) {
         width: 100,
         minWidth: 85,
         maxWidth: 200,
+        headerClass: 'header-background', 
       },
       {
         headerName: 'Branch',
@@ -411,6 +434,7 @@ function createNestedTable(details, index) {
         width: 100,
         minWidth: 85,
         maxWidth: 125,
+        headerClass: 'header-background-2', 
       },
       {
         headerName: 'Duty <br> Status',
@@ -429,6 +453,8 @@ function createNestedTable(details, index) {
         width: 90,
         minWidth: 90,
         maxWidth: 100,
+        headerClass: 'header-background-3', 
+
       },
       {
         headerName: 'Warrant <br> Officer <br> Caucus Army',
@@ -440,6 +466,8 @@ function createNestedTable(details, index) {
         width: 100,
         minWidth: 80,
         maxWidth: 125,
+        headerClass: 'header-background', 
+
         cellRenderer: iconRenderer,
       },
       {
@@ -452,6 +480,8 @@ function createNestedTable(details, index) {
         width: 100,
         minWidth: 80,
         maxWidth: 125,
+        headerClass: 'header-background-2', 
+
         cellRenderer: iconRenderer,
       },
       {
@@ -465,6 +495,8 @@ function createNestedTable(details, index) {
         minWidth: 80, // Ancho mínimo de la columna
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
+        headerClass: 'header-background-3', 
+
       },
       {
         headerName: 'Committee <br> On Joint <br> Resolutions',
@@ -476,6 +508,8 @@ function createNestedTable(details, index) {
         width: 100, // Ancho inicial de la columna          minWidth: 80, // Ancho mínimo de la columna
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
+        headerClass: 'header-background', 
+
       },
       {
         headerName: 'Retired <br> Army',
@@ -488,6 +522,8 @@ function createNestedTable(details, index) {
         minWidth: 80, // Ancho mínimo de la columna
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
+        headerClass: 'header-background-2', 
+
       },
       {
         headerName: 'Area III <br> Air Force <br> Caucus',
@@ -500,6 +536,8 @@ function createNestedTable(details, index) {
         minWidth: 80, // Ancho mínimo de la columna
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
+        headerClass: 'header-background-3', 
+
       },
       {
         headerName: 'Committee <br> On Air <br> Force Resolutions',
@@ -512,6 +550,8 @@ function createNestedTable(details, index) {
         minWidth: 80, // Ancho mínimo de la columna
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
+        headerClass: 'header-background', 
+
       },
       {
         headerName: 'Company <br> Grade Air <br> Force',
@@ -524,6 +564,8 @@ function createNestedTable(details, index) {
         minWidth: 80, // Ancho mínimo de la columna
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
+        headerClass: 'header-background-2', 
+
       },
       {
         headerName: 'Company <br> Grade <br> Army',
@@ -536,6 +578,8 @@ function createNestedTable(details, index) {
         minWidth: 80, // Ancho mínimo de la columna
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
+        headerClass: 'header-background-3', 
+
       },
       {
         headerName: 'Committee <br> On <br> Nominations',
@@ -548,6 +592,8 @@ function createNestedTable(details, index) {
         minWidth: 80, // Ancho mínimo de la columna
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
+        headerClass: 'header-background', 
+
       },
       { 
         headerName: 'Committee <br> On Army <br> Resolutions',
@@ -560,6 +606,8 @@ function createNestedTable(details, index) {
         minWidth: 80, // Ancho mínimo de la columna
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
+        headerClass: 'header-background-2', 
+
       } 
     ],
     rowData: details,
@@ -577,12 +625,16 @@ function createNestedTable(details, index) {
     },
   };
 
+  
+  document.head.appendChild(style);
   // Inicializa el grid de AG Grid para la subtabla solo si no está creado ya
   const gridDiv = document.querySelector(`#ag-grid-${index}`);
   if (!gridDiv.innerHTML.trim()) {  // Verifica si el grid ya está creado
     new agGrid.Grid(gridDiv, gridOptions);
   }
 }
+
+
 
   // Cargar los datos y el nav cuando se carga la página
   window.onload = function() {
