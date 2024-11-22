@@ -9,19 +9,7 @@ function setH1Styles() {
       h1.style.letterSpacing = '0.1em'; // Espaciado entre letras
   }
 }  
-//estilo Titulo principal
-function setH1Styles() {
-  const h1 = document.querySelector('h1'); // Selecciona el h1
-  if (h1) { // Verifica si existe
-      h1.style.fontFamily = "'Inter', sans-serif"; // Establece la fuente
-      h1.style.fontWeight = '700'; // Peso de la fuente
-      h1.style.fontSize = '24px'; // Tamaño de la fuente
-      h1.style.lineHeight = '29.05px'; // Altura de línea
-      h1.style.letterSpacing = '0.1em'; // Espaciado entre letras
-  }
-}  
 //------------------------------------------------------------------NAV---------------------------------------------------------------------------------//
-
 function createNav() {
   const nav = document.createElement('div');
   nav.style.display = 'flex'; // Asegura que los elementos estén alineados en fila
@@ -106,9 +94,7 @@ function createNav() {
           break;
       }
       toggleButtonsVisibility();
-
     });
-
     listItem.appendChild(link);
     navList.appendChild(listItem);
   });
@@ -164,8 +150,6 @@ function createNav() {
     buttonContainer.appendChild(btn);
   });
 
-  
-  
   // Añadir la lista de navegación y botones al contenedor principal
   nav.appendChild(navList);
   nav.appendChild(buttonContainer);
@@ -208,20 +192,19 @@ function loadDelegates() {
   createMainTable(delegates);
 }
 
+//funcion para mostrar la tabla summary report
 function showDelegateSummary() {
   const tableContainer = document.getElementById('table-container');
   tableContainer.innerHTML = ''; // Limpiar contenido previo
   // Lógica para cargar el resumen de delegados
-  
-  createDelegateSummaryTable();
+  createDelegateSummaryTable(delegates);
 }
-
 
 function showCommitteeReports() {
   const tableContainer = document.getElementById('table-container');
   tableContainer.innerHTML = ''; // Limpiar contenido previo
   // Lógica para cargar la tabla de informes de comités
-  createMainTable(delegates);
+  createCommitteeReportsTable();
 }
 
 function showDelegateReportsDetailed() {
@@ -250,14 +233,11 @@ function toggleButtonsVisibility() {
   }
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
   toggleButtonsVisibility(); // Oculta o muestra los botones dependiendo de la vista inicial
 });
 
-
 //--------------------------------------------TABLES----------------------------------------------------------------//
-
 let delegates = []; // Variable global para almacenar los datos de los delegados
 
 // Función para cargar los delegados y crear la tabla principal
@@ -276,9 +256,13 @@ async function loadDelegates() {
       console.error('Error al cargar los datos:', error);
     }
 }
-  
-// Función para crear la tabla principal
-function createMainTable(delegates) {
+//----------------------------------------------------------------CREACION DE TABLAS------------------------------------------------------------------------
+
+
+//----------------------------------------------------------------DELEGATE REPORT LIST----------------------------------------------------------------------
+
+//Función para crear la tabla Delegate Report List
+function createMainTable() {
     const tableContainer = document.getElementById('table-container');
     tableContainer.innerHTML = ''; // Limpia cualquier contenido previo
   
@@ -359,7 +343,7 @@ function createMainTable(delegates) {
     table.appendChild(tbody);
     tableContainer.appendChild(table);
 }
-  
+
 // Función para alternar la visibilidad de la subtabla y cambiar la flecha con transición
 function toggleNestedTable(index, delegates) {
   const nestedTable = document.getElementById(`nested-table-${index}`);
@@ -400,7 +384,6 @@ function toggleNestedTable(index, delegates) {
     expandButton.classList.add('bi-arrow-right-circle'); // Cambia la flecha hacia la derecha
   }
 }
-
 // Clase personalizada para las cabeceras
 class CustomHeader {
   init(params) {
@@ -417,7 +400,6 @@ class CustomHeader {
     return this.eGui;
   }
 }
-
 // Función para los estilos de los botones (Activo/Retirado)
 function getButtonStyles(status) {
   const baseStyle = {
@@ -445,15 +427,12 @@ function getButtonStyles(status) {
   }
   return baseStyle;
 }
-
-
 // Función para icono del botón de check
 function iconRenderer(params) {
   return params.value
     ? '<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>'
     : ''; // Ícono si es true o vacío si es false
 }
-
 // Función para crear subtabla
 function createNestedTable(details, index) {
   const backgroundColors = [
@@ -767,11 +746,136 @@ const style = document.createElement('style');
   }
 }
 
+//----------------------------------------------------------------DELEGATE SUMMARY REPORT---------------------------------------------------------------------
 
-  // Cargar los datos y el nav cuando se carga la página
-  window.onload = function() {
-    loadDelegates();
-    setH1Styles();   // Estilo para el h1
-    createNav(); // Llamada a la función para crear el nav
-    };
+//Funcion para crear tabla summary report
+function createDelegateSummaryTable() {
+  const tableContainer = document.getElementById('table-container');
+  tableContainer.innerHTML = ''; // Limpia cualquier contenido previo
+
+  const table = document.createElement('table');
+  table.classList.add('table', 'table-bordered', 'table-striped', 'table-responsive');
+
+  // Estilo de la tabla
+  table.style.backgroundColor = 'white';
+  table.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
+  table.style.borderRadius = '8px';
+  table.style.border = '1px solid #C6C2DE';
+  table.style.borderCollapse = 'collapse';
+  table.style.tableLayout = 'fixed'; // Evita cambios en el tamaño de las columnas
+  table.style.width = '100%'; // Asegura que la tabla ocupe el ancho completo
+
+  const thead = document.createElement('thead');
+  const tbody = document.createElement('tbody');
+
+  // Encabezado con botón a la izquierda del texto "State Affiliate"
+  thead.innerHTML = `
+    <tr>
+      <th style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 30%; padding-left: 12px;">
+        <button 
+          class="btn btn-link expand-btn" 
+          onclick="toggleMainTable()" 
+          style="color: inherit; text-decoration: none; transition: transform 0.3s ease; padding: 3px; margin-left: 6px; margin-right: 6px;">
+          <i class="bi bi-arrow-down-circle" id="main-expand-icon" style="transition: transform 0.3s ease;"></i>
+        </button>
+        State Affiliate
+      </th>
+      <th onclick="sortMainTable('countOfDelegates', this)" class="sortable" style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
+        Count Of Delegates
+      </th>
+      <th onclick="sortMainTable('capacity', this)" class="sortable" style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
+        Capacity
+      </th>
+      <th onclick="sortMainTable('remaining', this)" class="sortable" style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
+        Remaining
+      </th>
+    </tr>
+  `;
+
+  // Resto del código para cargar los datos
+  fetch('delegates.json')
+    .then(response => response.json())
+    .then(data => {
+      const delegates = data.delegates;
+
+      delegates.forEach((delegate, index) => {
+        const row = document.createElement('tr');
+
+        const cellStyle = `
+          font-family: 'Inter', sans-serif;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 16.94px;
+          text-align: left;
+          color: #6E6893;
+          box-shadow: none;
+          padding: 8px 12px; /* Ajusta el espacio para alineación */
+          border-bottom: 1px solid #C6C2DE;
+          border-left: none;
+          border-right: none;
+        `;
+
+        row.innerHTML = `
+          <td style="${cellStyle}">
+            <button 
+              class="btn btn-link expand-btn" 
+              onclick="toggleNestedTable(${index}, delegates)" 
+              style="color: inherit; text-decoration: none; transition: transform 0.3s ease; padding: 1px; margin: 1px 8px;">
+              <i class="bi bi-arrow-right-circle" id="expand-icon-${index}" style="transition: transform 0.3s ease;"></i>
+            </button>   
+            ${delegate.delegateName}
+          </td>
+          <td style="${cellStyle}">${delegate.countOfDelegates}</td>
+          <td style="${cellStyle}">${delegate.capacity}</td>
+          <td style="${cellStyle}">${delegate.remaining}</td>
+        `;
+
+        const nestedRow = document.createElement('tr');
+        nestedRow.style.display = 'none';
+        nestedRow.innerHTML = `
+          <td colspan="4" style="padding: 0; margin-left: 0; border: none;">
+            <div class="nested-table" 
+                id="nested-table-${index}" 
+                style="display: none; overflow: hidden; max-height: 0; transition: max-height 0.3s ease-out; width: 100%;">
+              <div class="ag-theme-alpine" id="ag-grid-${index}" style="width: 100%;"></div>
+            </div>
+          </td>
+        `;
+
+        tbody.appendChild(row);
+        tbody.appendChild(nestedRow);
+      });
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      tableContainer.appendChild(table);
+    })
+    .catch(error => {
+      console.error('Error al cargar los datos desde delegates.json:', error);
+    });
+}
+
+//funcion para ocultar/mostrar tabla summary report
+function toggleMainTable() {
+  const tbody = document.querySelector('#table-container table tbody');
+  const mainExpandIcon = document.getElementById('main-expand-icon');
+
+  if (tbody.style.display === 'none') {
+    tbody.style.display = 'table-row-group'; // Muestra el cuerpo de la tabla
+    mainExpandIcon.classList.remove('bi-arrow-right-circle');
+    mainExpandIcon.classList.add('bi-arrow-down-circle');
+  } else {
+    tbody.style.display = 'none'; // Oculta el cuerpo de la tabla
+    mainExpandIcon.classList.remove('bi-arrow-down-circle');
+    mainExpandIcon.classList.add('bi-arrow-right-circle');
+  }
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Cargar los datos y el nav cuando se carga la página
+window.onload = function() {
+  setH1Styles();   // Estilo para el h1
+  createNav(); // Llamada a la función para crear el nav
+  loadDelegates();
+};
   

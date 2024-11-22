@@ -1,1362 +1,351 @@
 {
-    "delegates": [
-      {
-        "delegateName": "Alabama Delegate",
-        "details": [
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "1234567891",
-            "payGrade": "E-5",
-            "rank": "Captain",
-            "branch": "Army",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "1234567891",
-            "payGrade": "E-5",
-            "rank": "Captain",
-            "branch": "Army",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "1234567891",
-            "payGrade": "E-5",
-            "rank": "Captain",
-            "branch": "Army",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "1234567891",
-            "payGrade": "E-5",
-            "rank": "Captain",
-            "branch": "Army",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "1234567891",
-            "payGrade": "E-5",
-            "rank": "Captain",
-            "branch": "Army",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Chief Warrant Officer 3",
-            "branch": "Air Force",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": true,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
+  "delegates": [
+    {
+      "delegateName": "Alabama Delegate",
+      "countOfDelegates": 10,
+      "capacity": 15,
+      "remaining": 5,
+      "details": [
+        {
+          "fullName": "John Doe",
+          "ngausMemberId": "1234567891",
+          "payGrade": "E-5",
+          "rank": "Captain",
+          "branch": "Army",
+          "dutyStatus": "Retired",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": true,
+            "areaIIIArmyCaucus": false,
+            "retiredAirForce": false,
+            "committeeOnJointResolutions": true,
+            "retiredArmy": false,
+            "areaIIIAirForceCaucus": false,
+            "committeeOnAirForceResolutions": true,
+            "companyGradeAirForce": false,
+            "companyGradeArmy": true,
+            "committeeOnNominations": true,
+            "committeeOnArmyResolutions": false
           }
-        ]
-      },
-      {
-        "delegateName": "Alaska Delegate",
-        "details": [
-          {
-            "fullName": "Jane Doe",
-            "ngausMemberId": "654321",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Air Force",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": true,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": false,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
+        },
+        {
+          "fullName": "Jane Smith",
+          "ngausMemberId": "9876543210",
+          "payGrade": "E-4",
+          "rank": "Sergeant",
+          "branch": "Navy",
+          "dutyStatus": "Active",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": false,
+            "areaIIIArmyCaucus": true,
+            "retiredAirForce": false,
+            "committeeOnJointResolutions": false,
+            "retiredArmy": false,
+            "areaIIIAirForceCaucus": false,
+            "committeeOnAirForceResolutions": true,
+            "companyGradeAirForce": true,
+            "companyGradeArmy": false,
+            "committeeOnNominations": true,
+            "committeeOnArmyResolutions": true
           }
-        ]
-      },
-      {
-        "delegateName": "California Delegate",
-        "details": [
-          {
-            "fullName": "Richard Roe",
-            "ngausMemberId": "789012",
-            "payGrade": "E-4",
-            "rank": "Corporal",
-            "branch": "Marines",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": true,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": false,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
+        },
+        {
+          "fullName": "John Doe",
+          "ngausMemberId": "1234567891",
+          "payGrade": "E-5",
+          "rank": "Captain",
+          "branch": "Army",
+          "dutyStatus": "Retired",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": true,
+            "areaIIIArmyCaucus": false,
+            "retiredAirForce": false,
+            "committeeOnJointResolutions": true,
+            "retiredArmy": false,
+            "areaIIIAirForceCaucus": false,
+            "committeeOnAirForceResolutions": true,
+            "companyGradeAirForce": false,
+            "companyGradeArmy": true,
+            "committeeOnNominations": true,
+            "committeeOnArmyResolutions": false
           }
-        ]
-      },
-      {
-        "delegateName": "Colorado Delegate",
-        "details": [
-          {
-            "fullName": "Emily Smith",
-            "ngausMemberId": "345678",
-            "payGrade": "E-7",
-            "rank": "Sergeant First Class",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": false,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": true
-            }
+        },
+        {
+          "fullName": "Jane Smith",
+          "ngausMemberId": "9876543210",
+          "payGrade": "E-4",
+          "rank": "Sergeant",
+          "branch": "Navy",
+          "dutyStatus": "Active",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": false,
+            "areaIIIArmyCaucus": true,
+            "retiredAirForce": false,
+            "committeeOnJointResolutions": false,
+            "retiredArmy": false,
+            "areaIIIAirForceCaucus": false,
+            "committeeOnAirForceResolutions": true,
+            "companyGradeAirForce": true,
+            "companyGradeArmy": false,
+            "committeeOnNominations": true,
+            "committeeOnArmyResolutions": true
           }
-        ]
-      },
-      {
-        "delegateName": "Florida Delegate",
-        "details": [
-          {
-            "fullName": "David Johnson",
-            "ngausMemberId": "135792",
-            "payGrade": "E-8",
-            "rank": "Master Sergeant",
-            "branch": "Air Force",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": true,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": true,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
+        },
+        {
+          "fullName": "John Doe",
+          "ngausMemberId": "1234567891",
+          "payGrade": "E-5",
+          "rank": "Captain",
+          "branch": "Army",
+          "dutyStatus": "Retired",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": true,
+            "areaIIIArmyCaucus": false,
+            "retiredAirForce": false,
+            "committeeOnJointResolutions": true,
+            "retiredArmy": false,
+            "areaIIIAirForceCaucus": false,
+            "committeeOnAirForceResolutions": true,
+            "companyGradeAirForce": false,
+            "companyGradeArmy": true,
+            "committeeOnNominations": true,
+            "committeeOnArmyResolutions": false
           }
-        ]
-      },
-
-      {
-        "delegateName": "Alabama Delegate",
-        "details": [
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "1234567891",
-            "payGrade": "E-5",
-            "rank": "Captain",
-            "branch": "Army",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Chief Warrant Officer 3",
-            "branch": "Air Force",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": true,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
+        },
+        {
+          "fullName": "Jane Smith",
+          "ngausMemberId": "9876543210",
+          "payGrade": "E-4",
+          "rank": "Sergeant",
+          "branch": "Navy",
+          "dutyStatus": "Active",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": false,
+            "areaIIIArmyCaucus": true,
+            "retiredAirForce": false,
+            "committeeOnJointResolutions": false,
+            "retiredArmy": false,
+            "areaIIIAirForceCaucus": false,
+            "committeeOnAirForceResolutions": true,
+            "companyGradeAirForce": true,
+            "companyGradeArmy": false,
+            "committeeOnNominations": true,
+            "committeeOnArmyResolutions": true
           }
-        ]
-      },
-      {
-        "delegateName": "Alaska Delegate",
-        "details": [
-          {
-            "fullName": "Jane Doe",
-            "ngausMemberId": "654321",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Air Force",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": true,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": false,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
+        },
+        {
+          "fullName": "John Doe",
+          "ngausMemberId": "1234567891",
+          "payGrade": "E-5",
+          "rank": "Captain",
+          "branch": "Army",
+          "dutyStatus": "Retired",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": true,
+            "areaIIIArmyCaucus": false,
+            "retiredAirForce": false,
+            "committeeOnJointResolutions": true,
+            "retiredArmy": false,
+            "areaIIIAirForceCaucus": false,
+            "committeeOnAirForceResolutions": true,
+            "companyGradeAirForce": false,
+            "companyGradeArmy": true,
+            "committeeOnNominations": true,
+            "committeeOnArmyResolutions": false
           }
-        ]
-      },
-      {
-        "delegateName": "Alabama Delegate",
-        "details": [
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "1234567891",
-            "payGrade": "E-5",
-            "rank": "Captain",
-            "branch": "Army",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Chief Warrant Officer 3",
-            "branch": "Air Force",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": true,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
+        },
+        {
+          "fullName": "Jane Smith",
+          "ngausMemberId": "9876543210",
+          "payGrade": "E-4",
+          "rank": "Sergeant",
+          "branch": "Navy",
+          "dutyStatus": "Active",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": false,
+            "areaIIIArmyCaucus": true,
+            "retiredAirForce": false,
+            "committeeOnJointResolutions": false,
+            "retiredArmy": false,
+            "areaIIIAirForceCaucus": false,
+            "committeeOnAirForceResolutions": true,
+            "companyGradeAirForce": true,
+            "companyGradeArmy": false,
+            "committeeOnNominations": true,
+            "committeeOnArmyResolutions": true
           }
-        ]
-      },
-      {
-        "delegateName": "Alaska Delegate",
-        "details": [
-          {
-            "fullName": "Jane Doe",
-            "ngausMemberId": "654321",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Air Force",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": true,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": false,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
+        },
+        {
+          "fullName": "John Doe",
+          "ngausMemberId": "1234567891",
+          "payGrade": "E-5",
+          "rank": "Captain",
+          "branch": "Army",
+          "dutyStatus": "Retired",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": true,
+            "areaIIIArmyCaucus": false,
+            "retiredAirForce": false,
+            "committeeOnJointResolutions": true,
+            "retiredArmy": false,
+            "areaIIIAirForceCaucus": false,
+            "committeeOnAirForceResolutions": true,
+            "companyGradeAirForce": false,
+            "companyGradeArmy": true,
+            "committeeOnNominations": true,
+            "committeeOnArmyResolutions": false
           }
-        ]
-      },
-      {
-        "delegateName": "Alabama Delegate",
-        "details": [
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "1234567891",
-            "payGrade": "E-5",
-            "rank": "Captain",
-            "branch": "Army",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Chief Warrant Officer 3",
-            "branch": "Air Force",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": true,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
+        },
+        {
+          "fullName": "Jane Smith",
+          "ngausMemberId": "9876543210",
+          "payGrade": "E-4",
+          "rank": "Sergeant",
+          "branch": "Navy",
+          "dutyStatus": "Active",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": false,
+            "areaIIIArmyCaucus": true,
+            "retiredAirForce": false,
+            "committeeOnJointResolutions": false,
+            "retiredArmy": false,
+            "areaIIIAirForceCaucus": false,
+            "committeeOnAirForceResolutions": true,
+            "companyGradeAirForce": true,
+            "companyGradeArmy": false,
+            "committeeOnNominations": true,
+            "committeeOnArmyResolutions": true
           }
-        ]
-      },
-      {
-        "delegateName": "Alaska Delegate",
-        "details": [
-          {
-            "fullName": "Jane Doe",
-            "ngausMemberId": "654321",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Air Force",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": true,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": false,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
+        }
+      ]
+    },
+    {
+      "delegateName": "Alaska Delegate",
+      "countOfDelegates": 8,
+      "capacity": 12,
+      "remaining": 4,
+      "details": [
+        {
+          "fullName": "Michael Johnson",
+          "ngausMemberId": "1122334455",
+          "payGrade": "E-6",
+          "rank": "Staff Sergeant",
+          "branch": "Air Force",
+          "dutyStatus": "Active",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": false,
+            "areaIIIArmyCaucus": false,
+            "retiredAirForce": true,
+            "committeeOnJointResolutions": false,
+            "retiredArmy": false,
+            "areaIIIAirForceCaucus": true,
+            "committeeOnAirForceResolutions": false,
+            "companyGradeAirForce": false,
+            "companyGradeArmy": false,
+            "committeeOnNominations": false,
+            "committeeOnArmyResolutions": true
           }
-        ]
-      },
-      {
-        "delegateName": "Alabama Delegate",
-        "details": [
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "1234567891",
-            "payGrade": "E-5",
-            "rank": "Captain",
-            "branch": "Army",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Chief Warrant Officer 3",
-            "branch": "Air Force",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": true,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
+        }
+      ]
+    },
+    {
+      "delegateName": "California Delegate",
+      "countOfDelegates": 20,
+      "capacity": 25,
+      "remaining": 5,
+      "details": [
+        {
+          "fullName": "Samuel Lee",
+          "ngausMemberId": "1237894560",
+          "payGrade": "E-7",
+          "rank": "Sergeant First Class",
+          "branch": "Army",
+          "dutyStatus": "Active",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": true,
+            "areaIIIArmyCaucus": true,
+            "retiredAirForce": false,
+            "committeeOnJointResolutions": true,
+            "retiredArmy": true,
+            "areaIIIAirForceCaucus": false,
+            "committeeOnAirForceResolutions": false,
+            "companyGradeAirForce": true,
+            "companyGradeArmy": true,
+            "committeeOnNominations": false,
+            "committeeOnArmyResolutions": true
           }
-        ]
-      },
-      {
-        "delegateName": "Alaska Delegate",
-        "details": [
-          {
-            "fullName": "Jane Doe",
-            "ngausMemberId": "654321",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Air Force",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": true,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": false,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
+        },
+        {
+          "fullName": "Rebecca Martinez",
+          "ngausMemberId": "9871234567",
+          "payGrade": "E-4",
+          "rank": "Corporal",
+          "branch": "Navy",
+          "dutyStatus": "Retired",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": false,
+            "areaIIIArmyCaucus": true,
+            "retiredAirForce": false,
+            "committeeOnJointResolutions": true,
+            "retiredArmy": false,
+            "areaIIIAirForceCaucus": false,
+            "committeeOnAirForceResolutions": false,
+            "companyGradeAirForce": true,
+            "companyGradeArmy": false,
+            "committeeOnNominations": false,
+            "committeeOnArmyResolutions": true
           }
-        ]
-      },
-      {
-        "delegateName": "Alabama Delegate",
-        "details": [
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "1234567891",
-            "payGrade": "E-5",
-            "rank": "Captain",
-            "branch": "Army",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Chief Warrant Officer 3",
-            "branch": "Air Force",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": true,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
-          },
-          {
-            "fullName": "John Doeass",
-            "ngausMemberId": "123456",
-            "payGrade": "E-5",
-            "rank": "Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": true,
-              "areaIIIArmyCaucus": false,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": true,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": false,
-              "companyGradeArmy": true,
-              "committeeOnNominations": true,
-              "committeeOnArmyResolutions": false
-            }
-          },
-          {
-            "fullName": "Michael Smithson",
-            "ngausMemberId": "987654",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Army",
-            "dutyStatus": "Active",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": false,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": true,
-              "committeeOnAirForceResolutions": true,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
+        }
+      ]
+    },
+    {
+      "delegateName": "Florida Delegate",
+      "countOfDelegates": 15,
+      "capacity": 18,
+      "remaining": 3,
+      "details": [
+        {
+          "fullName": "Christopher Brown",
+          "ngausMemberId": "5551239876",
+          "payGrade": "E-8",
+          "rank": "Master Sergeant",
+          "branch": "Air Force",
+          "dutyStatus": "Active",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": false,
+            "areaIIIArmyCaucus": false,
+            "retiredAirForce": true,
+            "committeeOnJointResolutions": true,
+            "retiredArmy": false,
+            "areaIIIAirForceCaucus": true,
+            "committeeOnAirForceResolutions": true,
+            "companyGradeAirForce": false,
+            "companyGradeArmy": false,
+            "committeeOnNominations": true,
+            "committeeOnArmyResolutions": false
           }
-        ]
-      },
-      {
-        "delegateName": "Alaska Delegate",
-        "details": [
-          {
-            "fullName": "Jane Doe",
-            "ngausMemberId": "654321",
-            "payGrade": "E-6",
-            "rank": "Staff Sergeant",
-            "branch": "Air Force",
-            "dutyStatus": "Retired",
-            "caucuses": {
-              "warrantOfficerCaucusArmy": false,
-              "areaIIIArmyCaucus": true,
-              "retiredAirForce": true,
-              "committeeOnJointResolutions": false,
-              "retiredArmy": false,
-              "areaIIIAirForceCaucus": false,
-              "committeeOnAirForceResolutions": false,
-              "companyGradeAirForce": true,
-              "companyGradeArmy": false,
-              "committeeOnNominations": false,
-              "committeeOnArmyResolutions": true
-            }
+        },
+        {
+          "fullName": "Laura Wilson",
+          "ngausMemberId": "8887774445",
+          "payGrade": "E-3",
+          "rank": "Private First Class",
+          "branch": "Army",
+          "dutyStatus": "Retired",
+          "caucuses": {
+            "warrantOfficerCaucusArmy": true,
+            "areaIIIArmyCaucus": false,
+            "retiredAirForce": false,
+            "committeeOnJointResolutions": false,
+            "retiredArmy": true,
+            "areaIIIAirForceCaucus": false,
+            "committeeOnAirForceResolutions": true,
+            "companyGradeAirForce": true,
+            "companyGradeArmy": false,
+            "committeeOnNominations": false,
+            "committeeOnArmyResolutions": true
           }
-        ]
-      }
-    ]
-  }
-  
+        }
+      ]
+    }
+  ]
+}
