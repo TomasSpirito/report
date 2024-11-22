@@ -212,6 +212,7 @@ function createMainTable(delegates) {
           line-height: 1.2; /* Ajusta el espacio vertical dentro de la celda */
           text-align: left;
           color: #6E6893;
+          box-shadow: none;
           padding: 2px 2px; /* Reduce el relleno dentro de la celda */
           height: 2px; /* Define una altura fija para las filas */
         `;
@@ -571,7 +572,7 @@ function createNestedTable(details, index) {
         lineHeight: '16.94px',
         letterSpacing: '0.05em',
         textAlign: 'left',
-        color: '#6E6893'
+        color: '#6E6893',
       };
     },
   };
