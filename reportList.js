@@ -9,7 +9,19 @@ function setH1Styles() {
       h1.style.letterSpacing = '0.1em'; // Espaciado entre letras
   }
 }  
+//estilo Titulo principal
+function setH1Styles() {
+  const h1 = document.querySelector('h1'); // Selecciona el h1
+  if (h1) { // Verifica si existe
+      h1.style.fontFamily = "'Inter', sans-serif"; // Establece la fuente
+      h1.style.fontWeight = '700'; // Peso de la fuente
+      h1.style.fontSize = '24px'; // Tamaño de la fuente
+      h1.style.lineHeight = '29.05px'; // Altura de línea
+      h1.style.letterSpacing = '0.1em'; // Espaciado entre letras
+  }
+}  
 //------------------------------------------------------------------NAV---------------------------------------------------------------------------------//
+
 function createNav() {
   const nav = document.createElement('div');
   nav.style.display = 'flex'; // Asegura que los elementos estén alineados en fila
@@ -55,7 +67,7 @@ function createNav() {
     'Committee Reports Detailed',
   ];
 
-  menuItems.forEach((text) => {
+  menuItems.forEach((text, index) => {
     const listItem = document.createElement('li');
     listItem.style.margin = '0';
 
@@ -74,6 +86,27 @@ function createNav() {
       // Aplica el estilo seleccionado
       this.style.color = '#12385C';
       this.style.borderBottom = '2px solid #12385C';
+
+      // Muestra la tabla correspondiente
+      switch (index) {
+        case 0:
+          loadDelegates(); // Muestra la tabla de delegados
+          break;
+        case 1:
+          showDelegateSummary(); // Mostrar otra tabla (Resumen de delegados)
+          break;
+        case 2:
+          showCommitteeReports(); // Mostrar otra tabla (Informes de comités)
+          break;
+        case 3:
+          showDelegateReportsDetailed(); // Mostrar tabla de detalles de informes de delegados
+          break;
+        case 4:
+          showCommitteeReportsDetailed(); // Mostrar tabla de detalles de informes de comités
+          break;
+      }
+      toggleButtonsVisibility();
+
     });
 
     listItem.appendChild(link);
@@ -96,21 +129,15 @@ function createNav() {
   buttons.forEach((button) => {
     const btn = document.createElement('button');
     btn.innerHTML = `<i class="${button.icon}" style="font-size: 16px; padding: 5px;"></i>`;
-
+    
     // Estilo predeterminado
     btn.style.cssText = `
       border: 2px solid #6D5BD0;
       color: white;
       border-radius: 5px;
       cursor: pointer;
-      width: 50px; /* Definir un ancho fijo */
-      height: 50px; /* Definir una altura fija para hacerlo cuadrado */
-      margin: 10px; /* Margen de 10px */
-      display: flex; /* Usar flexbox para centrar el ícono */
-      justify-content: center;
-      align-items: center;
     `;
-
+    
     // Si es el botón de Print, le quitamos el color de fondo
     if (button.isPrint) {
       btn.style.backgroundColor = 'transparent'; // Fondo transparente para Print
@@ -118,9 +145,27 @@ function createNav() {
     } else {
       btn.style.backgroundColor = '#6D5BD0'; // Fondo morado para Export CSV
     }
+
+    btn.addEventListener('click', function () {
+      // Resetea el estilo de todos los botones
+      const allButtons = buttonContainer.querySelectorAll('button');
+      allButtons.forEach((b) => {
+        b.style.color = 'white';
+        b.style.backgroundColor = '#6D5BD0';
+        b.style.borderBottom = 'none';
+      });
+
+      // Aplica el estilo seleccionado
+      this.style.color = '#12385C';
+      this.style.backgroundColor = 'white';
+      this.style.borderBottom = '2px solid #12385C';
+    });
+
     buttonContainer.appendChild(btn);
   });
 
+  
+  
   // Añadir la lista de navegación y botones al contenedor principal
   nav.appendChild(navList);
   nav.appendChild(buttonContainer);
@@ -154,6 +199,62 @@ function createNav() {
   `;
   document.head.appendChild(style);
 }
+
+// Funciones para mostrar las tablas según la selección
+function loadDelegates() {
+  const tableContainer = document.getElementById('table-container');
+  tableContainer.innerHTML = ''; // Limpiar contenido previo
+  // Aquí iría la lógica para cargar la tabla de delegados
+  createMainTable(delegates);
+}
+
+function showDelegateSummary() {
+  const tableContainer = document.getElementById('table-container');
+  tableContainer.innerHTML = ''; // Limpiar contenido previo
+  // Lógica para cargar el resumen de delegados
+  
+  createDelegateSummaryTable();
+}
+
+
+function showCommitteeReports() {
+  const tableContainer = document.getElementById('table-container');
+  tableContainer.innerHTML = ''; // Limpiar contenido previo
+  // Lógica para cargar la tabla de informes de comités
+  createMainTable(delegates);
+}
+
+function showDelegateReportsDetailed() {
+  const tableContainer = document.getElementById('table-container');
+  tableContainer.innerHTML = ''; // Limpiar contenido previo
+  // Lógica para cargar la tabla detallada de informes de delegados
+  createDelegateReportsDetailedTable();
+}
+
+function showCommitteeReportsDetailed() {
+  const tableContainer = document.getElementById('table-container');
+  tableContainer.innerHTML = ''; // Limpiar contenido previo
+  // Lógica para cargar la tabla detallada de informes de comités
+  createCommitteeReportsDetailedTable();
+}
+
+function toggleButtonsVisibility() {
+  const buttonContainer = document.querySelector('.button-container');
+  if (!buttonContainer) return; // Si no existe el contenedor de botones, no hacemos nada
+
+  // Comprobamos si la vista activa es "Delegate Reports List" para mostrar los botones
+  if (document.querySelector('h1').textContent === 'Delegate Reports List') {
+    buttonContainer.style.display = 'flex'; // Muestra los botones
+  } else {
+    buttonContainer.style.display = 'none'; // Oculta los botones
+  }
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  toggleButtonsVisibility(); // Oculta o muestra los botones dependiendo de la vista inicial
+});
+
 
 //--------------------------------------------TABLES----------------------------------------------------------------//
 
@@ -665,6 +766,7 @@ const style = document.createElement('style');
     new agGrid.Grid(gridDiv, gridOptions);
   }
 }
+
 
   // Cargar los datos y el nav cuando se carga la página
   window.onload = function() {
