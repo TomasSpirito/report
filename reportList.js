@@ -90,14 +90,14 @@ function createNav() {
 
   // Botón de imprimir
   const printButton = document.createElement('button');
-  printButton.innerHTML = `<i class="bi bi-printer"></i>`;
+  printButton.innerHTML = `<i class="bi bi-printer" style="color: #6D5BD0; font-size: 16px; border: 2px solid #6D5BD0; padding: 5px; border-radius: 5px;"></i>`;
   printButton.style.border = 'none';
   printButton.style.background = 'none';
   printButton.style.cursor = 'pointer';
 
   // Botón de exportar CSV
   const exportButton = document.createElement('button');
-  exportButton.innerHTML = `<i class="bi bi-filetype-csv"></i>`;
+  exportButton.innerHTML = `<i class="bi bi-filetype-csv" style="color: white; font-size: 16px; border: 2px solid #6D5BD0; padding: 5px; border-radius: 5px; background-color: #6D5BD0;"></i>`;
   exportButton.style.border = 'none';
   exportButton.style.background = 'none';
   exportButton.style.cursor = 'pointer';
