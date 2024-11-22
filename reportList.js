@@ -90,7 +90,7 @@ function createNav() {
 
   // Botón de imprimir
   const printButton = document.createElement('button');
-  printButton.innerHTML = `<i class="bi bi-printer" style="color: #6D5BD0; font-size: 16px; border: 2px solid #6D5BD0; padding: 5px; border-radius: 5px;"></i>`;
+  printButton.innerHTML = `<i class="bi bi-printer-fill" style="color: #6D5BD0; font-size: 16px; border: 2px solid #6D5BD0; padding: 5px; border-radius: 5px;"></i>`;
   printButton.style.border = 'none';
   printButton.style.background = 'none';
   printButton.style.cursor = 'pointer';
