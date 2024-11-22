@@ -325,13 +325,16 @@ function getButtonStyles(status) {
     padding: '2px 8px',
     gap: '8px',
     borderRadius: '100px',
-    fontFamily: 'Inter, sans-serif', // Añadido 'sans-serif' como respaldo
+    fontFamily: 'Inter, sans-serif', 
     fontSize: '12px',
     fontWeight: '500',
-    lineHeight: '14.52px',
-    textAlign: 'left',
+    lineHeight: '15px', 
+    textAlign: 'center', 
     cursor: 'default',
-    border: '1px solid transparent', // Elimina el color negro del borde
+    border: '1px solid transparent',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',  // Asegura el centrado vertical dentro del botón
   };
 
   if (status === 'Active') {
@@ -341,6 +344,7 @@ function getButtonStyles(status) {
   }
   return baseStyle;
 }
+
 
 // Función para icono del botón de check
 function iconRenderer(params) {
@@ -358,7 +362,7 @@ function createNestedTable(details, index) {
   ];
 
   //Modifica el titulo de la subtabla
-  const style = document.createElement('style');
+const style = document.createElement('style');
   style.innerHTML = `
     .header-background {
       background-color: ${backgroundColors[0]};
@@ -394,7 +398,6 @@ function createNestedTable(details, index) {
       color:#12385C
     }
   `;
-
 
   document.head.appendChild(style);
 
@@ -466,20 +469,24 @@ function createNestedTable(details, index) {
         field: 'dutyStatus',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { backgroundColor: backgroundColors[2] },
+        cellStyle: { 
+          backgroundColor: backgroundColors[2],
+          display: 'flex',            // Aplicar flexbox a la celda
+          justifyContent: 'center',   // Centrado horizontal
+          alignItems: 'center',       // Centrado vertical
+        },
         headerComponent: CustomHeader,
         cellRenderer: function (params) {
           const button = document.createElement('button');
           const styles = getButtonStyles(params.value);
-          Object.assign(button.style, styles);
-          button.textContent = styles.textContent;
+          Object.assign(button.style, styles);  // Aplicar estilos al botón
+          button.textContent = styles.textContent; // Establecer el texto del botón
           return button;
         },
         width: 90,
         minWidth: 90,
         maxWidth: 100,
-        headerClass: 'header-background-3', 
-
+        headerClass: 'header-background-3',
       },
       {
         headerName: 'Warrant <br> Officer <br> Caucus Army',
@@ -530,7 +537,8 @@ function createNestedTable(details, index) {
         headerClass: 'custom-header',
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
-        width: 100, // Ancho inicial de la columna          minWidth: 80, // Ancho mínimo de la columna
+        width: 100, // Ancho inicial de la columna         
+        minWidth: 80, // Ancho mínimo de la columna
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
         headerClass: 'header-background', 
@@ -572,7 +580,7 @@ function createNestedTable(details, index) {
         cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] }, // Centra el texto en las celdas
         headerComponent: CustomHeader,
         width: 100, // Ancho inicial de la columna
-        minWidth: 80, // Ancho mínimo de la columna
+        minWidth: 90, // Ancho mínimo de la columna
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
         headerClass: 'header-background', 
