@@ -10,12 +10,17 @@ function setH1Styles() {
   }
 }  
 //------------------------------------------------------------------NAV---------------------------------------------------------------------------------//
+//------------------------------------------------------------------NAV---------------------------------------------------------------------------------//
+//------------------------------------------------------------------NAV---------------------------------------------------------------------------------//
+//------------------------------------------------------------------NAV---------------------------------------------------------------------------------//
 function createNav() {
-  const nav = document.createElement('div'); // Cambiado a `div` para incluir los íconos además del menú
+  const nav = document.createElement('div');
   nav.style.display = 'flex'; // Asegura que los elementos estén alineados en fila
   nav.style.alignItems = 'center'; // Centra verticalmente los elementos
   nav.style.justifyContent = 'space-between'; // Separa menú e íconos
-  nav.style.padding = '0 15px'; // Espaciado lateral
+  nav.style.padding = '0'; // Quita el espaciado lateral
+  nav.style.marginBottom = '20px'; // Separación con la tabla
+  nav.style.width = '100%'; // Ocupa todo el ancho disponible
 
   // Crear lista de navegación
   const navList = document.createElement('ul');
@@ -23,10 +28,8 @@ function createNav() {
   navList.style.listStyle = 'none';
   navList.style.padding = '0';
   navList.style.margin = '0';
-  nav.style.margin = ''; // Centra el navbar horizontalmente si es necesario
-  nav.style.width = 'fit-content'; // Asegura que la línea abarque solo el contenido
-  nav.style.borderBottom = '2px solid #6E6893'; // Línea continua bajo el navbar
-  nav.style.marginBottom = '20px'; // separacion con tabla
+  navList.style.width = 'fit-content'; // Asegura que la línea abarque solo el contenido
+  navList.style.borderBottom = '2px solid #6E6893'; // Línea continua bajo los elementos del menú
 
   // Estilos dinámicos para los ítems del nav
   const navItemStyle = `
@@ -86,6 +89,7 @@ function createNav() {
   const buttonContainer = document.createElement('div');
   buttonContainer.style.display = 'flex';
   buttonContainer.style.gap = '10px';
+  buttonContainer.style.marginLeft = 'auto'; // Empuja el contenedor de botones hacia la derecha
 
   // Botón de imprimir
   const printButton = document.createElement('button');
@@ -100,6 +104,7 @@ function createNav() {
   exportButton.style.border = 'none';
   exportButton.style.background = 'none';
   exportButton.style.cursor = 'pointer';
+  exportButton.addEventListener('click', exportTableToCSV);
 
 
   // Añadir botones al contenedor
@@ -129,7 +134,32 @@ function createNav() {
     selectedItem.style.color = '#12385C'; // Cambia el color
     selectedItem.style.borderBottom = '2px solid #12385C'; // Aplica la línea inferior de selección
   }
+   // Estilos responsivos
+   const style = document.createElement('style');
+   style.innerHTML = `
+     @media (max-width: 768px) {
+       ul {
+         flex-direction: column;
+         align-items: flex-start;
+       }
+       nav {
+         flex-direction: column;
+         align-items: stretch;
+       }
+       button {
+         margin-left: auto;
+       }
+     }
+     @media (max-width: 480px) {
+       a {
+         font-size: 14px;
+         padding: 8px;
+       }
+     }
+   `;
+   document.head.appendChild(style);
 }
+
   
 //--------------------------------------------TABLES----------------------------------------------------------------//
 
@@ -559,6 +589,44 @@ function createNestedTable(details, index) {
     new agGrid.Grid(gridDiv, gridOptions);
   }
 }
+
+function exportTableToCSV() {
+  // Selecciona solo las tablas visibles
+  const tables = Array.from(document.querySelectorAll('table')).filter(table => {
+      return table.offsetParent !== null; // Solo tablas visibles
+  });
+
+  let csvContent = "";
+
+  tables.forEach((table, index) => {
+      if (index > 0) csvContent += "\n"; // Agregar separación entre tablas
+
+      const rows = table.querySelectorAll('tr');
+      rows.forEach(row => {
+          const cells = row.querySelectorAll('th, td');
+          const rowContent = Array.from(cells).map(cell => {
+              // Manejar datos con comas
+              let text = cell.textContent.trim();
+              return text.includes(',') ? `"${text}"` : text;
+          }).join(',');
+          csvContent += rowContent + "\n";
+      });
+  });
+
+  // Generar y descargar el archivo CSV
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+
+  link.setAttribute('href', url);
+  link.setAttribute('download', 'table_data.csv');
+  link.style.display = 'none';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+
 
   // Cargar los datos y el nav cuando se carga la página
   window.onload = function() {
