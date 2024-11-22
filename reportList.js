@@ -9,7 +9,6 @@ function setH1Styles() {
       h1.style.letterSpacing = '0.1em'; // Espaciado entre letras
   }
 }  
-//------------------------------------------------------------------NAV---------------------------------------------------------------------------------//
 function createNav() {
   const nav = document.createElement('div');
   nav.style.display = 'flex'; // Asegura que los elementos estén alineados en fila
@@ -18,6 +17,7 @@ function createNav() {
   nav.style.padding = '0'; // Quita el espaciado lateral
   nav.style.marginBottom = '20px'; // Separación con la tabla
   nav.style.width = '100%'; // Ocupa todo el ancho disponible
+  nav.style.flexWrap = 'wrap'; // Permite que los elementos se ajusten en pantallas pequeñas
 
   // Crear lista de navegación
   const navList = document.createElement('ul');
@@ -26,7 +26,8 @@ function createNav() {
   navList.style.padding = '0';
   navList.style.margin = '0';
   navList.style.width = 'fit-content'; // Asegura que la línea abarque solo el contenido
-  navList.style.borderBottom = '2px solid #6E6893'; // Línea continua bajo los elementos del menú
+  navList.style.borderBottom = '1px solid #6E6893'; // Línea continua bajo los elementos del menú
+  navList.style.flexWrap = 'wrap'; // Permite que los ítems del menú se apilen en pantallas pequeñas
 
   // Estilos dinámicos para los ítems del nav
   const navItemStyle = `
@@ -38,73 +39,87 @@ function createNav() {
     text-underline-position: from-font;
     color: #6E6893;
     text-decoration: none;
-    padding: 10px 15px; /* Espaciado interno */
-    display: inline-block; /* Asegura que ocupen solo su contenido */
-    border-bottom: 2px solid transparent; /* Línea inferior para indicar selección */
+    padding: 10px 15px;
+    display: inline-block;
+    border-bottom: 1px solid transparent;
     cursor: pointer;
   `;
 
-  const selectedItemStyle = `
-    color: #12385C;
-    border-bottom: 2px solid #12385C; /* Línea inferior con color de selección */
-  `;
+  // Pestañas del menú de navegación
+  const menuItems = [
+    'Delegate Reports List',
+    'Delegate Summary Report',
+    'Committee Reports List',
+    'Delegate Reports Detailed',
+    'Committee Reports Detailed',
+  ];
 
-  navList.innerHTML = `
-    <li class="nav-item">
-      <a class="nav-link active" style="${navItemStyle}" onclick="selectNavItem(this)" 
-         onmouseover="this.style.color='#504F7D'" onmouseout="this.style.color='#6E6893'">
-        Delegate Reports List
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" style="${navItemStyle}" onclick="selectNavItem(this)" 
-         onmouseover="this.style.color='#504F7D'" onmouseout="this.style.color='#6E6893'">
-        Delegate Summary Report
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" style="${navItemStyle}" onclick="selectNavItem(this)" 
-         onmouseover="this.style.color='#504F7D'" onmouseout="this.style.color='#6E6893'">
-        Committee Reports List
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" style="${navItemStyle}" onclick="selectNavItem(this)" 
-         onmouseover="this.style.color='#504F7D'" onmouseout="this.style.color='#6E6893'">
-        Delegate Reports Detailed
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" style="${navItemStyle}" onclick="selectNavItem(this)" 
-         onmouseover="this.style.color='#504F7D'" onmouseout="this.style.color='#6E6893'">
-        Committee Reports Detailed
-      </a>
-    </li>
-  `;
+  menuItems.forEach((text) => {
+    const listItem = document.createElement('li');
+    listItem.style.margin = '0';
+
+    const link = document.createElement('a');
+    link.textContent = text;
+    link.style.cssText = navItemStyle;
+
+    link.addEventListener('click', function () {
+      // Resetea el estilo de todos los links
+      const allLinks = navList.querySelectorAll('a');
+      allLinks.forEach((item) => {
+        item.style.color = '#6E6893';
+        item.style.borderBottom = '1px solid transparent';
+      });
+
+      // Aplica el estilo seleccionado
+      this.style.color = '#12385C';
+      this.style.borderBottom = '2px solid #12385C';
+    });
+
+    listItem.appendChild(link);
+    navList.appendChild(listItem);
+  });
 
   // Contenedor para los botones
   const buttonContainer = document.createElement('div');
   buttonContainer.style.display = 'flex';
   buttonContainer.style.gap = '10px';
   buttonContainer.style.marginLeft = 'auto'; // Empuja el contenedor de botones hacia la derecha
+  buttonContainer.style.flexWrap = 'wrap'; // Permite que los botones se acomoden en pantallas pequeñas
 
-  // Botón de imprimir
-  const printButton = document.createElement('button');
-  printButton.innerHTML = `<i class="bi bi-printer-fill" style="color: #6D5BD0; font-size: 16px; border: 2px solid #6D5BD0; padding: 5px; border-radius: 5px;"></i>`;
-  printButton.style.border = 'none';
-  printButton.style.background = 'none';
-  printButton.style.cursor = 'pointer';
+  // Botones (imprimir y exportar CSV)
+  const buttons = [
+    { icon: 'bi bi-printer-fill', label: 'Print' },
+    { icon: 'bi bi-filetype-csv', label: 'Export CSV' },
+  ];
 
-  // Botón de exportar CSV
-  const exportButton = document.createElement('button');
-  exportButton.innerHTML = `<i class="bi bi-filetype-csv" style="color: white; font-size: 16px; border: 2px solid #6D5BD0; padding: 5px; border-radius: 5px; background-color: #6D5BD0;"></i>`;
-  exportButton.style.border = 'none';
-  exportButton.style.background = 'none';
-  exportButton.style.cursor = 'pointer';
+  buttons.forEach((button) => {
+    const btn = document.createElement('button');
+    btn.innerHTML = `<i class="${button.icon}" style="font-size: 16px; padding: 5px;"></i>`;
+    btn.style.cssText = `
+      border: 2px solid #6D5BD0;
+      background-color: #6D5BD0;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    `;
 
-  // Añadir botones al contenedor
-  buttonContainer.appendChild(printButton);
-  buttonContainer.appendChild(exportButton);
+    btn.addEventListener('click', function () {
+      // Resetea el estilo de todos los botones
+      const allButtons = buttonContainer.querySelectorAll('button');
+      allButtons.forEach((b) => {
+        b.style.color = 'white';
+        b.style.backgroundColor = '#6D5BD0';
+        b.style.borderBottom = 'none';
+      });
+
+      // Aplica el estilo seleccionado
+      this.style.color = '#12385C';
+      this.style.backgroundColor = 'white';
+      this.style.borderBottom = '2px solid #12385C';
+    });
+
+    buttonContainer.appendChild(btn);
+  });
 
   // Añadir la lista de navegación y botones al contenedor principal
   nav.appendChild(navList);
@@ -114,46 +129,34 @@ function createNav() {
   const title = document.querySelector('h1');
   title.insertAdjacentElement('afterend', nav);
 
-  // Función para manejar la selección del ítem del nav
-  function selectNavItem(selectedItem) {
-    // Resetea la clase 'active' de todos los ítems
-    const allItems = navList.querySelectorAll('.nav-link');
-    allItems.forEach(item => {
-      item.classList.remove('active');
-      item.style.color = '#6E6893'; // Vuelve al color original
-      item.style.borderBottom = '2px solid transparent';
-    });
-
-    // Añade la clase 'active' al ítem seleccionado
-    selectedItem.classList.add('active');
-    selectedItem.style.color = '#12385C'; // Cambia el color
-    selectedItem.style.borderBottom = '2px solid #12385C'; // Aplica la línea inferior de selección
-  }
-   // Estilos responsivos
-   const style = document.createElement('style');
-   style.innerHTML = `
-     @media (max-width: 768px) {
-       ul {
-         flex-direction: column;
-         align-items: flex-start;
-       }
-       nav {
-         flex-direction: column;
-         align-items: stretch;
-       }
-       button {
-         margin-left: auto;
-       }
-     }
-     @media (max-width: 480px) {
-       a {
-         font-size: 14px;
-         padding: 8px;
-       }
-     }
-   `;
-   document.head.appendChild(style);
+  // Estilos responsivos
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @media (max-width: 768px) {
+      ul {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      button {
+        margin-left: auto;
+      }
+    }
+    @media (max-width: 480px) {
+      a {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+  `;
+  document.head.appendChild(style);
 }
+
+
+
 //--------------------------------------------TABLES----------------------------------------------------------------//
 
 let delegates = []; // Variable global para almacenar los datos de los delegados
