@@ -1,4 +1,4 @@
-//estilo Titulo principal
+//------------------------------------------------------------------H1------------------------------------------------------------------------
 function setH1Styles() {
   const h1 = document.querySelector('h1'); // Selecciona el h1
   if (h1) { // Verifica si existe
@@ -105,7 +105,7 @@ function createNav() {
     }
   });
 
-  // ------------------------------Botones (imprimir y exportar CSV)---------------------------------------------
+  // ---------------------------------------------Botones (imprimir y exportar CSV)--------------------------------------------------------
 
   // Contenedor para los botones
   const buttonContainer = document.createElement('div');
@@ -162,7 +162,7 @@ function createNav() {
 
     buttonContainer.appendChild(btn);
   });
-  //-----------------------------------------------------------------------------------------------------
+  
   // Añadir la lista de navegación y botones al contenedor principal
   nav.appendChild(navList);
   nav.appendChild(buttonContainer);
@@ -171,31 +171,7 @@ function createNav() {
   const title = document.querySelector('h1');
   title.insertAdjacentElement('afterend', nav);
 
-  // Estilos responsivos
-  const style = document.createElement('style');
-  style.innerHTML = `
-    @media (max-width: 768px) {
-      ul {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      nav {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      button {
-        margin-left: auto;
-      }
-    }
-    @media (max-width: 480px) {
-      a {
-        font-size: 14px;
-        padding: 8px;
-      }
-    }
-  `;
-  document.head.appendChild(style);
-}
+//---------------------------------------------------------BUTTON CSV-----------------------------------------------------------
 
 function downloadCSV() {
   const data = getVisibleNestedTableData(); // Obtener datos de las tablas visibles
@@ -260,7 +236,33 @@ function getHeaders(data) {
   return Array.from(headers); // Convertimos el Set en un array
 }
 
-// Funciones para mostrar las tablas según la selección
+//---------------------------------------------------------RESPONSIVE MOBILE-------------------------------------------------------------
+  // Estilos responsivos
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @media (max-width: 768px) {
+      ul {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      button {
+        margin-left: auto;
+      }
+    }
+    @media (max-width: 480px) {
+      a {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+}
+//---------------------------------------------------------MOSTRAR TABLAS -----------------------------------------------------------
 function loadDelegates() {
   const tableContainer = document.getElementById('table-container');
   tableContainer.innerHTML = ''; // Limpiar contenido previo
@@ -315,12 +317,11 @@ function toggleButtonsVisibility() {
   }
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
   toggleButtonsVisibility(); // Oculta o muestra los botones dependiendo de la vista inicial
 });
 
-//--------------------------------------------TABLES----------------------------------------------------------------//
+//------------------------------------------------------------------TABLES---------------------------------------------------------------------------------
 let delegates = []; // Variable global para almacenar los datos de los delegados
 
 // Variable global para almacenar las opciones de las cuadrículas
@@ -342,8 +343,77 @@ async function loadDelegates() {
     console.error('Error al cargar los datos:', error);
   }
 }
-//----------------------------------------------------------------CREACION DE TABLAS------------------------------------------------------------------------
 
+
+// Función para obtener los datos de las subtablas visibles
+function getVisibleNestedTableData() {
+  const allData = [];
+
+  gridOptionsArray.forEach((gridOptions, index) => {
+    const nestedTable = document.getElementById(`nested-table-${index}`);
+    if (nestedTable && nestedTable.style.display !== 'none') {
+      const rowData = [];
+      gridOptions.api.forEachNode((node) => {
+        rowData.push(node.data);
+      });
+      allData.push(...rowData);
+    }
+  });
+
+  return allData;
+}
+
+// Clase personalizada para las cabeceras
+class CustomHeader {
+  init(params) {
+    this.params = params;
+    const eGui = document.createElement('div');
+    eGui.innerHTML = `
+      <div class="custom-header">
+        ${this.params.displayName}
+      </div>
+    `;
+    this.eGui = eGui;
+  }
+  getGui() {
+    return this.eGui;
+  }
+}
+
+// Función para los estilos de los botones (Activo/Retirado)
+function getButtonStyles(status) {
+  const baseStyle = {
+    width: '53px',
+    height: '19px',
+    padding: '2px 8px',
+    gap: '8px',
+    borderRadius: '100px',
+    fontFamily: 'Inter, sans-serif', 
+    fontSize: '12px',
+    fontWeight: '500',
+    lineHeight: '15px', 
+    textAlign: 'center', 
+    cursor: 'default',
+    border: '1px solid transparent',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',  // Asegura el centrado vertical dentro del botón
+  };
+
+  if (status === 'Active') {
+    return { ...baseStyle, backgroundColor: '#CDFFCD', color: '#007F00', textContent: 'Active' };
+  } else if (status === 'Retired') {
+    return { ...baseStyle, backgroundColor: '#FFECCC', color: '#CE8500', textContent: 'Retired' };
+  }
+  return baseStyle;
+}
+
+// Función para icono del botón de check
+function iconRenderer(params) {
+  return params.value
+    ? '<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>'
+    : ''; // Ícono si es true o vacío si es false
+}
 
 //----------------------------------------------------------------DELEGATE REPORT LIST----------------------------------------------------------------------
 
@@ -459,73 +529,6 @@ function toggleNestedTable(index) {
   }
 }
 
-// Función para obtener los datos de las subtablas visibles
-function getVisibleNestedTableData() {
-  const allData = [];
-
-  gridOptionsArray.forEach((gridOptions, index) => {
-    const nestedTable = document.getElementById(`nested-table-${index}`);
-    if (nestedTable && nestedTable.style.display !== 'none') {
-      const rowData = [];
-      gridOptions.api.forEachNode((node) => {
-        rowData.push(node.data);
-      });
-      allData.push(...rowData);
-    }
-  });
-
-  return allData;
-}
-
-// Clase personalizada para las cabeceras
-class CustomHeader {
-  init(params) {
-    this.params = params;
-    const eGui = document.createElement('div');
-    eGui.innerHTML = `
-      <div class="custom-header">
-        ${this.params.displayName}
-      </div>
-    `;
-    this.eGui = eGui;
-  }
-  getGui() {
-    return this.eGui;
-  }
-}
-// Función para los estilos de los botones (Activo/Retirado)
-function getButtonStyles(status) {
-  const baseStyle = {
-    width: '53px',
-    height: '19px',
-    padding: '2px 8px',
-    gap: '8px',
-    borderRadius: '100px',
-    fontFamily: 'Inter, sans-serif', 
-    fontSize: '12px',
-    fontWeight: '500',
-    lineHeight: '15px', 
-    textAlign: 'center', 
-    cursor: 'default',
-    border: '1px solid transparent',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',  // Asegura el centrado vertical dentro del botón
-  };
-
-  if (status === 'Active') {
-    return { ...baseStyle, backgroundColor: '#CDFFCD', color: '#007F00', textContent: 'Active' };
-  } else if (status === 'Retired') {
-    return { ...baseStyle, backgroundColor: '#FFECCC', color: '#CE8500', textContent: 'Retired' };
-  }
-  return baseStyle;
-}
-// Función para icono del botón de check
-function iconRenderer(params) {
-  return params.value
-    ? '<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>'
-    : ''; // Ícono si es true o vacío si es false
-}
 // Función para crear subtabla
 function createNestedTable(details, index) {
   const backgroundColors = [
@@ -587,7 +590,6 @@ function createNestedTable(details, index) {
         minWidth: 175,
         maxWidth: 225,
         headerClass: 'header-background', 
-
       },
       {
         headerName: 'NGAUS Member <br> ID Number',
@@ -637,9 +639,7 @@ function createNestedTable(details, index) {
         maxWidth: 125,
         headerClass: 'header-background-2', 
       },
-
-
-{
+      {
         headerName: 'Duty <br> Status',
         field: 'dutyStatus',
         sortable: true,
@@ -674,7 +674,6 @@ function createNestedTable(details, index) {
         minWidth: 80,
         maxWidth: 125,
         headerClass: 'header-background', 
-
         cellRenderer: iconRenderer,
       },
       {
@@ -688,7 +687,6 @@ function createNestedTable(details, index) {
         minWidth: 80,
         maxWidth: 125,
         headerClass: 'header-background-2', 
-
         cellRenderer: iconRenderer,
       },
       {
@@ -703,7 +701,6 @@ function createNestedTable(details, index) {
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
         headerClass: 'header-background-3', 
-
       },
       {
         headerName: 'Committee <br> On Joint <br> Resolutions',
@@ -717,7 +714,6 @@ function createNestedTable(details, index) {
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
         headerClass: 'header-background', 
-
       },
       {
         headerName: 'Retired <br> Army',
@@ -731,7 +727,6 @@ function createNestedTable(details, index) {
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
         headerClass: 'header-background-2', 
-
       },
       {
         headerName: 'Area III <br> Air Force <br> Caucus',
@@ -745,7 +740,6 @@ function createNestedTable(details, index) {
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
         headerClass: 'header-background-3', 
-
       },
       {
         headerName: 'Committee <br> On Air <br> Force Resolutions',
@@ -759,7 +753,6 @@ function createNestedTable(details, index) {
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
         headerClass: 'header-background', 
-
       },
       {
         headerName: 'Company <br> Grade Air <br> Force',
@@ -773,7 +766,6 @@ function createNestedTable(details, index) {
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
         headerClass: 'header-background-2', 
-
       },
       {
         headerName: 'Company <br> Grade <br> Army',
@@ -787,7 +779,6 @@ function createNestedTable(details, index) {
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
         headerClass: 'header-background-3', 
-
       },
       {
         headerName: 'Committee <br> On <br> Nominations',
@@ -801,7 +792,6 @@ function createNestedTable(details, index) {
         maxWidth: 125, // Ancho maximo de la columna
         cellRenderer: iconRenderer,
         headerClass: 'header-background', 
-
       },
       { 
         headerName: 'Committee <br> On Army <br> Resolutions',
@@ -816,13 +806,6 @@ function createNestedTable(details, index) {
         cellRenderer: iconRenderer,
         headerClass: 'header-background-2', 
       } 
-      // ... continúa con las demás columnas ...
-
-
-
-
-
-      
     ],
     rowData: details,
     pagination: false,
@@ -847,9 +830,6 @@ function createNestedTable(details, index) {
 }
 
 //----------------------------------------------------------------DELEGATE SUMMARY REPORT---------------------------------------------------------------------
-
-//Funcion para crear tabla summary report
-
 
   //Funcion para crear tabla summary report
 function createDelegateSummaryTable() {
@@ -974,6 +954,119 @@ function toggleMainTable() {
   }
 }
 
+//--------------------------------------------COMMITTE REPORT LIST----------------------------------------------------------
+
+//Función para crear la tabla Delegate Report List
+function createCommitteeReportsTable() {
+  const tableContainer = document.getElementById('table-container');
+  tableContainer.innerHTML = ''; // Limpia cualquier contenido previo
+
+  const table = document.createElement('table');
+  table.classList.add('table', 'table-bordered', 'table-striped', 'table-responsive');
+
+  // Agregar estilo de fondo blanco y sombra
+  table.style.backgroundColor = 'white'; // Fondo blanco
+  table.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)'; // Sombra uniforme en todos los costados
+  table.style.borderRadius = '8px'; // Esquinas redondeadas
+
+  const thead = document.createElement('thead');
+  const tbody = document.createElement('tbody');
+
+  delegates.forEach((delegate, index) => {
+    const row = document.createElement('tr');
+    //Estilo de las celdas de la tabla principal
+    const cellStyle = `
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.2; /* Ajusta el espacio vertical dentro de la celda */
+      text-align: left;
+      color: #6E6893;
+      box-shadow: none;
+      padding: 2px 2px; /* Reduce el relleno dentro de la celda */
+      height: 2px; /* Define una altura fija para las filas */
+    `;
+  
+    // Botón expand/collapse y nombre del delegado
+    row.innerHTML = `
+      <td style="${cellStyle}">
+        <button 
+          class="btn btn-link expand-btn" 
+          onclick="toggleNestedTable(${index})" 
+          style="color: inherit; text-decoration: none; transition: transform 0.3s ease; padding: 1px; margin: 1px 8px;">
+          <i class="bi bi-arrow-right-circle" id="expand-icon-${index}" style="transition: transform 0.3s ease;"></i>
+        </button>   
+        ${delegate.delegateName}
+      </td>
+    `;
+
+    // Fila secundaria para la tabla interna (subtabla)
+    const nestedRow = document.createElement('tr');
+    nestedRow.style.display = 'none'; // Oculta la fila por defecto
+    nestedRow.innerHTML = `
+      <td colspan="2" style="padding: 0; margin: 0;"> <!-- Elimina los márgenes y el relleno -->
+        <div class="nested-table" 
+          id="nested-table-${index}" 
+          style="
+            display: none; 
+            overflow: hidden; 
+            max-height: 0; 
+            transition: max-height 0.3s ease-out;
+            width: 100%; /* Asegura que ocupe el ancho completo */
+          ">
+          <div class="ag-theme-alpine" id="ag-grid-${index}" style="width: 100%; height: 200px;"></div>
+        </div>
+      </td>
+    `;
+
+    tbody.appendChild(row);
+    tbody.appendChild(nestedRow);
+  });
+
+  table.appendChild(thead);
+  table.appendChild(tbody);
+  tableContainer.appendChild(table);
+}
+// Función para alternar la visibilidad de la subtabla y cambiar la flecha con transición
+function toggleNestedTable(index) {
+  const nestedTable = document.getElementById(`nested-table-${index}`);
+  const nestedRow = nestedTable.closest('tr'); // Obtiene la fila secundaria
+  const allNestedTables = document.querySelectorAll('.nested-table');
+  const expandButton = document.querySelector(`#expand-icon-${index}`);
+
+  // Ocultar todas las subtablas excepto la actual
+  allNestedTables.forEach((table, idx) => {
+    const otherRow = table.closest('tr');
+    if (idx !== index) {
+      table.style.maxHeight = '0'; // Colapsa las subtablas
+      table.style.display = 'none'; 
+      if (otherRow) otherRow.style.display = 'none'; // Oculta la fila secundaria
+      const otherButton = document.querySelector(`#expand-icon-${idx}`);
+      if (otherButton) {
+        otherButton.classList.remove('bi-arrow-down-circle');
+        otherButton.classList.add('bi-arrow-right-circle'); // Restaurar flecha hacia la derecha
+      }
+    }
+  });
+
+  // Si la subtabla no está visible, la mostramos y creamos la subtabla
+  if (nestedTable.style.display === 'none') {
+    nestedRow.style.display = ''; // Muestra la fila secundaria
+    nestedTable.style.display = 'block';
+    nestedTable.style.maxHeight = '1000px'; // Expande la subtabla con animación
+    expandButton.classList.remove('bi-arrow-right-circle');
+    expandButton.classList.add('bi-arrow-down-circle'); // Cambia la flecha hacia abajo
+    createNestedTable(delegates[index].details, index);
+  } else {
+    nestedTable.style.maxHeight = '0'; // Colapsa la subtabla con animación
+    setTimeout(() => {
+      nestedTable.style.display = 'none'; // Oculta completamente tras la animación
+      nestedRow.style.display = 'none'; // Oculta la fila secundaria
+    }, 300); 
+    expandButton.classList.remove('bi-arrow-down-circle');
+    expandButton.classList.add('bi-arrow-right-circle'); // Cambia la flecha hacia la derecha
+  }
+}
 
 
 //--------------------------------------------FIN DE LAS TABLAS----------------------------------------------------------
