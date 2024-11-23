@@ -75,10 +75,6 @@ function createNav() {
       this.style.color = '#12385C';
       this.style.borderBottom = '2px solid #12385C';
 
-      // Actualiza el título
-      const title = document.querySelector('h1');
-      title.textContent = text;
-
       // Muestra la tabla correspondiente
       switch (index) {
         case 0:
@@ -101,7 +97,15 @@ function createNav() {
     });
     listItem.appendChild(link);
     navList.appendChild(listItem);
+
+    // Si es el primer elemento, aplicamos el estilo seleccionado
+    if (index === 0) {
+      link.style.color = '#12385C'; // Estilo del texto
+      link.style.borderBottom = '2px solid #12385C'; // Estilo del borde
+    }
   });
+
+  // ------------------------------Botones (imprimir y exportar CSV)---------------------------------------------
 
   // Contenedor para los botones
   const buttonContainer = document.createElement('div');
@@ -111,7 +115,6 @@ function createNav() {
   buttonContainer.style.marginLeft = 'auto'; // Empuja el contenedor de botones hacia la derecha
   buttonContainer.style.flexWrap = 'wrap'; // Permite que los botones se acomoden en pantallas pequeñas
 
-  // Botones (imprimir y exportar CSV)
   const buttons = [
     { icon: 'bi bi-printer-fill', label: 'Print', isPrint: true },
     { icon: 'bi bi-filetype-csv', label: 'Export CSV', isPrint: false },
@@ -159,7 +162,7 @@ function createNav() {
 
     buttonContainer.appendChild(btn);
   });
-
+  //-----------------------------------------------------------------------------------------------------
   // Añadir la lista de navegación y botones al contenedor principal
   nav.appendChild(navList);
   nav.appendChild(buttonContainer);
@@ -256,7 +259,6 @@ function getHeaders(data) {
 
   return Array.from(headers); // Convertimos el Set en un array
 }
-
 
 // Funciones para mostrar las tablas según la selección
 function loadDelegates() {
