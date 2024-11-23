@@ -195,7 +195,6 @@ function createNav() {
 }
 
 function downloadCSV() {
-  // Lógica para generar el archivo CSV
   const data = getVisibleNestedTableData(); // Obtener datos de las tablas visibles
 
   if (data.length === 0) {
@@ -203,16 +202,23 @@ function downloadCSV() {
     return;
   }
 
-  // Genera el contenido del CSV
   const csvRows = [];
 
   // Asumiendo que todas las filas tienen las mismas columnas, obtenemos las cabeceras
-  const headers = Object.keys(data[0]);
+  const headers = getHeaders(data); // Obtenemos las cabeceras, ahora incluyendo los campos de 'caucuses'
   csvRows.push(headers.join(',')); // Añade las cabeceras al CSV
 
-  // Añade cada fila de datos
+  // Añadir cada fila de datos, aplanando las propiedades de 'caucuses'
   data.forEach(row => {
-    const values = headers.map(header => `"${row[header]}"`);
+    const values = headers.map(header => {
+      // Si la propiedad es parte de 'caucuses', extraemos el valor
+      if (header.startsWith('caucuses.')) {
+        const caucusKey = header.split('.')[1]; // Extraemos la clave del caucus
+        return row.caucuses[caucusKey] !== undefined ? `"${row.caucuses[caucusKey]}"` : '""';
+      } else {
+        return `"${row[header]}"`;
+      }
+    });
     csvRows.push(values.join(','));
   });
 
@@ -229,6 +235,28 @@ function downloadCSV() {
   link.click();
   document.body.removeChild(link);
 }
+
+// Función para obtener las cabeceras, incluyendo las claves del objeto 'caucuses'
+function getHeaders(data) {
+  const headers = new Set(); // Usamos un Set para evitar duplicados
+
+  data.forEach(row => {
+    // Añadir las claves principales (no 'caucuses')
+    Object.keys(row).forEach(key => {
+      if (key !== 'caucuses') {
+        headers.add(key);
+      } else {
+        // Añadir las claves dentro de 'caucuses'
+        Object.keys(row.caucuses).forEach(caucusKey => {
+          headers.add(`caucuses.${caucusKey}`);
+        });
+      }
+    });
+  });
+
+  return Array.from(headers); // Convertimos el Set en un array
+}
+
 
 // Funciones para mostrar las tablas según la selección
 function loadDelegates() {
