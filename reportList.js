@@ -840,13 +840,132 @@ function createNestedTable(details, index) {
 //----------------------------------------------------------------DELEGATE SUMMARY REPORT---------------------------------------------------------------------
 
 //Funcion para crear tabla summary report
+
+
+  //Funcion para crear tabla summary report
 function createDelegateSummaryTable() {
   const tableContainer = document.getElementById('table-container');
   tableContainer.innerHTML = ''; // Limpia cualquier contenido previo
 
-  // Aquí iría el código para crear la tabla de resumen de delegados
-  // Implementa esta función según tus necesidades
+  const table = document.createElement('table');
+  table.classList.add('table', 'table-bordered', 'table-striped', 'table-responsive');
+
+  // Estilo de la tabla
+  table.style.backgroundColor = 'white';
+  table.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
+  table.style.borderRadius = '8px';
+  table.style.border = '1px solid #C6C2DE';
+  table.style.borderCollapse = 'collapse';
+  table.style.tableLayout = 'fixed'; // Evita cambios en el tamaño de las columnas
+  table.style.width = '100%'; // Asegura que la tabla ocupe el ancho completo
+
+  const thead = document.createElement('thead');
+  const tbody = document.createElement('tbody');
+
+  // Encabezado con botón a la izquierda del texto "State Affiliate"
+  thead.innerHTML = `
+    <tr>
+      <th style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 30%; padding-left: 12px;">
+        <button 
+          class="btn btn-link expand-btn" 
+          onclick="toggleMainTable()" 
+          style="color: inherit; text-decoration: none; transition: transform 0.3s ease; padding: 3px; margin-left: 6px; margin-right: 6px;">
+          <i class="bi bi-arrow-down-circle" id="main-expand-icon" style="transition: transform 0.3s ease;"></i>
+        </button>
+        State Affiliate
+      </th>
+      <th onclick="sortMainTable('countOfDelegates', this)" class="sortable" style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
+        Count Of Delegates
+      </th>
+      <th onclick="sortMainTable('capacity', this)" class="sortable" style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
+        Capacity
+      </th>
+      <th onclick="sortMainTable('remaining', this)" class="sortable" style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
+        Remaining
+      </th>
+    </tr>
+  `;
+
+  // Resto del código para cargar los datos
+  fetch('delegates.json')
+    .then(response => response.json())
+    .then(data => {
+      const delegates = data.delegates;
+
+      delegates.forEach((delegate, index) => {
+        const row = document.createElement('tr');
+
+        const cellStyle = `
+          font-family: 'Inter', sans-serif;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 16.94px;
+          text-align: left;
+          color: #6E6893;
+          box-shadow: none;
+          padding: 8px 12px; /* Ajusta el espacio para alineación */
+          border-bottom: 1px solid #C6C2DE;
+          border-left: none;
+          border-right: none;
+        `;
+
+        row.innerHTML = `
+          <td style="${cellStyle}">
+            <button 
+              class="btn btn-link expand-btn" 
+              onclick="toggleNestedTable(${index}, delegates)" 
+              style="color: inherit; text-decoration: none; transition: transform 0.3s ease; padding: 1px; margin: 1px 8px;">
+              <i class="bi bi-arrow-right-circle" id="expand-icon-${index}" style="transition: transform 0.3s ease;"></i>
+            </button>   
+            ${delegate.delegateName}
+          </td>
+          <td style="${cellStyle}">${delegate.countOfDelegates}</td>
+          <td style="${cellStyle}">${delegate.capacity}</td>
+          <td style="${cellStyle}">${delegate.remaining}</td>
+        `;
+
+        const nestedRow = document.createElement('tr');
+        nestedRow.style.display = 'none';
+        nestedRow.innerHTML = `
+          <td colspan="4" style="padding: 0; margin-left: 0; border: none;">
+            <div class="nested-table" 
+                id="nested-table-${index}" 
+                style="display: none; overflow: hidden; max-height: 0; transition: max-height 0.3s ease-out; width: 100%;">
+              <div class="ag-theme-alpine" id="ag-grid-${index}" style="width: 100%;"></div>
+            </div>
+          </td>
+        `;
+
+        tbody.appendChild(row);
+        tbody.appendChild(nestedRow);
+      });
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      tableContainer.appendChild(table);
+    })
+    .catch(error => {
+      console.error('Error al cargar los datos desde delegates.json:', error);
+    });
 }
+
+//funcion para ocultar/mostrar tabla summary report
+function toggleMainTable() {
+  const tbody = document.querySelector('#table-container table tbody');
+  const mainExpandIcon = document.getElementById('main-expand-icon');
+
+  if (tbody.style.display === 'none') {
+    tbody.style.display = 'table-row-group'; // Muestra el cuerpo de la tabla
+    mainExpandIcon.classList.remove('bi-arrow-right-circle');
+    mainExpandIcon.classList.add('bi-arrow-down-circle');
+  } else {
+    tbody.style.display = 'none'; // Oculta el cuerpo de la tabla
+    mainExpandIcon.classList.remove('bi-arrow-down-circle');
+    mainExpandIcon.classList.add('bi-arrow-right-circle');
+  }
+}
+
+
 
 //--------------------------------------------FIN DE LAS TABLAS----------------------------------------------------------
 
