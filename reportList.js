@@ -75,6 +75,10 @@ function createNav() {
       this.style.color = '#12385C';
       this.style.borderBottom = '2px solid #12385C';
 
+      // Actualiza el título
+      const title = document.querySelector('h1');
+      title.textContent = text;
+
       // Muestra la tabla correspondiente
       switch (index) {
         case 0:
@@ -101,6 +105,7 @@ function createNav() {
 
   // Contenedor para los botones
   const buttonContainer = document.createElement('div');
+  buttonContainer.classList.add('button-container');
   buttonContainer.style.display = 'flex';
   buttonContainer.style.gap = '10px';
   buttonContainer.style.marginLeft = 'auto'; // Empuja el contenedor de botones hacia la derecha
@@ -145,6 +150,11 @@ function createNav() {
       this.style.color = '#12385C';
       this.style.backgroundColor = 'white';
       this.style.borderBottom = '2px solid #12385C';
+
+      // Si es el botón de Export CSV, llama a la función downloadCSV
+      if (!button.isPrint) {
+        downloadCSV();  // Llamada a la función de exportar CSV
+      }
     });
 
     buttonContainer.appendChild(btn);
@@ -182,6 +192,42 @@ function createNav() {
     }
   `;
   document.head.appendChild(style);
+}
+
+function downloadCSV() {
+  // Lógica para generar el archivo CSV
+  const data = getVisibleNestedTableData(); // Obtener datos de las tablas visibles
+
+  if (data.length === 0) {
+    alert('No hay datos para exportar.');
+    return;
+  }
+
+  // Genera el contenido del CSV
+  const csvRows = [];
+
+  // Asumiendo que todas las filas tienen las mismas columnas, obtenemos las cabeceras
+  const headers = Object.keys(data[0]);
+  csvRows.push(headers.join(',')); // Añade las cabeceras al CSV
+
+  // Añade cada fila de datos
+  data.forEach(row => {
+    const values = headers.map(header => `"${row[header]}"`);
+    csvRows.push(values.join(','));
+  });
+
+  const csvContent = "data:text/csv;charset=utf-8," + csvRows.join('\n');
+
+  // Crear un enlace para descargar el CSV
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "data.csv");
+
+  // Añadir el enlace al DOM y simular un clic para descargar
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
 // Funciones para mostrar las tablas según la selección
@@ -240,21 +286,24 @@ document.addEventListener('DOMContentLoaded', () => {
 //--------------------------------------------TABLES----------------------------------------------------------------//
 let delegates = []; // Variable global para almacenar los datos de los delegados
 
+// Variable global para almacenar las opciones de las cuadrículas
+const gridOptionsArray = [];
+
 // Función para cargar los delegados y crear la tabla principal
 async function loadDelegates() {
-    try {
-      const response = await fetch('delegates.json');
-      if (!response.ok) {
-        throw new Error('Error al cargar el JSON');
-      }
-      const data = await response.json();
-      delegates = data.delegates; // Asigna los delegados a la variable global
-  
-      // Renderiza la tabla principal con los datos obtenidos
-      createMainTable(delegates);
-    } catch (error) {
-      console.error('Error al cargar los datos:', error);
+  try {
+    const response = await fetch('delegates.json');
+    if (!response.ok) {
+      throw new Error('Error al cargar el JSON');
     }
+    const data = await response.json();
+    delegates = data.delegates; // Asigna los delegados a la variable global
+
+    // Renderiza la tabla principal con los datos obtenidos
+    createMainTable(delegates);
+  } catch (error) {
+    console.error('Error al cargar los datos:', error);
+  }
 }
 //----------------------------------------------------------------CREACION DE TABLAS------------------------------------------------------------------------
 
@@ -263,89 +312,77 @@ async function loadDelegates() {
 
 //Función para crear la tabla Delegate Report List
 function createMainTable() {
-    const tableContainer = document.getElementById('table-container');
-    tableContainer.innerHTML = ''; // Limpia cualquier contenido previo
+  const tableContainer = document.getElementById('table-container');
+  tableContainer.innerHTML = ''; // Limpia cualquier contenido previo
+
+  const table = document.createElement('table');
+  table.classList.add('table', 'table-bordered', 'table-striped', 'table-responsive');
+
+  // Agregar estilo de fondo blanco y sombra
+  table.style.backgroundColor = 'white'; // Fondo blanco
+  table.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)'; // Sombra uniforme en todos los costados
+  table.style.borderRadius = '8px'; // Esquinas redondeadas
+
+  const thead = document.createElement('thead');
+  const tbody = document.createElement('tbody');
+
+  delegates.forEach((delegate, index) => {
+    const row = document.createElement('tr');
+    //Estilo de las celdas de la tabla principal
+    const cellStyle = `
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.2; /* Ajusta el espacio vertical dentro de la celda */
+      text-align: left;
+      color: #6E6893;
+      box-shadow: none;
+      padding: 2px 2px; /* Reduce el relleno dentro de la celda */
+      height: 2px; /* Define una altura fija para las filas */
+    `;
   
-    const table = document.createElement('table');
-    table.classList.add('table', 'table-bordered', 'table-striped', 'table-responsive');
+    // Botón expand/collapse y nombre del delegado
+    row.innerHTML = `
+      <td style="${cellStyle}">
+        <button 
+          class="btn btn-link expand-btn" 
+          onclick="toggleNestedTable(${index})" 
+          style="color: inherit; text-decoration: none; transition: transform 0.3s ease; padding: 1px; margin: 1px 8px;">
+          <i class="bi bi-arrow-right-circle" id="expand-icon-${index}" style="transition: transform 0.3s ease;"></i>
+        </button>   
+        ${delegate.delegateName}
+      </td>
+    `;
 
-    // Agregar estilo de fondo blanco y sombra
-    table.style.backgroundColor = 'white'; // Fondo blanco
-    table.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)'; // Sombra uniforme en todos los costados
-    table.style.borderRadius = '80px'; // Esquinas redondeadas (opcional)
+    // Fila secundaria para la tabla interna (subtabla)
+    const nestedRow = document.createElement('tr');
+    nestedRow.style.display = 'none'; // Oculta la fila por defecto
+    nestedRow.innerHTML = `
+      <td colspan="2" style="padding: 0; margin: 0;"> <!-- Elimina los márgenes y el relleno -->
+        <div class="nested-table" 
+          id="nested-table-${index}" 
+          style="
+            display: none; 
+            overflow: hidden; 
+            max-height: 0; 
+            transition: max-height 0.3s ease-out;
+            width: 100%; /* Asegura que ocupe el ancho completo */
+          ">
+          <div class="ag-theme-alpine" id="ag-grid-${index}" style="width: 100%; height: 200px;"></div>
+        </div>
+      </td>
+    `;
 
+    tbody.appendChild(row);
+    tbody.appendChild(nestedRow);
+  });
 
-    const thead = document.createElement('thead');
-    const tbody = document.createElement('tbody');
-  
-    /// Cabecera de la tabla principal con ordenamiento
-    // thead.innerHTML = `
-    //   <tr>
-    //     <th onclick="sortMainTable('delegateName', this)" class="sortable">
-    //       State Afilliate<span class="sort-indicator"></span>
-    //     </th>
-    //   </tr>
-    // `;
-  
-    // Cuerpo de la tabla
-    delegates.forEach((delegate, index) => {
-        const row = document.createElement('tr');
-        //Estilo de las celdas de la tabla principal
-        const cellStyle = `
-          font-family: 'Inter', sans-serif;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 1.2; /* Ajusta el espacio vertical dentro de la celda */
-          text-align: left;
-          color: #6E6893;
-          box-shadow: none;
-          padding: 2px 2px; /* Reduce el relleno dentro de la celda */
-          height: 2px; /* Define una altura fija para las filas */
-        `;
-      
-        // Botón expand/collapse y nombre del delegado
-        row.innerHTML = `
-          <td style="${cellStyle}">
-              <button 
-                  class="btn btn-link expand-btn" 
-                  onclick="toggleNestedTable(${index}, delegates)" 
-                  style="color: inherit; text-decoration: none; transition: transform 0.3s ease; padding: 1px; margin: 1px 8px;">
-                  <i class="bi bi-arrow-right-circle" id="expand-icon-${index}" style="transition: transform 0.3s ease;"></i>
-              </button>   
-            ${delegate.delegateName}
-          </td>
-        `;
-
-        // Fila secundaria para la tabla interna (subtabla)
-        const nestedRow = document.createElement('tr');
-        nestedRow.style.display = 'none'; // Oculta la fila por defecto
-        nestedRow.innerHTML = `
-            <td colspan="2" style="padding: 0; margin: 0;"> <!-- Elimina los márgenes y el relleno -->
-                <div class="nested-table" 
-                    id="nested-table-${index}" 
-                    style="
-                        display: none; 
-                        overflow: hidden; 
-                        max-height: 0; 
-                        transition: max-height 0.3s ease-out;
-                        width: 100%; /* Asegura que ocupe el ancho completo */
-                    ">
-                    <div class="ag-theme-alpine" id="ag-grid-${index}" style="width: 100%;"></div>
-                </div>
-            </td>
-        `;
-
-        tbody.appendChild(row);
-        tbody.appendChild(nestedRow);
-    });
-  
-    table.appendChild(thead);
-    table.appendChild(tbody);
-    tableContainer.appendChild(table);
+  table.appendChild(thead);
+  table.appendChild(tbody);
+  tableContainer.appendChild(table);
 }
-
 // Función para alternar la visibilidad de la subtabla y cambiar la flecha con transición
-function toggleNestedTable(index, delegates) {
+function toggleNestedTable(index) {
   const nestedTable = document.getElementById(`nested-table-${index}`);
   const nestedRow = nestedTable.closest('tr'); // Obtiene la fila secundaria
   const allNestedTables = document.querySelectorAll('.nested-table');
@@ -384,6 +421,25 @@ function toggleNestedTable(index, delegates) {
     expandButton.classList.add('bi-arrow-right-circle'); // Cambia la flecha hacia la derecha
   }
 }
+
+// Función para obtener los datos de las subtablas visibles
+function getVisibleNestedTableData() {
+  const allData = [];
+
+  gridOptionsArray.forEach((gridOptions, index) => {
+    const nestedTable = document.getElementById(`nested-table-${index}`);
+    if (nestedTable && nestedTable.style.display !== 'none') {
+      const rowData = [];
+      gridOptions.api.forEachNode((node) => {
+        rowData.push(node.data);
+      });
+      allData.push(...rowData);
+    }
+  });
+
+  return allData;
+}
+
 // Clase personalizada para las cabeceras
 class CustomHeader {
   init(params) {
@@ -442,7 +498,7 @@ function createNestedTable(details, index) {
   ];
 
   //Modifica el titulo de la subtabla
-const style = document.createElement('style');
+  const style = document.createElement('style');
   style.innerHTML = `
     .header-background {
       background-color: ${backgroundColors[0]};
@@ -544,7 +600,9 @@ const style = document.createElement('style');
         maxWidth: 125,
         headerClass: 'header-background-2', 
       },
-      {
+
+
+{
         headerName: 'Duty <br> Status',
         field: 'dutyStatus',
         sortable: true,
@@ -721,6 +779,13 @@ const style = document.createElement('style');
         cellRenderer: iconRenderer,
         headerClass: 'header-background-2', 
       } 
+      // ... continúa con las demás columnas ...
+
+
+
+
+
+      
     ],
     rowData: details,
     pagination: false,
@@ -737,12 +802,10 @@ const style = document.createElement('style');
     },
   };
 
-  
-  document.head.appendChild(style);
-  // Inicializa el grid de AG Grid para la subtabla solo si no está creado ya
   const gridDiv = document.querySelector(`#ag-grid-${index}`);
   if (!gridDiv.innerHTML.trim()) {  // Verifica si el grid ya está creado
     new agGrid.Grid(gridDiv, gridOptions);
+    gridOptionsArray[index] = gridOptions; // Almacena las opciones de la cuadrícula
   }
 }
 
@@ -753,129 +816,15 @@ function createDelegateSummaryTable() {
   const tableContainer = document.getElementById('table-container');
   tableContainer.innerHTML = ''; // Limpia cualquier contenido previo
 
-  const table = document.createElement('table');
-  table.classList.add('table', 'table-bordered', 'table-striped', 'table-responsive');
-
-  // Estilo de la tabla
-  table.style.backgroundColor = 'white';
-  table.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
-  table.style.borderRadius = '8px';
-  table.style.border = '1px solid #C6C2DE';
-  table.style.borderCollapse = 'collapse';
-  table.style.tableLayout = 'fixed'; // Evita cambios en el tamaño de las columnas
-  table.style.width = '100%'; // Asegura que la tabla ocupe el ancho completo
-
-  const thead = document.createElement('thead');
-  const tbody = document.createElement('tbody');
-
-  // Encabezado con botón a la izquierda del texto "State Affiliate"
-  thead.innerHTML = `
-    <tr>
-      <th style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 30%; padding-left: 12px;">
-        <button 
-          class="btn btn-link expand-btn" 
-          onclick="toggleMainTable()" 
-          style="color: inherit; text-decoration: none; transition: transform 0.3s ease; padding: 3px; margin-left: 6px; margin-right: 6px;">
-          <i class="bi bi-arrow-down-circle" id="main-expand-icon" style="transition: transform 0.3s ease;"></i>
-        </button>
-        State Affiliate
-      </th>
-      <th onclick="sortMainTable('countOfDelegates', this)" class="sortable" style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
-        Count Of Delegates
-      </th>
-      <th onclick="sortMainTable('capacity', this)" class="sortable" style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
-        Capacity
-      </th>
-      <th onclick="sortMainTable('remaining', this)" class="sortable" style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
-        Remaining
-      </th>
-    </tr>
-  `;
-
-  // Resto del código para cargar los datos
-  fetch('delegates.json')
-    .then(response => response.json())
-    .then(data => {
-      const delegates = data.delegates;
-
-      delegates.forEach((delegate, index) => {
-        const row = document.createElement('tr');
-
-        const cellStyle = `
-          font-family: 'Inter', sans-serif;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 16.94px;
-          text-align: left;
-          color: #6E6893;
-          box-shadow: none;
-          padding: 8px 12px; /* Ajusta el espacio para alineación */
-          border-bottom: 1px solid #C6C2DE;
-          border-left: none;
-          border-right: none;
-        `;
-
-        row.innerHTML = `
-          <td style="${cellStyle}">
-            <button 
-              class="btn btn-link expand-btn" 
-              onclick="toggleNestedTable(${index}, delegates)" 
-              style="color: inherit; text-decoration: none; transition: transform 0.3s ease; padding: 1px; margin: 1px 8px;">
-              <i class="bi bi-arrow-right-circle" id="expand-icon-${index}" style="transition: transform 0.3s ease;"></i>
-            </button>   
-            ${delegate.delegateName}
-          </td>
-          <td style="${cellStyle}">${delegate.countOfDelegates}</td>
-          <td style="${cellStyle}">${delegate.capacity}</td>
-          <td style="${cellStyle}">${delegate.remaining}</td>
-        `;
-
-        const nestedRow = document.createElement('tr');
-        nestedRow.style.display = 'none';
-        nestedRow.innerHTML = `
-          <td colspan="4" style="padding: 0; margin-left: 0; border: none;">
-            <div class="nested-table" 
-                id="nested-table-${index}" 
-                style="display: none; overflow: hidden; max-height: 0; transition: max-height 0.3s ease-out; width: 100%;">
-              <div class="ag-theme-alpine" id="ag-grid-${index}" style="width: 100%;"></div>
-            </div>
-          </td>
-        `;
-
-        tbody.appendChild(row);
-        tbody.appendChild(nestedRow);
-      });
-
-      table.appendChild(thead);
-      table.appendChild(tbody);
-      tableContainer.appendChild(table);
-    })
-    .catch(error => {
-      console.error('Error al cargar los datos desde delegates.json:', error);
-    });
+  // Aquí iría el código para crear la tabla de resumen de delegados
+  // Implementa esta función según tus necesidades
 }
 
-//funcion para ocultar/mostrar tabla summary report
-function toggleMainTable() {
-  const tbody = document.querySelector('#table-container table tbody');
-  const mainExpandIcon = document.getElementById('main-expand-icon');
+//--------------------------------------------FIN DE LAS TABLAS----------------------------------------------------------
 
-  if (tbody.style.display === 'none') {
-    tbody.style.display = 'table-row-group'; // Muestra el cuerpo de la tabla
-    mainExpandIcon.classList.remove('bi-arrow-right-circle');
-    mainExpandIcon.classList.add('bi-arrow-down-circle');
-  } else {
-    tbody.style.display = 'none'; // Oculta el cuerpo de la tabla
-    mainExpandIcon.classList.remove('bi-arrow-down-circle');
-    mainExpandIcon.classList.add('bi-arrow-right-circle');
-  }
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Cargar los datos y el nav cuando se carga la página
 window.onload = function() {
   setH1Styles();   // Estilo para el h1
   createNav(); // Llamada a la función para crear el nav
   loadDelegates();
 };
-  
