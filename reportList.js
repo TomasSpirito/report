@@ -367,18 +367,61 @@ function getVisibleNestedTableData() {
 class CustomHeader {
   init(params) {
     this.params = params;
+
+    // Crear el contenedor del encabezado
     const eGui = document.createElement('div');
+    eGui.classList.add('custom-header');
+
+    // Estilo del encabezado
     eGui.innerHTML = `
-      <div class="custom-header">
-        ${this.params.displayName}
+      <div style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+        <span>${params.displayName}</span>
+        <span class="sort-icon"></span>
       </div>
     `;
+
+    // Manejador de clic para activar el ordenamiento
+    eGui.addEventListener('click', () => {
+      const nextSortOrder = this.getNextSortOrder(params.column.getSort());
+      params.setSort(nextSortOrder, params.shiftKey);
+    });
+
     this.eGui = eGui;
+    this.updateSortIcon(); // Actualiza el ícono de orden inicial
   }
+
   getGui() {
     return this.eGui;
   }
+
+  // Obtiene el próximo estado de ordenamiento (ascendente, descendente, ninguno)
+  getNextSortOrder(currentSort) {
+    if (currentSort === 'asc') return 'desc';
+    if (currentSort === 'desc') return null;
+    return 'asc';
+  }
+
+  // Actualiza el ícono de orden en el encabezado
+  updateSortIcon() {
+    const sortOrder = this.params.column.getSort();
+    const sortIcon = this.eGui.querySelector('.sort-icon');
+
+    if (!sortIcon) return;
+
+    sortIcon.innerHTML = ''; // Limpia el ícono actual
+    if (sortOrder === 'asc') {
+      sortIcon.innerHTML = '&#9650;'; // Triángulo hacia arriba
+    } else if (sortOrder === 'desc') {
+      sortIcon.innerHTML = '&#9660;'; // Triángulo hacia abajo
+    }
+  }
+
+  // Evento para actualizar el encabezado cuando cambia el orden
+  onSortChanged() {
+    this.updateSortIcon();
+  }
 }
+
 
 // Función para los estilos de los botones (Activo/Retirado)
 function getButtonStyles(status) {
@@ -809,7 +852,7 @@ function createNestedTable(details, index) {
     ],
     rowData: details,
     pagination: false,
-    suppressMovableColumns: true, //bloquea desplazar columnas
+    suppressMovableColumns: false, //bloquea desplazar columnas
     getRowStyle: function(params) {
       return {
         fontSize: '14px',
