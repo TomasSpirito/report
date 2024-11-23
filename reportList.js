@@ -70,11 +70,11 @@ function createNav() {
         item.style.color = '#6E6893';
         item.style.borderBottom = '1px solid transparent';
       });
-
+    
       // Aplica el estilo seleccionado
       this.style.color = '#12385C';
       this.style.borderBottom = '2px solid #12385C';
-
+    
       // Muestra la tabla correspondiente
       switch (index) {
         case 0:
@@ -93,7 +93,7 @@ function createNav() {
           showCommitteeReportsDetailed(); // Mostrar tabla de detalles de informes de comités
           break;
       }
-      toggleButtonsVisibility();
+      toggleButtonsVisibility(); // Actualiza la visibilidad de los botones después del cambio de pestaña
     });
     listItem.appendChild(link);
     navList.appendChild(listItem);
@@ -301,13 +301,20 @@ function toggleButtonsVisibility() {
   const buttonContainer = document.querySelector('.button-container');
   if (!buttonContainer) return; // Si no existe el contenedor de botones, no hacemos nada
 
-  // Comprobamos si la vista activa es "Delegate Reports List" para mostrar los botones
-  if (document.querySelector('h1').textContent === 'Delegate Reports List') {
+  // Obtener la pestaña activa verificando los estilos aplicados
+  const navLinks = document.querySelectorAll('ul a');
+  const activeTabIndex = Array.from(navLinks).findIndex((link) => 
+    link.style.borderBottom === '2px solid rgb(18, 56, 92)'
+  );
+
+  // Mostrar los botones solo en las páginas 1 y 3 (índices 0 y 2)
+  if (activeTabIndex === 0 || activeTabIndex === 2) {
     buttonContainer.style.display = 'flex'; // Muestra los botones
   } else {
     buttonContainer.style.display = 'none'; // Oculta los botones
   }
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
   toggleButtonsVisibility(); // Oculta o muestra los botones dependiendo de la vista inicial
