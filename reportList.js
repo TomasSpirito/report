@@ -1,14 +1,73 @@
-//------------------------------------------------------------------H1------------------------------------------------------------------------
-function setH1Styles() {
-  const h1 = document.querySelector('h1'); // Selecciona el h1
-  if (h1) { // Verifica si existe
-      h1.style.fontFamily = "'Inter', sans-serif"; // Establece la fuente
-      h1.style.fontWeight = '700'; // Peso de la fuente
-      h1.style.fontSize = '24px'; // Tamaño de la fuente
-      h1.style.lineHeight = '29.05px'; // Altura de línea
-      h1.style.letterSpacing = '0.1em'; // Espaciado entre letras
+
+function loadResource(type, url, callback) {
+  if (type === "css") {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = url;
+    document.head.appendChild(link);
+  } else if (type === "js") {
+    const script = document.createElement("script");
+    script.src = url;
+    script.async = true;
+    script.onload = callback;
+    document.body.appendChild(script);
   }
-}  
+}
+
+// Cargar CSS
+loadResource("css", "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css");
+loadResource("css", "https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-grid.css");
+loadResource("css", "https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-alpine.css");
+loadResource("css", "https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css");
+loadResource("css", "https://fonts.googleapis.com/css?family=Inter");
+
+// Cargar JS
+loadResource("js", "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js");
+loadResource("js", "https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js");
+loadResource("js", "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
+loadResource("js", "https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js");
+document.head.insertAdjacentHTML(
+  "beforeend",
+  `<style>
+    body {
+        font-family: Inter, sans-serif;
+        margin: 50px 80px;
+      }
+      
+      /* Aseguramos que la subtabla AG Grid se muestre correctamente */
+      .ag-theme-alpine {
+        height: 400px; /* Altura de la subtabla */
+        width: 100%;
+      }
+  </style>`
+);
+
+// Crear el contenedor de la tabla
+const tableContainer = document.createElement("div");
+tableContainer.id = "table-container";
+tableContainer.className = "table-responsive main-table-container";
+
+document.body.appendChild(tableContainer);
+
+//------------------------------------------------------------------H1------------------------------------------------------------------------
+function createAndStyleH1() {
+  // Crear el elemento h1
+  const h1 = document.createElement('h1');
+  
+  // Establecer el texto del h1
+  h1.textContent = 'NGAUS 2024 - REPORTS';
+  
+  // Aplicar estilos directamente al h1
+  h1.style.fontFamily = "'Inter', sans-serif"; // Fuente
+  h1.style.fontWeight = '700'; // Peso
+  h1.style.fontSize = '24px'; // Tamaño
+  h1.style.lineHeight = '29.05px'; // Altura de línea
+  h1.style.letterSpacing = '0.1em'; // Espaciado entre letras
+  
+  
+  // Insertar el h1 al inicio del body
+  document.body.insertBefore(h1, document.body.firstChild);
+}
 //------------------------------------------------------------------NAV---------------------------------------------------------------------------------//
 function createNav() {
   const nav = document.createElement('div');
@@ -1198,7 +1257,7 @@ function toggleNestedTable(index) {
 
 // Cargar los datos y el nav cuando se carga la página
 window.onload = function() {
-  setH1Styles();   // Estilo para el h1
+  createAndStyleH1();
   createNav(); // Llamada a la función para crear el nav
   loadDelegates();
 };
