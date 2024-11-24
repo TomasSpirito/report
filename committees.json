@@ -1,0 +1,86 @@
+{
+    "committees": [
+      {
+        "CommitteeName": "Committee on Nominations",
+        "details": [
+          {
+            "stateAffiliation": "AL",
+            "lastName": "Rogers",
+            "firstName": "John",
+            "ngausMemberIdNumber": "0005004201",
+            "rank": "Captain",
+            "paygrade": "03",
+            "branch": "Air Force",
+            "dutyState": "Active",
+            "registrationType": "State affiliare Attendance Member"
+          },
+          {
+            "stateAffiliation": "AL",
+            "lastName": "Smith",
+            "firstName": "James",
+            "ngausMemberIdNumber": "0005004202",
+            "rank": "Lieutenant",
+            "paygrade": "02",
+            "branch": "Army",
+            "dutyState": "Active",
+            "registrationType": "State affiliare Attendance Member"
+          }
+        ]
+      },
+      {
+        "CommitteeName": "Committee on Air force Resolution",
+        "details": [
+          {
+            "stateAffiliation": "CA",
+            "lastName": "Williams",
+            "firstName": "David",
+            "ngausMemberIdNumber": "0005004203",
+            "rank": "Sergeant",
+            "paygrade": "04",
+            "branch": "Marines",
+            "dutyState": "Retired",
+            "registrationType": "National affiliare Attendance Member"
+          },
+          {
+            "stateAffiliation": "CA",
+            "lastName": "Jones",
+            "firstName": "Laura",
+            "ngausMemberIdNumber": "0005004204",
+            "rank": "Major",
+            "paygrade": "04",
+            "branch": "Navy",
+            "dutyState": "Active",
+            "registrationType": "National affiliare Attendance Member"
+          }
+        ]
+      },
+      {
+        "CommitteeName": "Committee on Nominations",
+        "details": [
+          {
+            "stateAffiliation": "TX",
+            "lastName": "Taylor",
+            "firstName": "Michael",
+            "ngausMemberIdNumber": "0005004205",
+            "rank": "Colonel",
+            "paygrade": "06",
+            "branch": "Army",
+            "dutyState": "Active",
+            "registrationType": "State affiliare Attendance Member"
+          },
+          {
+            "stateAffiliation": "TX",
+            "lastName": "Brown",
+            "firstName": "Sophia",
+            "ngausMemberIdNumber": "0005004206",
+            "rank": "Lieutenant Colonel",
+            "paygrade": "05",
+            "branch": "Air Force",
+            "dutyState": "Active",
+            "registrationType": "National affiliare Attendance Member"
+          }
+        ]
+      }
+    ]
+  }
+  
