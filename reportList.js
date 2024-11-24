@@ -62,6 +62,7 @@ function createAndStyleH1() {
   h1.style.fontSize = '24px'; // Tamaño
   h1.style.lineHeight = '29.05px'; // Altura de línea
   h1.style.letterSpacing = '0.1em'; // Espaciado entre letras
+  h1.style.marginBottom = '30px'; // Margen inferior
   
   // Insertar el h1 al inicio del body
   document.body.insertBefore(h1, document.body.firstChild);
@@ -108,8 +109,8 @@ function createNav() {
     'Delegate Reports List',
     'Delegate Summary Report',
     'Committee Reports List',
-    'Delegate Reports Detailed',
-    'Committee Reports Detailed',
+    // 'Delegate Reports Detailed',
+    // 'Committee Reports Detailed',
   ];
   let activeTab = 0; // Variable global para rastrear la pestaña activa
 
@@ -145,12 +146,12 @@ function createNav() {
         case 2:
           loadCommittee(); // Mostrar la tabla Informes de comités
           break;
-        case 3:
-          showDelegateReportsDetailed(); // Mostrar tabla de detalles de informes de delegados
-          break;
-        case 4:
-          showCommitteeReportsDetailed(); // Mostrar tabla de detalles de informes de comités
-          break;
+        // case 3:
+        //   showDelegateReportsDetailed(); // Mostrar tabla de detalles de informes de delegados
+        //   break;
+        // case 4:
+        //   showCommitteeReportsDetailed(); // Mostrar tabla de detalles de informes de comités
+        //   break;
       }
       toggleButtonsVisibility(); // Actualiza la visibilidad de los botones después del cambio de pestaña
     });
@@ -166,65 +167,55 @@ function createNav() {
 
   // ---------------------------------------------Botones (imprimir y exportar CSV)--------------------------------------------------------
 
-  // Contenedor para los botones
-  const buttonContainer = document.createElement('div');
-  buttonContainer.classList.add('button-container');
-  buttonContainer.style.display = 'flex';
-  buttonContainer.style.gap = '10px';
-  buttonContainer.style.marginLeft = 'auto'; // Empuja el contenedor de botones hacia la derecha
-  buttonContainer.style.flexWrap = 'wrap'; // Permite que los botones se acomoden en pantallas pequeñas
+// Contenedor para los botones
+const buttonContainer = document.createElement('div');
+buttonContainer.classList.add('button-container');
+buttonContainer.style.display = 'flex';
+buttonContainer.style.margin = '10px';
+buttonContainer.style.gap = '10px';
+buttonContainer.style.marginLeft = 'auto'; // Empuja el contenedor de botones hacia la derecha
+buttonContainer.style.flexWrap = 'wrap'; // Permite que los botones se acomoden en pantallas pequeñas
 
-  const buttons = [
-    { icon: 'bi bi-printer-fill', label: 'Print', isPrint: true },
-    { icon: 'bi bi-filetype-csv', label: 'Export CSV', isPrint: false },
-  ];
+const buttons = [
+  { icon: 'bi bi-printer-fill', label: 'Print', isPrint: true },
+  { icon: 'bi bi-filetype-csv', label: 'Export CSV', isPrint: false },
+];
 
-  buttons.forEach((button) => {
-    const btn = document.createElement('button');
-    btn.innerHTML = `<i class="${button.icon}" style="font-size: 16px; padding: 5px;"></i>`;
-    
-    // Estilo predeterminado
-    btn.style.cssText = `
-      border: 2px solid #6D5BD0;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    `;
-    
-    // Si es el botón de Print, le quitamos el color de fondo
+buttons.forEach((button) => {
+  const btn = document.createElement('button');
+  btn.innerHTML = `<i class="${button.icon}" style="font-size: 16px;"></i>`;
+
+  // Estilo predeterminado para botones cuadrados
+  btn.style.cssText = `
+    width: 40px; /* Ancho fijo para el botón */
+    height: 40px; /* Altura igual al ancho para hacerlo cuadrado */
+    border: 2px solid #6D5BD0;
+    background-color: #6D5BD0;
+    color: white;
+    border-radius: 0; /* Sin bordes redondeados */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+  `;
+
+  // Si es el botón de Print, le quitamos el color de fondo
+  if (button.isPrint) {
+    btn.style.backgroundColor = 'transparent'; // Fondo transparente para Print
+    btn.style.color = '#6D5BD0'; // Mantener el texto en el color morado
+  }
+
+  btn.addEventListener('click', function () {
     if (button.isPrint) {
-      btn.style.backgroundColor = 'transparent'; // Fondo transparente para Print
-      btn.style.color = '#6D5BD0'; // Mantener el texto en el color morado
+      downloadPDF(); // Llamada a la función de descargar PDF
     } else {
-      btn.style.backgroundColor = '#6D5BD0'; // Fondo morado para Export CSV
+      downloadCSV(); // Llamada a la función de exportar CSV
     }
-
-    btn.addEventListener('click', function () {
-      // Resetea el estilo de todos los botones
-      const allButtons = buttonContainer.querySelectorAll('button');
-      allButtons.forEach((b) => {
-        b.style.color = 'white';
-        b.style.backgroundColor = '#6D5BD0';
-        b.style.borderBottom = 'none';
-      });
-
-      // Aplica el estilo seleccionado
-      this.style.color = '#12385C';
-      this.style.backgroundColor = 'white';
-      this.style.borderBottom = '2px solid #12385C';
-
-      // Si es el botón de Export CSV, llama a la función downloadCSV
-      if (button.isPrint) {
-        downloadPDF();  // Llamada a la función de exportar CSV
-      }else{
-        // Llamada a la función de exportar PDF
-        downloadCSV();  // Llamada a la función de exportar PDF
-      }
-
-    });
-
-    buttonContainer.appendChild(btn);
   });
+
+  buttonContainer.appendChild(btn);
+});
   
   // Añadir la lista de navegación y botones al contenedor principal
   nav.appendChild(navList);
