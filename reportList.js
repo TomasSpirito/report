@@ -1,4 +1,3 @@
-
 function loadResource(type, url, callback) {
   if (type === "css") {
     const link = document.createElement("link");
@@ -500,7 +499,6 @@ async function loadDelegates() {
   }
 }
 
-
 // Función para obtener los datos de las subtablas visibles
 function getVisibleNestedTableData() {
   const allData = [];
@@ -631,11 +629,8 @@ function createMainTable() {
   const table = document.createElement('table');
   table.classList.add('table', 'table-bordered', 'table-striped', 'table-responsive');
 
-  // Agregar estilo de fondo blanco y sombra
-  table.style.backgroundColor = 'white'; // Fondo blanco
-  table.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)'; // Sombra uniforme en todos los costados
-  table.style.borderRadius = '8px'; // Esquinas redondeadas
-
+  table.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)'; 
+  
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
 
@@ -652,7 +647,8 @@ function createMainTable() {
       box-shadow: none;
       padding: 2px 2px; /* Reduce el relleno dentro de la celda */
       height: 2px; /* Define una altura fija para las filas */
-      border: 1px solid #C6C2DE;
+      border:none;
+      border-bottom: 1px solid #C6C2DE; /* Solo borde inferior */
     `;
   
     // Botón expand/collapse y nombre del delegado
@@ -786,6 +782,25 @@ function createNestedTable(details, index) {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  /* Estilo para los bordes de las filas y celdas */
+    .ag-theme-alpine .ag-row {
+      border-bottom: 1px solid #C6C2DE; /* Bordes entre las filas */
+    }
+    .ag-theme-alpine .ag-root-wrapper {
+      border: none; /* Borde externo de la tabla */
+    }
+    .ag-theme-alpine .ag-header-row {
+      border-bottom: none; /* Borde inferior del encabezado */
+    }
+    .ag-theme-alpine .ag-header {
+      border-bottom: 1px solid #C6C2DE !important; /* Elimina el borde predeterminado del header */
+    }
+    .ag-theme-alpine .ag-header-cell {
+      border: none !important; /* Elimina los bordes de las celdas del encabezado */
+    }
+    .ag-theme-alpine .ag-header-row {
+      border-bottom: none !important; /* Elimina el borde de la fila de encabezado */
+    }
 `;
   document.head.appendChild(style);
 
@@ -1046,6 +1061,7 @@ function createNestedTable(details, index) {
       letterSpacing: '0.05em',
       textAlign: 'left',
       color: '#6E6893',
+      border: 'none',
     }),
     onGridReady: (params) => {
       const gridDiv = document.querySelector(`#ag-grid-${index}`);
@@ -1098,37 +1114,49 @@ function createDelegateSummaryTable() {
   table.style.backgroundColor = 'white';
   table.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
   table.style.borderRadius = '8px';
-  table.style.border = '1px solid #C6C2DE';
+  table.style.border = 'none';
+  table.style.borderBottom = '1px solid #C6C2DE';
   table.style.borderCollapse = 'collapse';
   table.style.tableLayout = 'fixed'; // Evita cambios en el tamaño de las columnas
   table.style.width = '100%'; // Asegura que la tabla ocupe el ancho completo
 
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
+  const style = document.createElement('style');
+  style.innerHTML = `
+    tbody, td, tfoot, th, thead, tr {
+      border-color: inherit;
+      border-style: solid;
+      border-width: 0;
+      border-top: none;
+    }
+  `;
+  document.head.appendChild(style); // Agrega el estilo al <head> del documento
 
+  thead.style.borderTop = 'none'; // Elimina el borde superior de la fila del encabezado
   // Encabezado con botón a la izquierda del texto "State Affiliate"
   thead.innerHTML = `
-    <tr>
-      <th style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 30%; padding-left: 12px;">
-        <button 
-          class="btn btn-link expand-btn" 
-          onclick="toggleMainTable()" 
-          style="color: inherit; text-decoration: none; transition: transform 0.3s ease; padding: 3px; margin-left: 6px; margin-right: 6px;">
-          <i class="bi bi-arrow-down-circle" id="main-expand-icon" style="transition: transform 0.3s ease;"></i>
-        </button>
-        State Affiliate
-      </th>
-      <th onclick="sortMainTable('countOfDelegates', this)" class="sortable" style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
-        Count Of Delegates
-      </th>
-      <th onclick="sortMainTable('capacity', this)" class="sortable" style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
-        Capacity
-      </th>
-      <th onclick="sortMainTable('remaining', this)" class="sortable" style="background-color: #F2F0F9; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
-        Remaining
-      </th>
-    </tr>
-  `;
+  <tr>
+    <th style="background-color: #F2F0F9; border-top: none; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 30%; padding-left: 12px;">
+      <button 
+        class="btn btn-link expand-btn" 
+        onclick="toggleMainTable()" 
+        style="color: inherit; text-decoration: none; transition: transform 0.3s ease; padding: 3px; margin-left: 6px; margin-right: 6px;">
+        <i class="bi bi-arrow-down-circle" id="main-expand-icon" style="transition: transform 0.3s ease;"></i>
+      </button>
+      State Affiliate
+    </th>
+    <th onclick="sortMainTable('countOfDelegates', this)" class="sortable" style="background-color: #F2F0F9; border-top: none; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
+      Count Of Delegates
+    </th>
+    <th onclick="sortMainTable('capacity', this)" class="sortable" style="background-color: #F2F0F9; border-top: none; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
+      Capacity
+    </th>
+    <th onclick="sortMainTable('remaining', this)" class="sortable" style="background-color: #F2F0F9; border-top: none; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 20%; padding-left: 12px;">
+      Remaining
+    </th>
+  </tr>
+`;
 
   // Resto del código para cargar los datos
   fetch('delegates.json')
@@ -1149,8 +1177,7 @@ function createDelegateSummaryTable() {
           box-shadow: none;
           padding: 8px 12px; /* Ajusta el espacio para alineación */
           border-bottom: 1px solid #C6C2DE;
-          border-left: none;
-          border-right: none;
+          border: none;
         `;
 
         row.innerHTML = `
@@ -1263,6 +1290,7 @@ function createCommitteeReportsTable(committees) {
   table.style.overflow = 'hidden'; // Asegura que las esquinas redondeadas no se vean interrumpidas
   table.style.border = '1px solid #C6C2DE'; // Borde violeta en toda la tabla
   table.style.borderCollapse = 'separate'; // Evita que los bordes de las celdas se fusionen
+  table.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)'; // Agrega un box-shadow suave y redondeado
 
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
@@ -1335,7 +1363,7 @@ function createCommitteeReportsTable(committees) {
   tableContainer.appendChild(table);
 }
 
-  // Función para alternar la visibilidad de la subtabla y cambiar la flecha con transición
+// Función para alternar la visibilidad de la subtabla y cambiar la flecha con transición
 function toggleNestedTableCommites(index) {
     const nestedTable = document.getElementById(`nested-table-${index}`);
     const nestedRow = nestedTable.closest('tr'); // Obtiene la fila secundaria
