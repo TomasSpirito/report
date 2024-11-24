@@ -81,10 +81,10 @@ function createNav() {
           loadDelegates(); // Muestra la tabla de delegados
           break;
         case 1:
-          showDelegateSummary(); // Mostrar otra tabla (Resumen de delegados)
+          showDelegateSummary(); // Mostrar la tabla Resumen de delegados
           break;
         case 2:
-          showCommitteeReports(); // Mostrar otra tabla (Informes de comités)
+          showCommitteeReports(); // Mostrar la tabla Informes de comités
           break;
         case 3:
           showDelegateReportsDetailed(); // Mostrar tabla de detalles de informes de delegados
@@ -155,9 +155,13 @@ function createNav() {
       this.style.borderBottom = '2px solid #12385C';
 
       // Si es el botón de Export CSV, llama a la función downloadCSV
-      if (!button.isPrint) {
-        downloadCSV();  // Llamada a la función de exportar CSV
+      if (button.isPrint) {
+        downloadPDF();  // Llamada a la función de exportar CSV
+      }else{
+        // Llamada a la función de exportar PDF
+        downloadCSV();  // Llamada a la función de exportar PDF
       }
+
     });
 
     buttonContainer.appendChild(btn);
@@ -183,22 +187,24 @@ function downloadCSV() {
 
   const csvRows = [];
 
-  // Asumiendo que todas las filas tienen las mismas columnas, obtenemos las cabeceras
-  const headers = getHeaders(data); // Obtenemos las cabeceras, ahora incluyendo los campos de 'caucuses'
+  // Obtener las cabeceras
+  const headers = getHeadersCsv(data);
   csvRows.push(headers.join(',')); // Añade las cabeceras al CSV
 
-  // Añadir cada fila de datos, aplanando las propiedades de 'caucuses'
+  // Procesar cada fila de datos
   data.forEach(row => {
     const values = headers.map(header => {
-      // Si la propiedad es parte de 'caucuses', extraemos el valor
+      // Si la propiedad es parte de 'caucuses'
       if (header.startsWith('caucuses.')) {
         const caucusKey = header.split('.')[1]; // Extraemos la clave del caucus
-        return row.caucuses[caucusKey] !== undefined ? `"${row.caucuses[caucusKey]}"` : '""';
+        return row.caucuses && row.caucuses[caucusKey] !== undefined
+          ? `"${row.caucuses[caucusKey]}"`
+          : '""'; // Valor vacío si no existe
       } else {
-        return `"${row[header]}"`;
+        return row[header] !== undefined ? `"${row[header]}"` : '""'; // Valor vacío si no existe
       }
     });
-    csvRows.push(values.join(','));
+    csvRows.push(values.join(',')); // Añadir fila al CSV
   });
 
   const csvContent = "data:text/csv;charset=utf-8," + csvRows.join('\n');
@@ -215,17 +221,16 @@ function downloadCSV() {
   document.body.removeChild(link);
 }
 
-// Función para obtener las cabeceras, incluyendo las claves del objeto 'caucuses'
-function getHeaders(data) {
-  const headers = new Set(); // Usamos un Set para evitar duplicados
+// Función para obtener las cabeceras
+function getHeadersCsv(data) {
+  const headers = new Set();
 
   data.forEach(row => {
-    // Añadir las claves principales (no 'caucuses')
     Object.keys(row).forEach(key => {
       if (key !== 'caucuses') {
         headers.add(key);
-      } else {
-        // Añadir las claves dentro de 'caucuses'
+      } else if (row.caucuses) {
+        // Solo agrega las claves de 'caucuses' si existe
         Object.keys(row.caucuses).forEach(caucusKey => {
           headers.add(`caucuses.${caucusKey}`);
         });
@@ -233,8 +238,85 @@ function getHeaders(data) {
     });
   });
 
-  return Array.from(headers); // Convertimos el Set en un array
+  return Array.from(headers);
 }
+
+
+
+function downloadPDF() {
+  const data = getVisibleNestedTableData(); // Obtener datos de las tablas visibles
+
+  if (data.length === 0) {
+    alert('No hay datos para exportar.');
+    return;
+  }
+
+  // Crear una instancia de jsPDF en orientación horizontal
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'landscape' });
+
+  // Obtener las cabeceras
+  const headers = getHeaders(data).map(header => {
+    // Si es una clave de 'caucuses', eliminamos el prefijo 'caucuses.'
+    return header.startsWith('caucuses.') ? header.replace('caucuses.', '') : header;
+  });
+
+  // Crear las filas de datos
+  const rows = data.map(row => {
+    return headers.map(header => {
+      if (header in row) {
+        return row[header] || ''; // Valores directos
+      } else if (row.caucuses && header in row.caucuses) {
+        return row.caucuses[header] || ''; // Valores del objeto 'caucuses'
+      } else {
+        return ''; // Valores faltantes
+      }
+    });
+  });
+
+  // Configurar anchos específicos para las columnas
+  const columnStyles = {};
+  headers.forEach((header, index) => {
+    if (header in (data[0]?.caucuses || {})) {
+      columnStyles[index] = { cellWidth: 10 }; // Ancho reducido para columnas de caucuses
+    }
+  });
+
+  // Agregar la tabla al PDF con los estilos personalizados
+  doc.autoTable({
+    head: [headers], // Cabeceras de la tabla
+    body: rows,      // Filas de la tabla
+    startY: 10,      // Margen superior
+    styles: { fontSize: 7 }, // Ajustar el tamaño de la fuente
+    columnStyles,     // Aplicar los estilos de las columnas
+  });
+
+  // Descargar el PDF
+  doc.save('data.pdf');
+}
+
+// Función para obtener las cabeceras
+function getHeaders(data) {
+  const headers = new Set();
+
+  data.forEach(row => {
+    Object.keys(row).forEach(key => {
+      if (key !== 'caucuses') {
+        headers.add(key);
+      } else {
+        Object.keys(row.caucuses).forEach(caucusKey => {
+          headers.add(caucusKey); // Sin el prefijo 'caucuses.'
+        });
+      }
+    });
+  });
+
+  return Array.from(headers);
+}
+
+
+
+
 
 //---------------------------------------------------------RESPONSIVE MOBILE-------------------------------------------------------------
   // Estilos responsivos
