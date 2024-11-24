@@ -526,6 +526,7 @@ function getVisibleNestedTableData() {
 }
 
 // Clase personalizada para las cabeceras
+// Clase personalizada para las cabeceras
 class CustomHeader {
   init(params) {
     this.params = params;
@@ -534,11 +535,19 @@ class CustomHeader {
     const eGui = document.createElement('div');
     eGui.classList.add('custom-header');
 
-    // Estilo del encabezado
+    // Estilo del encabezado con truncado
     eGui.innerHTML = `
-      <div style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
-        <span>${params.displayName}</span>
-        <span class="sort-icon"></span>
+      <div style="
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        white-space: nowrap; /* Evita el salto de línea */
+        overflow: hidden; /* Oculta el contenido que desborda */
+        text-overflow: ellipsis; /* Agrega puntos suspensivos al contenido desbordado */
+      ">
+        <span style="flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${params.displayName}</span>
+        <span class="sort-icon" style="flex-shrink: 0;"></span>
       </div>
     `;
 
@@ -583,7 +592,6 @@ class CustomHeader {
     this.updateSortIcon();
   }
 }
-
 
 // Función para los estilos de los botones (Activo/Retirado)
 function getButtonStyles(status) {
@@ -735,52 +743,67 @@ function toggleNestedTable(index) {
 }
 
 // Función para crear subtabla
+// Función para crear subtabla
 function createNestedTable(details, index) {
-  const backgroundColors = [
-    '#4F378A14', // 8% opacidad
-    '#4F378A29', // 16% opacidad
-    '#4F378A1F', // 12% opacidad
-  ];
-
-  //Modifica el titulo de la subtabla
+  const backgroundColors = ['#4F378A14', '#4F378A29', '#4F378A1F'];
   const style = document.createElement('style');
   style.innerHTML = `
-    .header-background {
-      background-color: ${backgroundColors[0]};
-      padding-top: 20px; /* Separación superior */
-      padding-bottom: 20px; /* Separación inferior */
-      text-align: left;
-      line-height: 1; /* Aumenta el espacio entre las líneas del texto */
-      height: auto; /* Deja que la altura sea automática para adaptarse al contenido */
-      font-family: Inter, sans-serif;
-      font-weight: normal;
-      color:#12385C
-    }
-    .header-background-2 {
-      background-color: ${backgroundColors[1]};
-      padding-top: 20px; /* Separación superior */
-      padding-bottom: 20px; /* Separación inferior */
-      text-align: left;
-      line-height: 1; /* Aumenta el espacio entre las líneas del texto */
-      height: auto; /* Deja que la altura sea automática para adaptarse al contenido */
-      font-family: Inter, sans-serif;
-      font-weight: normal;
-      color:#12385C
-    }
-    .header-background-3 {
-      background-color: ${backgroundColors[2]};
-      padding-top: 20px; /* Separación superior */
-      padding-bottom: 20px; /* Separación inferior */
-      text-align: left;
-      line-height: 1; /* Aumenta el espacio entre las líneas del texto */
-      height: auto; /* Deja que la altura sea automática para adaptarse al contenido */
-      font-family: Inter, sans-serif;
-      font-weight: normal;
-      color:#12385C
-    }
-  `;
+  .header-background {
+    background-color: ${backgroundColors[0]};
+    padding: 20px 10px 20px 15px; /* Ajusta los márgenes */
+    text-align: left;
+    line-height: 1;
+    font-family: Inter, sans-serif;
+    font-weight: normal;
+    color: #12385C;
+    display: flex;
+    align-items: center; /* Alinea el contenido verticalmente */
+    justify-content: flex-start; /* Alinea el texto a la izquierda */
+    white-space: nowrap; /* Evita el salto de línea */
+    overflow: hidden; /* Oculta el contenido desbordado */
+    text-overflow: ellipsis; /* Agrega puntos suspensivos si el contenido no cabe */
+  }
+  .header-background-2 {
+    background-color: ${backgroundColors[1]};
+    padding: 20px 10px 20px 15px;
+    text-align: left;
+    line-height: 1;
+    font-family: Inter, sans-serif;
+    font-weight: normal;
+    color: #12385C;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .header-background-3 {
+    background-color: ${backgroundColors[2]};
+    padding: 20px 10px 20px 15px;
+    text-align: left;
+    line-height: 1;
+    font-family: Inter, sans-serif;
+    font-weight: normal;
+    color: #12385C;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+document.head.appendChild(style);
 
-  document.head.appendChild(style);
+  const MIN_ROWS = 8;
+  const ROW_HEIGHT = 43;
+  const HEADER_HEIGHT = 40;
+
+  const adjustedDetails = Array.isArray(details) ? [...details] : [];
+  while (adjustedDetails.length < MIN_ROWS) {
+    adjustedDetails.push({});
+  }
 
   const gridOptions = {
     columnDefs: [
@@ -857,6 +880,10 @@ function createNestedTable(details, index) {
         },
         headerComponent: CustomHeader,
         cellRenderer: function (params) {
+          if (!params.value) {
+            // Si no hay valor, no renderiza nada
+            return '';
+          }
           const button = document.createElement('button');
           const styles = getButtonStyles(params.value);
           Object.assign(button.style, styles);  // Aplicar estilos al botón
@@ -1012,26 +1039,56 @@ function createNestedTable(details, index) {
         headerClass: 'header-background-2', 
       } 
     ],
-    rowData: details,
+    rowData: adjustedDetails,
     pagination: false,
-    suppressMovableColumns: false, //bloquea desplazar columnas
-    getRowStyle: function(params) {
-      return {
-        fontSize: '14px',
-        fontWeight: '400',
-        lineHeight: '16.94px',
-        letterSpacing: '0.05em',
-        textAlign: 'left',
-        color: '#6E6893',
-      };
+    domLayout: 'normal',
+    defaultColDef: {
+      resizable: true,
+      tooltipField: 'headerName', // Agrega un tooltip para mostrar el texto completo al pasar el ratón
+    },
+    getRowStyle: () => ({
+      fontSize: '14px',
+      fontWeight: '400',
+      lineHeight: '16.94px',
+      letterSpacing: '0.05em',
+      textAlign: 'left',
+      color: '#6E6893',
+    }),
+    onGridReady: (params) => {
+      const gridDiv = document.querySelector(`#ag-grid-${index}`);
+      const rowCount = params.api.getDisplayedRowCount();
+      const totalHeight = Math.max(rowCount, MIN_ROWS) * ROW_HEIGHT + HEADER_HEIGHT;
+
+      console.log(`Altura calculada: ${totalHeight}px`);
+      gridDiv.style.height = `${totalHeight}px`;
+
+      setTimeout(() => params.api.sizeColumnsToFit(), 0);
     },
   };
 
   const gridDiv = document.querySelector(`#ag-grid-${index}`);
-  if (!gridDiv.innerHTML.trim()) {  // Verifica si el grid ya está creado
-    new agGrid.Grid(gridDiv, gridOptions);
-    gridOptionsArray[index] = gridOptions; // Almacena las opciones de la cuadrícula
+  if (!gridDiv) {
+    console.error(`No se encontró el contenedor para la tabla con ID: ag-grid-${index}`);
+    return;
   }
+
+  gridDiv.style.height = `${MIN_ROWS * ROW_HEIGHT + HEADER_HEIGHT}px`;
+  gridDiv.style.width = '100%';
+  gridDiv.style.border = '1px solid #ddd';
+  gridDiv.classList.add('ag-theme-alpine');
+
+  if (!gridDiv.innerHTML.trim()) {
+    new agGrid.Grid(gridDiv, gridOptions);
+  } else {
+    gridDiv.innerHTML = '';
+    new agGrid.Grid(gridDiv, gridOptions);
+  }
+
+  const resizeObserver = new ResizeObserver(() => {
+    if (gridOptions.api) gridOptions.api.sizeColumnsToFit();
+  });
+  resizeObserver.observe(gridDiv);
+  gridOptionsArray[index] = gridOptions; // Almacena las opciones de la cuadrícula
 }
 
 //----------------------------------------------------------------DELEGATE SUMMARY REPORT---------------------------------------------------------------------
@@ -1316,51 +1373,65 @@ function toggleNestedTableCommites(index) {
 }
 // Función para crear subtabla
 function createNestedTablecommittee(details, index) {
-  const backgroundColors = [
-    '#4F378A14', // 8% opacidad
-    '#4F378A29', // 16% opacidad
-    '#4F378A1F', // 12% opacidad
-  ];
-
-  //Modifica el titulo de la subtabla
+  const backgroundColors = ['#4F378A14', '#4F378A29', '#4F378A1F'];
   const style = document.createElement('style');
   style.innerHTML = `
-    .header-background {
-      background-color: ${backgroundColors[0]};
-      padding-top: 20px; /* Separación superior */
-      padding-bottom: 20px; /* Separación inferior */
-      text-align: left;
-      line-height: 1; /* Aumenta el espacio entre las líneas del texto */
-      height: auto; /* Deja que la altura sea automática para adaptarse al contenido */
-      font-family: Inter, sans-serif;
-      font-weight: normal;
-      color:#12385C
-    }
-    .header-background-2 {
-      background-color: ${backgroundColors[1]};
-      padding-top: 20px; /* Separación superior */
-      padding-bottom: 20px; /* Separación inferior */
-      text-align: left;
-      line-height: 1; /* Aumenta el espacio entre las líneas del texto */
-      height: auto; /* Deja que la altura sea automática para adaptarse al contenido */
-      font-family: Inter, sans-serif;
-      font-weight: normal;
-      color:#12385C
-    }
-    .header-background-3 {
-      background-color: ${backgroundColors[2]};
-      padding-top: 20px; /* Separación superior */
-      padding-bottom: 20px; /* Separación inferior */
-      text-align: left;
-      line-height: 1; /* Aumenta el espacio entre las líneas del texto */
-      height: auto; /* Deja que la altura sea automática para adaptarse al contenido */
-      font-family: Inter, sans-serif;
-      font-weight: normal;
-      color:#12385C
-    }
-  `;
+  .header-background {
+    background-color: ${backgroundColors[0]};
+    padding: 20px 10px 20px 15px; /* Ajusta los márgenes */
+    text-align: left;
+    line-height: 1;
+    font-family: Inter, sans-serif;
+    font-weight: normal;
+    color: #12385C;
+    display: flex;
+    align-items: center; /* Alinea el contenido verticalmente */
+    justify-content: flex-start; /* Alinea el texto a la izquierda */
+    white-space: nowrap; /* Evita el salto de línea */
+    overflow: hidden; /* Oculta el contenido desbordado */
+    text-overflow: ellipsis; /* Agrega puntos suspensivos si el contenido no cabe */
+  }
+  .header-background-2 {
+    background-color: ${backgroundColors[1]};
+    padding: 20px 10px 20px 15px;
+    text-align: left;
+    line-height: 1;
+    font-family: Inter, sans-serif;
+    font-weight: normal;
+    color: #12385C;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .header-background-3 {
+    background-color: ${backgroundColors[2]};
+    padding: 20px 10px 20px 15px;
+    text-align: left;
+    line-height: 1;
+    font-family: Inter, sans-serif;
+    font-weight: normal;
+    color: #12385C;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+document.head.appendChild(style);
 
-  document.head.appendChild(style);
+  const MIN_ROWS = 8;
+  const ROW_HEIGHT = 43;
+  const HEADER_HEIGHT = 40;
+
+  const adjustedDetails = Array.isArray(details) ? [...details] : [];
+  while (adjustedDetails.length < MIN_ROWS) {
+    adjustedDetails.push({});
+  }
 
   const gridOptions = {
     columnDefs: [
@@ -1461,6 +1532,10 @@ function createNestedTablecommittee(details, index) {
         },
         headerComponent: CustomHeader,
         cellRenderer: function (params) {
+          if (!params.value) {
+            // Si no hay valor, no renderiza nada
+            return '';
+          }
           const button = document.createElement('button');
           const styles = getButtonStyles(params.value);
           Object.assign(button.style, styles);  // Aplicar estilos al botón
@@ -1486,26 +1561,56 @@ function createNestedTablecommittee(details, index) {
       }
       
     ],
-    rowData: details,
+    rowData: adjustedDetails,
     pagination: false,
-    suppressMovableColumns: false, //bloquea desplazar columnas
-    getRowStyle: function(params) {
-      return {
-        fontSize: '14px',
-        fontWeight: '400',
-        lineHeight: '16.94px',
-        letterSpacing: '0.05em',
-        textAlign: 'left',
-        color: '#6E6893',
-      };
+    domLayout: 'normal',
+    defaultColDef: {
+      resizable: true,
+      tooltipField: 'headerName', // Agrega un tooltip para mostrar el texto completo al pasar el ratón
+    },
+    getRowStyle: () => ({
+      fontSize: '14px',
+      fontWeight: '400',
+      lineHeight: '16.94px',
+      letterSpacing: '0.05em',
+      textAlign: 'left',
+      color: '#6E6893',
+    }),
+    onGridReady: (params) => {
+      const gridDiv = document.querySelector(`#ag-grid-${index}`);
+      const rowCount = params.api.getDisplayedRowCount();
+      const totalHeight = Math.max(rowCount, MIN_ROWS) * ROW_HEIGHT + HEADER_HEIGHT;
+
+      console.log(`Altura calculada: ${totalHeight}px`);
+      gridDiv.style.height = `${totalHeight}px`;
+
+      setTimeout(() => params.api.sizeColumnsToFit(), 0);
     },
   };
 
   const gridDiv = document.querySelector(`#ag-grid-${index}`);
-  if (!gridDiv.innerHTML.trim()) {  // Verifica si el grid ya está creado
-    new agGrid.Grid(gridDiv, gridOptions);
-    gridOptionsArraycommittee[index] = gridOptions; // Almacena las opciones de la cuadrícula
+  if (!gridDiv) {
+    console.error(`No se encontró el contenedor para la tabla con ID: ag-grid-${index}`);
+    return;
   }
+
+  gridDiv.style.height = `${MIN_ROWS * ROW_HEIGHT + HEADER_HEIGHT}px`;
+  gridDiv.style.width = '100%';
+  gridDiv.style.border = '1px solid #ddd';
+  gridDiv.classList.add('ag-theme-alpine');
+
+  if (!gridDiv.innerHTML.trim()) {
+    new agGrid.Grid(gridDiv, gridOptions);
+  } else {
+    gridDiv.innerHTML = '';
+    new agGrid.Grid(gridDiv, gridOptions);
+  }
+
+  const resizeObserver = new ResizeObserver(() => {
+    if (gridOptions.api) gridOptions.api.sizeColumnsToFit();
+  });
+  resizeObserver.observe(gridDiv);
+  gridOptionsArraycommittee[index] = gridOptions; // Almacena las opciones de la cuadrícula
 }
 
 
