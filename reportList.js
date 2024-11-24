@@ -311,8 +311,6 @@ function getHeadersCsv(data) {
   return Array.from(headers);
 }
 
-
-
 function downloadPDF() {
   let data;
 
@@ -393,10 +391,6 @@ function getHeaders(data) {
 
   return Array.from(headers);
 }
-
-
-
-
 
 //---------------------------------------------------------RESPONSIVE MOBILE-------------------------------------------------------------
   // Estilos responsivos
@@ -525,7 +519,6 @@ function getVisibleNestedTableData() {
   return allData;
 }
 
-// Clase personalizada para las cabeceras
 // Clase personalizada para las cabeceras
 class CustomHeader {
   init(params) {
@@ -659,6 +652,7 @@ function createMainTable() {
       box-shadow: none;
       padding: 2px 2px; /* Reduce el relleno dentro de la celda */
       height: 2px; /* Define una altura fija para las filas */
+      border: 1px solid #C6C2DE;
     `;
   
     // Botón expand/collapse y nombre del delegado
@@ -743,7 +737,6 @@ function toggleNestedTable(index) {
 }
 
 // Función para crear subtabla
-// Función para crear subtabla
 function createNestedTable(details, index) {
   const backgroundColors = ['#4F378A14', '#4F378A29', '#4F378A1F'];
   const style = document.createElement('style');
@@ -794,7 +787,7 @@ function createNestedTable(details, index) {
     text-overflow: ellipsis;
   }
 `;
-document.head.appendChild(style);
+  document.head.appendChild(style);
 
   const MIN_ROWS = 8;
   const ROW_HEIGHT = 43;
@@ -1074,7 +1067,7 @@ document.head.appendChild(style);
 
   gridDiv.style.height = `${MIN_ROWS * ROW_HEIGHT + HEADER_HEIGHT}px`;
   gridDiv.style.width = '100%';
-  gridDiv.style.border = '1px solid #ddd';
+  gridDiv.style.border = 'none';
   gridDiv.classList.add('ag-theme-alpine');
 
   if (!gridDiv.innerHTML.trim()) {
@@ -1216,7 +1209,7 @@ function toggleMainTable() {
   }
 }
 
-//--------------------------------------------COMMITTE REPORT LIST----------------------------------------------------------
+//---------------------------------------------------------------COMMITTE REPORT LIST----------------------------------------------------------------
 
 let committees = []; // Variable global para almacenar los datos de los delegados
 const gridOptionsArraycommittee = []; // Opciones de cuadrículas para subtablas
@@ -1238,7 +1231,6 @@ async function loadCommittee() {
   }
 }
 
-
 // Función para obtener los datos de las subtablas visibles
 function getVisibleNestedTablecommitteesData() {
   const allData = [];
@@ -1257,43 +1249,54 @@ function getVisibleNestedTablecommitteesData() {
   return allData;
 }
 
-
-
-
-
 //Función para crear la tabla Delegate Report List
 function createCommitteeReportsTable(committees) {
   const tableContainer = document.getElementById('table-container');
   tableContainer.innerHTML = ''; // Limpia cualquier contenido previo
 
   const table = document.createElement('table');
-  table.classList.add('table', 'table-bordered', 'table-striped', 'table-responsive');
+  table.classList.add('table', 'table-striped', 'table-responsive');
 
   // Estilos de la tabla principal
   table.style.backgroundColor = 'white';
-  table.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
   table.style.borderRadius = '8px';
+  table.style.overflow = 'hidden'; // Asegura que las esquinas redondeadas no se vean interrumpidas
+  table.style.border = '1px solid #C6C2DE'; // Borde violeta en toda la tabla
+  table.style.borderCollapse = 'separate'; // Evita que los bordes de las celdas se fusionen
 
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
 
   committees.forEach((committee, index) => {
     const row = document.createElement('tr');
-    const cellStyle = `
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.2;
-      text-align: left;
-      color: #6E6893;
-      box-shadow: none;
-      padding: 2px 2px;
-      height: 2px;
-    `;
+    
+    // Creamos un objeto con los estilos
+    const cellStyle = {
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '14px',
+      fontWeight: '400',
+      lineHeight: '1.2',
+      textAlign: 'left',
+      color: '#6E6893',
+      boxShadow: 'none',
+      padding: '2px 2px',
+      height: '2px',
+      borderBottom: '1px solid #C6C2DE' // Borde por defecto
+    };
+
+    // Si es la última fila, eliminamos el borde inferior
+    if (index === committees.length - 1) {
+      cellStyle.borderBottom = 'none'; // Elimina el borde inferior de la última fila
+    }
+
+    // Convertimos el objeto de estilo a una cadena CSS
+    const cellStyleString = Object.entries(cellStyle)
+      .map(([key, value]) => `${key.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${value};`) // Convierte camelCase a kebab-case
+      .join(' ');
 
     // Botón expand/collapse y nombre del comité
     row.innerHTML = `
-      <td style="${cellStyle}">
+      <td style="${cellStyleString}">
         <button 
           class="btn btn-link expand-btn" 
           onclick="toggleNestedTableCommites(${index})" 
@@ -1326,103 +1329,95 @@ function createCommitteeReportsTable(committees) {
     tbody.appendChild(row);
     tbody.appendChild(nestedRow);
   });
+
   table.appendChild(thead);
   table.appendChild(tbody);
   tableContainer.appendChild(table);
 }
 
-// Función para alternar la visibilidad de la subtabla y cambiar la flecha con transición
+  // Función para alternar la visibilidad de la subtabla y cambiar la flecha con transición
 function toggleNestedTableCommites(index) {
-  const nestedTable = document.getElementById(`nested-table-${index}`);
-  const nestedRow = nestedTable.closest('tr'); // Obtiene la fila secundaria
-  const allNestedTables = document.querySelectorAll('.nested-table');
-  const expandButton = document.querySelector(`#expand-icon-${index}`);
+    const nestedTable = document.getElementById(`nested-table-${index}`);
+    const nestedRow = nestedTable.closest('tr'); // Obtiene la fila secundaria
+    const allNestedTables = document.querySelectorAll('.nested-table');
+    const expandButton = document.querySelector(`#expand-icon-${index}`);
 
-  // Ocultar todas las subtablas excepto la actual
-  allNestedTables.forEach((table, idx) => {
-    const otherRow = table.closest('tr');
-    if (idx !== index) {
-      table.style.maxHeight = '0'; // Colapsa las subtablas
-      table.style.display = 'none'; 
-      if (otherRow) otherRow.style.display = 'none'; // Oculta la fila secundaria
-      const otherButton = document.querySelector(`#expand-icon-${idx}`);
-      if (otherButton) {
-        otherButton.classList.remove('bi-arrow-down-circle');
-        otherButton.classList.add('bi-arrow-right-circle'); // Restaurar flecha hacia la derecha
+    // Ocultar todas las subtablas excepto la actual
+    allNestedTables.forEach((table, idx) => {
+      const otherRow = table.closest('tr');
+      if (idx !== index) {
+        table.style.maxHeight = '0'; // Colapsa las subtablas
+        table.style.display = 'none'; 
+        if (otherRow) otherRow.style.display = 'none'; // Oculta la fila secundaria
+        const otherButton = document.querySelector(`#expand-icon-${idx}`);
+        if (otherButton) {
+          otherButton.classList.remove('bi-arrow-down-circle');
+          otherButton.classList.add('bi-arrow-right-circle'); // Restaurar flecha hacia la derecha
+        }
       }
-    }
-  });
+    });
 
-  // Si la subtabla no está visible, la mostramos y creamos la subtabla
-  if (nestedTable.style.display === 'none') {
-    nestedRow.style.display = ''; // Muestra la fila secundaria
-    nestedTable.style.display = 'block';
-    nestedTable.style.maxHeight = '1000px'; // Expande la subtabla con animación
-    expandButton.classList.remove('bi-arrow-right-circle');
-    expandButton.classList.add('bi-arrow-down-circle'); // Cambia la flecha hacia abajo
-    createNestedTablecommittee(committees[index].details, index);
-  } else {
-    nestedTable.style.maxHeight = '0'; // Colapsa la subtabla con animación
-    setTimeout(() => {
-      nestedTable.style.display = 'none'; // Oculta completamente tras la animación
-      nestedRow.style.display = 'none'; // Oculta la fila secundaria
-    }, 300); 
-    expandButton.classList.remove('bi-arrow-down-circle');
-    expandButton.classList.add('bi-arrow-right-circle'); // Cambia la flecha hacia la derecha
-  }
+    // Si la subtabla no está visible, la mostramos y creamos la subtabla
+    if (nestedTable.style.display === 'none') {
+      nestedRow.style.display = ''; // Muestra la fila secundaria
+      nestedTable.style.display = 'block';
+      nestedTable.style.maxHeight = '1000px'; // Expande la subtabla con animación
+      expandButton.classList.remove('bi-arrow-right-circle');
+      expandButton.classList.add('bi-arrow-down-circle'); // Cambia la flecha hacia abajo
+      createNestedTablecommittee(committees[index].details, index);
+    } else {
+      nestedTable.style.maxHeight = '0'; // Colapsa la subtabla con animación
+      setTimeout(() => {
+        nestedTable.style.display = 'none'; // Oculta completamente tras la animación
+        nestedRow.style.display = 'none'; // Oculta la fila secundaria
+      }, 300); 
+      expandButton.classList.remove('bi-arrow-down-circle');
+      expandButton.classList.add('bi-arrow-right-circle'); // Cambia la flecha hacia la derecha
+    }
 }
-// Función para crear subtabla
+  // Función para crear subtabla
 function createNestedTablecommittee(details, index) {
-  const backgroundColors = ['#4F378A14', '#4F378A29', '#4F378A1F'];
-  const style = document.createElement('style');
-  style.innerHTML = `
-  .header-background {
-    background-color: ${backgroundColors[0]};
-    padding: 20px 10px 20px 15px; /* Ajusta los márgenes */
-    text-align: left;
-    line-height: 1;
-    font-family: Inter, sans-serif;
-    font-weight: normal;
-    color: #12385C;
-    display: flex;
-    align-items: center; /* Alinea el contenido verticalmente */
-    justify-content: flex-start; /* Alinea el texto a la izquierda */
-    white-space: nowrap; /* Evita el salto de línea */
-    overflow: hidden; /* Oculta el contenido desbordado */
-    text-overflow: ellipsis; /* Agrega puntos suspensivos si el contenido no cabe */
-  }
-  .header-background-2 {
-    background-color: ${backgroundColors[1]};
-    padding: 20px 10px 20px 15px;
-    text-align: left;
-    line-height: 1;
-    font-family: Inter, sans-serif;
-    font-weight: normal;
-    color: #12385C;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .header-background-3 {
-    background-color: ${backgroundColors[2]};
-    padding: 20px 10px 20px 15px;
-    text-align: left;
-    line-height: 1;
-    font-family: Inter, sans-serif;
-    font-weight: normal;
-    color: #12385C;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-`;
-document.head.appendChild(style);
+    const backgroundColors = ['#F2F0F9', '#F8F8F8', '#4F378A1F'];
+    const style = document.createElement('style');
+    style.innerHTML = `
+    .header-background {
+      background-color: ${backgroundColors[0]};
+      padding: 20px 10px 20px 15px; /* Ajusta los márgenes */
+      text-align: left;
+      line-height: 1;
+      font-family: Inter, sans-serif;
+      font-weight: normal;
+      color: #12385C;
+      display: flex;
+      align-items: center; /* Alinea el contenido verticalmente */
+      justify-content: flex-start; /* Alinea el texto a la izquierda */
+      white-space: nowrap; /* Evita el salto de línea */
+      overflow: hidden; /* Oculta el contenido desbordado */
+      text-overflow: ellipsis; /* Agrega puntos suspensivos si el contenido no cabe */
+      
+    }
+    /* Estilo para los bordes de las filas y celdas */
+    .ag-theme-alpine .ag-row {
+      border-bottom: 1px solid #C6C2DE; /* Bordes entre las filas */
+    }
+    .ag-theme-alpine .ag-root-wrapper {
+      border: none; /* Borde externo de la tabla */
+    }
+    .ag-theme-alpine .ag-header-row {
+      border-bottom: none; /* Borde inferior del encabezado */
+    }
+    .ag-theme-alpine .ag-header {
+      border-bottom: 1px solid #C6C2DE !important; /* Elimina el borde predeterminado del header */
+    }
+    .ag-theme-alpine .ag-header-cell {
+      border: none !important; /* Elimina los bordes de las celdas del encabezado */
+    }
+    .ag-theme-alpine .ag-header-row {
+      border-bottom: none !important; /* Elimina el borde de la fila de encabezado */
+    }
+  `;
+
+  document.head.appendChild(style);
 
   const MIN_ROWS = 8;
   const ROW_HEIGHT = 43;
@@ -1440,7 +1435,7 @@ document.head.appendChild(style);
         field: 'stateAffiliation',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { backgroundColor: backgroundColors[0] },
+        cellStyle: { backgroundColor: backgroundColors[1] },
         headerComponent: CustomHeader,
         width: 150,
         minWidth: 125,
@@ -1457,26 +1452,26 @@ document.head.appendChild(style);
         width: 150,
         minWidth: 125,
         maxWidth: 175,
-        headerClass: 'header-background-2', 
+        headerClass: 'header-background', 
       },
       {
         headerName: 'First Name',
         field: 'firstName',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { backgroundColor: backgroundColors[2] },
+        cellStyle: { backgroundColor: backgroundColors[1] },
         headerComponent: CustomHeader,
         width: 150,
         minWidth: 125,
         maxWidth: 175,
-        headerClass: 'header-background-3', 
+        headerClass: 'header-background', 
       },
       {
         headerName: 'NGAUS Member ID Number',
         field: 'ngausMemberIdNumber',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { backgroundColor: backgroundColors[0] },
+        cellStyle: { backgroundColor: backgroundColors[1] },
         headerComponent: CustomHeader,
         width: 200,
         minWidth: 190,
@@ -1493,7 +1488,7 @@ document.head.appendChild(style);
         width: 150,
         minWidth: 125,
         maxWidth: 155,
-        headerClass: 'header-background-2', 
+        headerClass: 'header-background', 
       },
       {
         headerName: 'Paygrade',
@@ -1505,7 +1500,7 @@ document.head.appendChild(style);
         width: 100,
         minWidth: 85,
         maxWidth: 125,
-        headerClass: 'header-background-2', 
+        headerClass: 'header-background', 
       },
       {
         headerName: 'Branch',
@@ -1517,7 +1512,7 @@ document.head.appendChild(style);
         width: 100,
         minWidth: 100,
         maxWidth: 125,
-        headerClass: 'header-background-2', 
+        headerClass: 'header-background', 
       },
       {
         headerName: 'Duty <br> State',
@@ -1525,7 +1520,7 @@ document.head.appendChild(style);
         sortable: true,
         headerClass: 'custom-header',
         cellStyle: { 
-          backgroundColor: backgroundColors[2],
+          backgroundColor: backgroundColors[1],
           display: 'flex',            // Aplicar flexbox a la celda
           justifyContent: 'center',   // Centrado horizontal
           alignItems: 'center',       // Centrado vertical
@@ -1545,7 +1540,7 @@ document.head.appendChild(style);
         width: 90,
         minWidth: 90,
         maxWidth: 100,
-        headerClass: 'header-background-3',
+        headerClass: 'header-background',
       },
        {
         headerName: 'Registration Type',
@@ -1557,7 +1552,7 @@ document.head.appendChild(style);
         width: 300,
         minWidth: 300,
         maxWidth: 320,
-        headerClass: 'header-background-2', 
+        headerClass: 'header-background', 
       }
       
     ],
@@ -1596,7 +1591,7 @@ document.head.appendChild(style);
 
   gridDiv.style.height = `${MIN_ROWS * ROW_HEIGHT + HEADER_HEIGHT}px`;
   gridDiv.style.width = '100%';
-  gridDiv.style.border = '1px solid #ddd';
+  gridDiv.style.border = 'none';
   gridDiv.classList.add('ag-theme-alpine');
 
   if (!gridDiv.innerHTML.trim()) {
@@ -1612,9 +1607,6 @@ document.head.appendChild(style);
   resizeObserver.observe(gridDiv);
   gridOptionsArraycommittee[index] = gridOptions; // Almacena las opciones de la cuadrícula
 }
-
-
-
 
 //--------------------------------------------FIN DE LAS TABLAS----------------------------------------------------------
 
