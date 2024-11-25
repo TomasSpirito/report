@@ -725,11 +725,20 @@ function toggleNestedTable(index) {
 
 // Función para crear subtabla
 function createNestedTable(details, index) {
-  const backgroundColors = ['#4F378A14', '#4F378A29', '#4F378A1F'];
+  const backgroundColors = [
+    
+    '#4F378A1F', // Segundo más opaco para la segunda columna
+    '#4F378A29', // Más opaco para la primera columna
+    '#4F378A14', // Menos opaco para la tercera columna
+    
+    '#4F378A0A', // Más claro para el título de la segunda columna
+    '#4F378A0D', // Más claro para el título de la primera columna
+    '#4F378A05'  // Más claro para el título de la tercera columna
+  ];
   const style = document.createElement('style');
   style.innerHTML = `
   .header-background {
-    background-color: ${backgroundColors[0]};
+    background-color: ${backgroundColors[3]};
     padding: 20px 10px 20px 15px; /* Ajusta los márgenes */
     text-align: left;
     line-height: 1;
@@ -744,7 +753,7 @@ function createNestedTable(details, index) {
     text-overflow: ellipsis; /* Agrega puntos suspensivos si el contenido no cabe */
   }
   .header-background-2 {
-    background-color: ${backgroundColors[1]};
+    background-color: ${backgroundColors[4]};
     padding: 20px 10px 20px 15px;
     text-align: left;
     line-height: 1;
@@ -759,7 +768,7 @@ function createNestedTable(details, index) {
     text-overflow: ellipsis;
   }
   .header-background-3 {
-    background-color: ${backgroundColors[2]};
+    background-color: ${backgroundColors[5]};
     padding: 20px 10px 20px 15px;
     text-align: left;
     line-height: 1;
