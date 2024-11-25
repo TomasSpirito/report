@@ -473,9 +473,9 @@ class CustomHeader {
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
-        white-space: nowrap; /* Evita el salto de línea */
-        overflow: hidden; /* Oculta el contenido que desborda */
-        text-overflow: ellipsis; /* Agrega puntos suspensivos al contenido desbordado */
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis; 
       ">
         <span style="flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${params.displayName}</span>
         <span class="sort-icon" style="flex-shrink: 0;"></span>
@@ -1105,7 +1105,7 @@ function createDelegateSummaryTable() {
           text-align: left;
           color: #6E6893;
           box-shadow: none;
-          padding: 8px 12px; /* Ajusta el espacio para alineación */
+          padding: 8px 12px;
           border-bottom: 1px solid #C6C2DE;
           border: none;
         `;
@@ -1548,7 +1548,7 @@ function createNestedTablecommittee(details, index) {
     if (gridOptions.api) gridOptions.api.sizeColumnsToFit();
   });
   resizeObserver.observe(gridDiv);
-  gridOptionsArraycommittee[index] = gridOptions; // Almacena las opciones de la cuadrícula
+  gridOptionsArraycommittee[index] = gridOptions; 
 }
 
 //------------------------------------------------------------------------------------------------------
