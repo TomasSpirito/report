@@ -13,7 +13,6 @@ function loadResource(type, url, callback) {
   }
 }
 
-// Cargar CSS
 loadResource("css", "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css");
 loadResource("css", "https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-grid.css");
 loadResource("css", "https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-alpine.css");
@@ -33,62 +32,55 @@ document.head.insertAdjacentHTML(
         margin: 50px 80px;
       }
       
-      /* Aseguramos que la subtabla AG Grid se muestre correctamente */
       .ag-theme-alpine {
-        height: 400px; /* Altura de la subtabla */
+        height: 400px; 
         width: 100%;
       }
   </style>`
 );
 
-// Crear el contenedor de la tabla
 const tableContainer = document.createElement("div");
 tableContainer.id = "table-container";
 tableContainer.className = "table-responsive main-table-container";
 
 document.body.appendChild(tableContainer);
 
-//------------------------------------------------------------------H1------------------------------------------------------------------------
 function createAndStyleH1() {
-  // Crear el elemento h1
+
   const h1 = document.createElement('h1');
   
-  // Establecer el texto del h1
   h1.textContent = 'NGAUS 2024 - REPORTS';
   
-  // Aplicar estilos directamente al h1
-  h1.style.fontFamily = "'Inter', sans-serif"; // Fuente
-  h1.style.fontWeight = '700'; // Peso
-  h1.style.fontSize = '24px'; // Tamaño
-  h1.style.lineHeight = '29.05px'; // Altura de línea
-  h1.style.letterSpacing = '0.1em'; // Espaciado entre letras
-  h1.style.marginBottom = '30px'; // Margen inferior
+  h1.style.fontFamily = "'Inter', sans-serif"; 
+  h1.style.fontWeight = '700'; 
+  h1.style.fontSize = '24px'; 
+  h1.style.lineHeight = '29.05px'; 
+  h1.style.letterSpacing = '0.1em'; 
+  h1.style.marginBottom = '30px'; 
   
-  // Insertar el h1 al inicio del body
   document.body.insertBefore(h1, document.body.firstChild);
 }
 //------------------------------------------------------------------NAV---------------------------------------------------------------------------------//
 function createNav() {
   const nav = document.createElement('div');
-  nav.style.display = 'flex'; // Asegura que los elementos estén alineados en fila
-  nav.style.alignItems = 'center'; // Centra verticalmente los elementos
-  nav.style.justifyContent = 'space-between'; // Separa menú e íconos
-  nav.style.padding = '0'; // Quita el espaciado lateral
-  nav.style.marginBottom = '20px'; // Separación con la tabla
-  nav.style.width = '100%'; // Ocupa todo el ancho disponible
-  nav.style.flexWrap = 'wrap'; // Permite que los elementos se ajusten en pantallas pequeñas
+  nav.style.display = 'flex'; 
+  nav.style.alignItems = 'center'; 
+  nav.style.justifyContent = 'space-between'; 
+  nav.style.padding = '0';
+  nav.style.marginBottom = '20px'; 
+  nav.style.width = '100%'; 
+  nav.style.flexWrap = 'wrap'; 
 
-  // Crear lista de navegación
   const navList = document.createElement('ul');
   navList.style.display = 'flex';
   navList.style.listStyle = 'none';
   navList.style.padding = '0';
   navList.style.margin = '0';
-  navList.style.width = 'fit-content'; // Asegura que la línea abarque solo el contenido
-  navList.style.borderBottom = '1px solid #6E6893'; // Línea continua bajo los elementos del menú
-  navList.style.flexWrap = 'wrap'; // Permite que los ítems del menú se apilen en pantallas pequeñas
+  navList.style.width = 'fit-content'; 
+  navList.style.borderBottom = '1px solid #6E6893'; 
+  navList.style.flexWrap = 'wrap'; 
 
-  // Estilos dinámicos para los ítems del nav
+
   const navItemStyle = `
     font-family: 'Inter', sans-serif;
     font-size: 16px;
@@ -104,7 +96,6 @@ function createNav() {
     cursor: pointer;
   `;
 
-  // Pestañas del menú de navegación
   const menuItems = [
     'Delegate Reports List',
     'Delegate Summary Report',
@@ -112,7 +103,7 @@ function createNav() {
     // 'Delegate Reports Detailed',
     // 'Committee Reports Detailed',
   ];
-  let activeTab = 0; // Variable global para rastrear la pestaña activa
+  let activeTab = 0; 
 
   menuItems.forEach((text, index) => {
     const listItem = document.createElement('li');
@@ -123,58 +114,52 @@ function createNav() {
     link.style.cssText = navItemStyle;
 
     link.addEventListener('click', function () {
-      // Resetea el estilo de todos los links
       const allLinks = navList.querySelectorAll('a');
       allLinks.forEach((item) => {
         item.style.color = '#6E6893';
         item.style.borderBottom = '1px solid transparent';
       });
     
-      // Aplica el estilo seleccionado
       this.style.color = '#12385C';
       this.style.borderBottom = '2px solid #12385C';
-      // Actualiza la pestaña activa
       activeTab = index;
-      // Muestra la tabla correspondiente
       switch (index) {
         case 0:
-          loadDelegates(); // Muestra la tabla de delegados
+          loadDelegates(); 
           break;
         case 1:
-          showDelegateSummary(); // Mostrar la tabla Resumen de delegados
+          showDelegateSummary(); 
           break;
         case 2:
-          loadCommittee(); // Mostrar la tabla Informes de comités
+          loadCommittee(); 
           break;
         // case 3:
-        //   showDelegateReportsDetailed(); // Mostrar tabla de detalles de informes de delegados
+        //   showDelegateReportsDetailed(); /
         //   break;
         // case 4:
-        //   showCommitteeReportsDetailed(); // Mostrar tabla de detalles de informes de comités
+        //   showCommitteeReportsDetailed(); 
         //   break;
       }
-      toggleButtonsVisibility(); // Actualiza la visibilidad de los botones después del cambio de pestaña
+      toggleButtonsVisibility(); 
     });
     listItem.appendChild(link);
     navList.appendChild(listItem);
 
-    // Si es el primer elemento, aplicamos el estilo seleccionado
     if (index === 0) {
-      link.style.color = '#12385C'; // Estilo del texto
-      link.style.borderBottom = '2px solid #12385C'; // Estilo del borde
+      link.style.color = '#12385C'; 
+      link.style.borderBottom = '2px solid #12385C'; 
     }
   });
 
-  // ---------------------------------------------Botones (imprimir y exportar CSV)--------------------------------------------------------
+  // ---------------------------------------------Buttons--------------------------------------------------------
 
-// Contenedor para los botones
 const buttonContainer = document.createElement('div');
 buttonContainer.classList.add('button-container');
 buttonContainer.style.display = 'flex';
 buttonContainer.style.margin = '10px';
 buttonContainer.style.gap = '10px';
-buttonContainer.style.marginLeft = 'auto'; // Empuja el contenedor de botones hacia la derecha
-buttonContainer.style.flexWrap = 'wrap'; // Permite que los botones se acomoden en pantallas pequeñas
+buttonContainer.style.marginLeft = 'auto'; 
+buttonContainer.style.flexWrap = 'wrap'; 
 
 const buttons = [
   { icon: 'bi bi-printer-fill', label: 'Print', isPrint: true },
@@ -217,11 +202,9 @@ buttons.forEach((button) => {
   buttonContainer.appendChild(btn);
 });
   
-  // Añadir la lista de navegación y botones al contenedor principal
   nav.appendChild(navList);
   nav.appendChild(buttonContainer);
 
-  // Insertar el nav después del título
   const title = document.querySelector('h1');
   title.insertAdjacentElement('afterend', nav);
 
@@ -230,58 +213,51 @@ buttons.forEach((button) => {
 function downloadCSV() {
   let data;
 
-  // Determina qué función llamar según la pestaña activa
   if (activeTab === 0) {
-    data = getVisibleNestedTableData(); // Caso Delegados
+    data = getVisibleNestedTableData(); 
   } else if (activeTab === 2) {
-    data = getVisibleNestedTablecommitteesData(); // Caso Comités
+    data = getVisibleNestedTablecommitteesData(); 
   } else {
-    alert('La exportación CSV no está disponible para esta pestaña.');
+    alert('CSV export is not available for this tab.');
     return;
   }
 
   if (!data || data.length === 0) {
-    alert('No hay datos para exportar.');
+    alert('There is no data to export.');
     return;
   }
 
   const csvRows = [];
 
-  // Obtener las cabeceras
   const headers = getHeadersCsv(data);
-  csvRows.push(headers.join(',')); // Añade las cabeceras al CSV
+  csvRows.push(headers.join(',')); 
 
-  // Procesar cada fila de datos
   data.forEach(row => {
     const values = headers.map(header => {
-      // Si la propiedad es parte de 'caucuses'
       if (header.startsWith('caucuses.')) {
-        const caucusKey = header.split('.')[1]; // Extraemos la clave del caucus
+        const caucusKey = header.split('.')[1]; 
         return row.caucuses && row.caucuses[caucusKey] !== undefined
           ? `"${row.caucuses[caucusKey]}"`
-          : '""'; // Valor vacío si no existe
+          : '""'; 
       } else {
-        return row[header] !== undefined ? `"${row[header]}"` : '""'; // Valor vacío si no existe
+        return row[header] !== undefined ? `"${row[header]}"` : '""'; 
       }
     });
-    csvRows.push(values.join(',')); // Añadir fila al CSV
+    csvRows.push(values.join(',')); 
   });
 
   const csvContent = "data:text/csv;charset=utf-8," + csvRows.join('\n');
 
-  // Crear un enlace para descargar el CSV
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement("a");
   link.setAttribute("href", encodedUri);
   link.setAttribute("download", "data.csv");
 
-  // Añadir el enlace al DOM y simular un clic para descargar
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
 }
 
-// Función para obtener las cabeceras
 function getHeadersCsv(data) {
   const headers = new Set();
 
@@ -290,7 +266,6 @@ function getHeadersCsv(data) {
       if (key !== 'caucuses') {
         headers.add(key);
       } else if (row.caucuses) {
-        // Solo agrega las claves de 'caucuses' si existe
         Object.keys(row.caucuses).forEach(caucusKey => {
           headers.add(`caucuses.${caucusKey}`);
         });
@@ -304,66 +279,57 @@ function getHeadersCsv(data) {
 function downloadPDF() {
   let data;
 
-  // Determina qué función llamar según la pestaña activa
   if (activeTab === 0) {
-    data = getVisibleNestedTableData(); // Caso Delegados
+    data = getVisibleNestedTableData(); 
   } else if (activeTab === 2) {
-    data = getVisibleNestedTablecommitteesData(); // Caso Comités
+    data = getVisibleNestedTablecommitteesData(); 
   } else {
-    alert('La exportación CSV no está disponible para esta pestaña.');
+    alert('PDF export is not available for this tab.');
     return;
   }
 
   if (!data || data.length === 0) {
-    alert('No hay datos para exportar.');
+    alert('There is no data to export.');
     return;
   }
 
-  // Crear una instancia de jsPDF en orientación horizontal
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'landscape' });
 
-  // Obtener las cabeceras
   const headers = getHeaders(data).map(header => {
-    // Si es una clave de 'caucuses', eliminamos el prefijo 'caucuses.'
     return header.startsWith('caucuses.') ? header.replace('caucuses.', '') : header;
   });
 
-  // Crear las filas de datos
   const rows = data.map(row => {
     return headers.map(header => {
       if (header in row) {
-        return row[header] || ''; // Valores directos
+        return row[header] || ''; 
       } else if (row.caucuses && header in row.caucuses) {
-        return row.caucuses[header] || ''; // Valores del objeto 'caucuses'
+        return row.caucuses[header] || ''; 
       } else {
-        return ''; // Valores faltantes
+        return ''; 
       }
     });
   });
 
-  // Configurar anchos específicos para las columnas
   const columnStyles = {};
   headers.forEach((header, index) => {
     if (header in (data[0]?.caucuses || {})) {
-      columnStyles[index] = { cellWidth: 10 }; // Ancho reducido para columnas de caucuses
+      columnStyles[index] = { cellWidth: 10 }; 
     }
   });
 
-  // Agregar la tabla al PDF con los estilos personalizados
   doc.autoTable({
-    head: [headers], // Cabeceras de la tabla
-    body: rows,      // Filas de la tabla
-    startY: 10,      // Margen superior
-    styles: { fontSize: 7 }, // Ajustar el tamaño de la fuente
-    columnStyles,     // Aplicar los estilos de las columnas
+    head: [headers], 
+    body: rows,      
+    startY: 10,      
+    styles: { fontSize: 7 }, 
+    columnStyles,    
   });
 
-  // Descargar el PDF
   doc.save('data.pdf');
 }
 
-// Función para obtener las cabeceras
 function getHeaders(data) {
   const headers = new Set();
 
@@ -373,7 +339,7 @@ function getHeaders(data) {
         headers.add(key);
       } else {
         Object.keys(row.caucuses).forEach(caucusKey => {
-          headers.add(caucusKey); // Sin el prefijo 'caucuses.'
+          headers.add(caucusKey); 
         });
       }
     });
@@ -383,7 +349,6 @@ function getHeaders(data) {
 }
 
 //---------------------------------------------------------RESPONSIVE MOBILE-------------------------------------------------------------
-  // Estilos responsivos
   const style = document.createElement('style');
   style.innerHTML = `
     @media (max-width: 768px) {
@@ -408,89 +373,76 @@ function getHeaders(data) {
   `;
   document.head.appendChild(style);
 }
-//---------------------------------------------------------MOSTRAR TABLAS -----------------------------------------------------------
+//---------------------------------------------------------SHOW TABLES -----------------------------------------------------------
 function loadDelegates() {
   const tableContainer = document.getElementById('table-container');
-  tableContainer.innerHTML = ''; // Limpiar contenido previo
-  // Aquí iría la lógica para cargar la tabla de delegados
+  tableContainer.innerHTML = ''; 
   createMainTable(delegates);
 }
-
-//funcion para mostrar la tabla summary report
 function showDelegateSummary() {
   const tableContainer = document.getElementById('table-container');
-  tableContainer.innerHTML = ''; // Limpiar contenido previo
-  // Lógica para cargar el resumen de delegados
+  tableContainer.innerHTML = '';
   createDelegateSummaryTable(delegates);
 }
 
 function showCommitteeReports() {
   const tableContainer = document.getElementById('table-container');
-  tableContainer.innerHTML = ''; // Limpiar contenido previo
-  // Lógica para cargar la tabla de informes de comités
+  tableContainer.innerHTML = ''; 
   createCommitteeReportsTable();
 }
 
 function showDelegateReportsDetailed() {
   const tableContainer = document.getElementById('table-container');
-  tableContainer.innerHTML = ''; // Limpiar contenido previo
-  // Lógica para cargar la tabla detallada de informes de delegados
+  tableContainer.innerHTML = ''; 
   createDelegateReportsDetailedTable();
 }
 
 function showCommitteeReportsDetailed() {
   const tableContainer = document.getElementById('table-container');
-  tableContainer.innerHTML = ''; // Limpiar contenido previo
-  // Lógica para cargar la tabla detallada de informes de comités
+  tableContainer.innerHTML = '';
   createCommitteeReportsDetailedTable();
 }
 
 function toggleButtonsVisibility() {
   const buttonContainer = document.querySelector('.button-container');
-  if (!buttonContainer) return; // Si no existe el contenedor de botones, no hacemos nada
+  if (!buttonContainer) return; 
 
-  // Obtener la pestaña activa verificando los estilos aplicados
   const navLinks = document.querySelectorAll('ul a');
   const activeTabIndex = Array.from(navLinks).findIndex((link) => 
     link.style.borderBottom === '2px solid rgb(18, 56, 92)'
   );
 
-  // Mostrar los botones solo en las páginas 1 y 3 (índices 0 y 2)
   if (activeTabIndex === 0 || activeTabIndex === 2) {
-    buttonContainer.style.display = 'flex'; // Muestra los botones
+    buttonContainer.style.display = 'flex';
   } else {
-    buttonContainer.style.display = 'none'; // Oculta los botones
+    buttonContainer.style.display = 'none'; 
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  toggleButtonsVisibility(); // Oculta o muestra los botones dependiendo de la vista inicial
+  toggleButtonsVisibility();
 });
 
 //------------------------------------------------------------------TABLES---------------------------------------------------------------------------------
-let delegates = []; // Variable global para almacenar los datos de los delegados
+let delegates = []; 
 
-// Variable global para almacenar las opciones de las cuadrículas
 const gridOptionsArray = [];
 
-// Función para cargar los delegados y crear la tabla principal
 async function loadDelegates() {
   try {
     const response = await fetch('delegates.json');
     if (!response.ok) {
-      throw new Error('Error al cargar el JSON');
+      throw new Error('Error loading JSON');
     }
     const data = await response.json();
-    delegates = data.delegates; // Asigna los delegados a la variable global
+    delegates = data.delegates; 
 
-    // Renderiza la tabla principal con los datos obtenidos
     createMainTable(delegates);
   } catch (error) {
-    console.error('Error al cargar los datos:', error);
+    console.error('Error loading data:', error);
   }
 }
 
-// Función para obtener los datos de las subtablas visibles
 function getVisibleNestedTableData() {
   const allData = [];
 
@@ -508,16 +460,13 @@ function getVisibleNestedTableData() {
   return allData;
 }
 
-// Clase personalizada para las cabeceras
 class CustomHeader {
   init(params) {
     this.params = params;
 
-    // Crear el contenedor del encabezado
     const eGui = document.createElement('div');
     eGui.classList.add('custom-header');
 
-    // Estilo del encabezado con truncado
     eGui.innerHTML = `
       <div style="
         display: flex;
@@ -533,49 +482,44 @@ class CustomHeader {
       </div>
     `;
 
-    // Manejador de clic para activar el ordenamiento
     eGui.addEventListener('click', () => {
       const nextSortOrder = this.getNextSortOrder(params.column.getSort());
       params.setSort(nextSortOrder, params.shiftKey);
     });
 
     this.eGui = eGui;
-    this.updateSortIcon(); // Actualiza el ícono de orden inicial
+    this.updateSortIcon(); 
   }
 
   getGui() {
     return this.eGui;
   }
 
-  // Obtiene el próximo estado de ordenamiento (ascendente, descendente, ninguno)
   getNextSortOrder(currentSort) {
     if (currentSort === 'asc') return 'desc';
     if (currentSort === 'desc') return null;
     return 'asc';
   }
 
-  // Actualiza el ícono de orden en el encabezado
   updateSortIcon() {
     const sortOrder = this.params.column.getSort();
     const sortIcon = this.eGui.querySelector('.sort-icon');
 
     if (!sortIcon) return;
 
-    sortIcon.innerHTML = ''; // Limpia el ícono actual
+    sortIcon.innerHTML = ''; 
     if (sortOrder === 'asc') {
-      sortIcon.innerHTML = '&#9650;'; // Triángulo hacia arriba
+      sortIcon.innerHTML = '&#9650;'; 
     } else if (sortOrder === 'desc') {
-      sortIcon.innerHTML = '&#9660;'; // Triángulo hacia abajo
+      sortIcon.innerHTML = '&#9660;'; 
     }
   }
 
-  // Evento para actualizar el encabezado cuando cambia el orden
   onSortChanged() {
     this.updateSortIcon();
   }
 }
 
-// Función para los estilos de los botones (Activo/Retirado)
 function getButtonStyles(status) {
   const baseStyle = {
     width: '53px',
@@ -592,7 +536,7 @@ function getButtonStyles(status) {
     border: '1px solid transparent',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',  // Asegura el centrado vertical dentro del botón
+    alignItems: 'center', 
   };
 
   if (status === 'Active') {
@@ -603,19 +547,18 @@ function getButtonStyles(status) {
   return baseStyle;
 }
 
-// Función para icono del botón de check
+
 function iconRenderer(params) {
   return params.value
     ? '<i class="bi bi-check-circle-fill" style="color: green; font-size: 16px;"></i>'
-    : ''; // Ícono si es true o vacío si es false
+    : ''; 
 }
 
 //----------------------------------------------------------------DELEGATE REPORT LIST----------------------------------------------------------------------
 
-//Función para crear la tabla Delegate Report List
 function createMainTable() {
   const tableContainer = document.getElementById('table-container');
-  tableContainer.innerHTML = ''; // Limpia cualquier contenido previo
+  tableContainer.innerHTML = ''; 
 
   const table = document.createElement('table');
   table.classList.add('table', 'table-bordered', 'table-striped', 'table-responsive');
@@ -627,22 +570,20 @@ function createMainTable() {
 
   delegates.forEach((delegate, index) => {
     const row = document.createElement('tr');
-    //Estilo de las celdas de la tabla principal
     const cellStyle = `
       font-family: 'Inter', sans-serif;
       font-size: 14px;
       font-weight: 400;
-      line-height: 1.2; /* Ajusta el espacio vertical dentro de la celda */
+      line-height: 1.2; 
       text-align: left;
       color: #6E6893;
       box-shadow: none;
-      padding: 2px 2px; /* Reduce el relleno dentro de la celda */
-      height: 2px; /* Define una altura fija para las filas */
+      padding: 2px 2px; 
+      height: 2px; 
       border:none;
-      border-bottom: 1px solid #C6C2DE; /* Solo borde inferior */
+      border-bottom: 1px solid #C6C2DE; 
     `;
   
-    // Botón expand/collapse y nombre del delegado
     row.innerHTML = `
       <td style="${cellStyle}">
         <button 
@@ -655,11 +596,10 @@ function createMainTable() {
       </td>
     `;
 
-    // Fila secundaria para la tabla interna (subtabla)
     const nestedRow = document.createElement('tr');
-    nestedRow.style.display = 'none'; // Oculta la fila por defecto
+    nestedRow.style.display = 'none'; 
     nestedRow.innerHTML = `
-      <td colspan="2" style="padding: 0; margin: 0;"> <!-- Elimina los márgenes y el relleno -->
+      <td colspan="2" style="padding: 0; margin: 0;"> 
         <div class="nested-table" 
           id="nested-table-${index}" 
           style="
@@ -667,7 +607,7 @@ function createMainTable() {
             overflow: hidden; 
             max-height: 0; 
             transition: max-height 0.3s ease-out;
-            width: 100%; /* Asegura que ocupe el ancho completo */
+            width: 100%; 
           ">
           <div class="ag-theme-alpine" id="ag-grid-${index}" style="width: 100%; height: 200px;"></div>
         </div>
@@ -682,75 +622,71 @@ function createMainTable() {
   table.appendChild(tbody);
   tableContainer.appendChild(table);
 }
-// Función para alternar la visibilidad de la subtabla y cambiar la flecha con transición
+
 function toggleNestedTable(index) {
   const nestedTable = document.getElementById(`nested-table-${index}`);
-  const nestedRow = nestedTable.closest('tr'); // Obtiene la fila secundaria
+  const nestedRow = nestedTable.closest('tr'); 
   const allNestedTables = document.querySelectorAll('.nested-table');
   const expandButton = document.querySelector(`#expand-icon-${index}`);
 
-  // Ocultar todas las subtablas excepto la actual
   allNestedTables.forEach((table, idx) => {
     const otherRow = table.closest('tr');
     if (idx !== index) {
-      table.style.maxHeight = '0'; // Colapsa las subtablas
+      table.style.maxHeight = '0'; 
       table.style.display = 'none'; 
-      if (otherRow) otherRow.style.display = 'none'; // Oculta la fila secundaria
+      if (otherRow) otherRow.style.display = 'none'; 
       const otherButton = document.querySelector(`#expand-icon-${idx}`);
       if (otherButton) {
         otherButton.classList.remove('bi-arrow-down-circle');
-        otherButton.classList.add('bi-arrow-right-circle'); // Restaurar flecha hacia la derecha
+        otherButton.classList.add('bi-arrow-right-circle'); 
       }
     }
   });
 
-  // Si la subtabla no está visible, la mostramos y creamos la subtabla
   if (nestedTable.style.display === 'none') {
-    nestedRow.style.display = ''; // Muestra la fila secundaria
+    nestedRow.style.display = ''; 
     nestedTable.style.display = 'block';
-    nestedTable.style.maxHeight = '1000px'; // Expande la subtabla con animación
+    nestedTable.style.maxHeight = '1000px'; 
     expandButton.classList.remove('bi-arrow-right-circle');
-    expandButton.classList.add('bi-arrow-down-circle'); // Cambia la flecha hacia abajo
+    expandButton.classList.add('bi-arrow-down-circle'); 
     createNestedTable(delegates[index].details, index);
   } else {
-    nestedTable.style.maxHeight = '0'; // Colapsa la subtabla con animación
+    nestedTable.style.maxHeight = '0';
     setTimeout(() => {
-      nestedTable.style.display = 'none'; // Oculta completamente tras la animación
-      nestedRow.style.display = 'none'; // Oculta la fila secundaria
+      nestedTable.style.display = 'none';
+      nestedRow.style.display = 'none'; 
     }, 300); 
     expandButton.classList.remove('bi-arrow-down-circle');
-    expandButton.classList.add('bi-arrow-right-circle'); // Cambia la flecha hacia la derecha
+    expandButton.classList.add('bi-arrow-right-circle');
   }
 }
 
-// Función para crear subtabla
+
 function createNestedTable(details, index) {
   const backgroundColors = [
-    
-    '#4F378A1F', // Segundo más opaco para la segunda columna
-    '#4F378A29', // Más opaco para la primera columna
-    '#4F378A14', // Menos opaco para la tercera columna
-    
-    '#4F378A0A', // Más claro para el título de la segunda columna
-    '#4F378A0D', // Más claro para el título de la primera columna
-    '#4F378A05'  // Más claro para el título de la tercera columna
+    '#4F378A1F', 
+    '#4F378A29', 
+    '#4F378A14', 
+    '#4F378A0A', 
+    '#4F378A0D', 
+    '#4F378A05'  
   ];
   const style = document.createElement('style');
   style.innerHTML = `
   .header-background {
     background-color: ${backgroundColors[3]};
-    padding: 20px 10px 20px 15px; /* Ajusta los márgenes */
+    padding: 20px 10px 20px 15px; 
     text-align: left;
     line-height: 1;
     font-family: Inter, sans-serif;
     font-weight: normal;
     color: #12385C;
     display: flex;
-    align-items: center; /* Alinea el contenido verticalmente */
-    justify-content: flex-start; /* Alinea el texto a la izquierda */
-    white-space: nowrap; /* Evita el salto de línea */
-    overflow: hidden; /* Oculta el contenido desbordado */
-    text-overflow: ellipsis; /* Agrega puntos suspensivos si el contenido no cabe */
+    align-items: center; 
+    justify-content: flex-start; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
   }
   .header-background-2 {
     background-color: ${backgroundColors[4]};
@@ -782,24 +718,23 @@ function createNestedTable(details, index) {
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  /* Estilo para los bordes de las filas y celdas */
     .ag-theme-alpine .ag-row {
-      border-bottom: 1px solid #C6C2DE; /* Bordes entre las filas */
+      border-bottom: 1px solid #C6C2DE; 
     }
     .ag-theme-alpine .ag-root-wrapper {
-      border: none; /* Borde externo de la tabla */
+      border: none; 
     }
     .ag-theme-alpine .ag-header-row {
-      border-bottom: none; /* Borde inferior del encabezado */
+      border-bottom: none; 
     }
     .ag-theme-alpine .ag-header {
-      border-bottom: 1px solid #C6C2DE !important; /* Elimina el borde predeterminado del header */
+      border-bottom: 1px solid #C6C2DE !important; 
     }
     .ag-theme-alpine .ag-header-cell {
-      border: none !important; /* Elimina los bordes de las celdas del encabezado */
+      border: none !important; 
     }
     .ag-theme-alpine .ag-header-row {
-      border-bottom: none !important; /* Elimina el borde de la fila de encabezado */
+      border-bottom: none !important; 
     }
 `;
   document.head.appendChild(style);
@@ -882,20 +817,19 @@ function createNestedTable(details, index) {
         headerClass: 'custom-header',
         cellStyle: { 
           backgroundColor: backgroundColors[2],
-          display: 'flex',            // Aplicar flexbox a la celda
-          justifyContent: 'center',   // Centrado horizontal
-          alignItems: 'center',       // Centrado vertical
+          display: 'flex',            
+          justifyContent: 'center',   
+          alignItems: 'center',       
         },
         headerComponent: CustomHeader,
         cellRenderer: function (params) {
           if (!params.value) {
-            // Si no hay valor, no renderiza nada
             return '';
           }
           const button = document.createElement('button');
           const styles = getButtonStyles(params.value);
-          Object.assign(button.style, styles);  // Aplicar estilos al botón
-          button.textContent = styles.textContent; // Establecer el texto del botón
+          Object.assign(button.style, styles);  
+          button.textContent = styles.textContent;
           return button;
         },
         width: 90,
@@ -934,11 +868,11 @@ function createNestedTable(details, index) {
         field: 'caucuses.retiredAirForce',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, 
         headerComponent: CustomHeader,
-        width: 100, // Ancho inicial de la columna
-        minWidth: 80, // Ancho mínimo de la columna
-        maxWidth: 125, // Ancho maximo de la columna
+        width: 100, 
+        minWidth: 80, 
+        maxWidth: 125, 
         cellRenderer: iconRenderer,
         headerClass: 'header-background-3', 
       },
@@ -947,11 +881,11 @@ function createNestedTable(details, index) {
         field: 'caucuses.committeeOnJointResolutions',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] }, 
         headerComponent: CustomHeader,
-        width: 100, // Ancho inicial de la columna         
-        minWidth: 80, // Ancho mínimo de la columna
-        maxWidth: 125, // Ancho maximo de la columna
+        width: 100,       
+        minWidth: 80, 
+        maxWidth: 125, 
         cellRenderer: iconRenderer,
         headerClass: 'header-background', 
       },
@@ -960,11 +894,11 @@ function createNestedTable(details, index) {
         field: 'caucuses.retiredArmy',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[1] }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[1] }, 
         headerComponent: CustomHeader,
-        width: 100, // Ancho inicial de la columna
-        minWidth: 80, // Ancho mínimo de la columna
-        maxWidth: 125, // Ancho maximo de la columna
+        width: 100, 
+        minWidth: 80, 
+        maxWidth: 125, 
         cellRenderer: iconRenderer,
         headerClass: 'header-background-2', 
       },
@@ -973,11 +907,11 @@ function createNestedTable(details, index) {
         field: 'caucuses.areaIIIAirForceCaucus',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, 
         headerComponent: CustomHeader,
-        width: 100, // Ancho inicial de la columna
-        minWidth: 80, // Ancho mínimo de la columna
-        maxWidth: 125, // Ancho maximo de la columna
+        width: 100, 
+        minWidth: 80, 
+        maxWidth: 125, 
         cellRenderer: iconRenderer,
         headerClass: 'header-background-3', 
       },
@@ -986,11 +920,11 @@ function createNestedTable(details, index) {
         field: 'caucuses.committeeOnAirForceResolutions',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[0] }, 
         headerComponent: CustomHeader,
-        width: 100, // Ancho inicial de la columna
-        minWidth: 90, // Ancho mínimo de la columna
-        maxWidth: 125, // Ancho maximo de la columna
+        width: 100, 
+        minWidth: 90, 
+        maxWidth: 125, 
         cellRenderer: iconRenderer,
         headerClass: 'header-background', 
       },
@@ -999,11 +933,11 @@ function createNestedTable(details, index) {
         field: 'caucuses.companyGradeAirForce',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[1] }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[1] }, 
         headerComponent: CustomHeader,
-        width: 100, // Ancho inicial de la columna
-        minWidth: 80, // Ancho mínimo de la columna
-        maxWidth: 125, // Ancho maximo de la columna
+        width: 100, 
+        minWidth: 80, 
+        maxWidth: 125, 
         cellRenderer: iconRenderer,
         headerClass: 'header-background-2', 
       },
@@ -1012,11 +946,11 @@ function createNestedTable(details, index) {
         field: 'caucuses.companyGradeArmy',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center', backgroundColor: backgroundColors[2] }, 
         headerComponent: CustomHeader,
-        width: 100, // Ancho inicial de la columna
-        minWidth: 80, // Ancho mínimo de la columna
-        maxWidth: 125, // Ancho maximo de la columna
+        width: 100, 
+        minWidth: 80, 
+        maxWidth: 125, 
         cellRenderer: iconRenderer,
         headerClass: 'header-background-3', 
       },
@@ -1025,11 +959,11 @@ function createNestedTable(details, index) {
         field: 'caucuses.committeeOnNominations',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center' , backgroundColor: backgroundColors[0]}, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center' , backgroundColor: backgroundColors[0]}, 
         headerComponent: CustomHeader,
-        width: 100, // Ancho inicial de la columna
-        minWidth: 80, // Ancho mínimo de la columna
-        maxWidth: 125, // Ancho maximo de la columna
+        width: 100, 
+        minWidth: 80, 
+        maxWidth: 125, 
         cellRenderer: iconRenderer,
         headerClass: 'header-background', 
       },
@@ -1038,11 +972,11 @@ function createNestedTable(details, index) {
         field: 'caucuses.committeeOnArmyResolutions',
         sortable: true,
         headerClass: 'custom-header',
-        cellStyle: { textAlign: 'center' , backgroundColor: backgroundColors[1]}, // Centra el texto en las celdas
+        cellStyle: { textAlign: 'center' , backgroundColor: backgroundColors[1]}, 
         headerComponent: CustomHeader,
-        width: 100, // Ancho inicial de la columna
-        minWidth: 80, // Ancho mínimo de la columna
-        maxWidth: 125, // Ancho maximo de la columna
+        width: 100, 
+        minWidth: 80, 
+        maxWidth: 125, 
         cellRenderer: iconRenderer,
         headerClass: 'header-background-2', 
       } 
@@ -1052,7 +986,7 @@ function createNestedTable(details, index) {
     domLayout: 'normal',
     defaultColDef: {
       resizable: true,
-      tooltipField: 'headerName', // Agrega un tooltip para mostrar el texto completo al pasar el ratón
+      tooltipField: 'headerName', 
     },
     getRowStyle: () => ({
       fontSize: '14px',
@@ -1068,7 +1002,7 @@ function createNestedTable(details, index) {
       const rowCount = params.api.getDisplayedRowCount();
       const totalHeight = Math.max(rowCount, MIN_ROWS) * ROW_HEIGHT + HEADER_HEIGHT;
 
-      console.log(`Altura calculada: ${totalHeight}px`);
+      console.log(`Calculated height: ${totalHeight}px`);
       gridDiv.style.height = `${totalHeight}px`;
 
       setTimeout(() => params.api.sizeColumnsToFit(), 0);
@@ -1077,7 +1011,7 @@ function createNestedTable(details, index) {
 
   const gridDiv = document.querySelector(`#ag-grid-${index}`);
   if (!gridDiv) {
-    console.error(`No se encontró el contenedor para la tabla con ID: ag-grid-${index}`);
+    console.error(`Container for table with ID not found: ag-grid-${index}`);
     return;
   }
 
@@ -1097,12 +1031,11 @@ function createNestedTable(details, index) {
     if (gridOptions.api) gridOptions.api.sizeColumnsToFit();
   });
   resizeObserver.observe(gridDiv);
-  gridOptionsArray[index] = gridOptions; // Almacena las opciones de la cuadrícula
+  gridOptionsArray[index] = gridOptions; 
 }
 
 //----------------------------------------------------------------DELEGATE SUMMARY REPORT---------------------------------------------------------------------
 
-  //Funcion para crear tabla summary report
 function createDelegateSummaryTable() {
   const tableContainer = document.getElementById('table-container');
   tableContainer.innerHTML = ''; // Limpia cualquier contenido previo
@@ -1110,16 +1043,14 @@ function createDelegateSummaryTable() {
   const table = document.createElement('table');
   table.classList.add('table', 'table-bordered', 'table-striped', 'table-responsive');
 
-  // Estilo de la tabla
   table.style.backgroundColor = 'white';
   table.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
   table.style.borderRadius = '8px';
   table.style.border = 'none';
   table.style.borderBottom = '1px solid #C6C2DE';
   table.style.borderCollapse = 'collapse';
-  table.style.tableLayout = 'fixed'; // Evita cambios en el tamaño de las columnas
-  table.style.width = '100%'; // Asegura que la tabla ocupe el ancho completo
-
+  table.style.tableLayout = 'fixed'; 
+  table.style.width = '100%'; 
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
   const style = document.createElement('style');
@@ -1131,10 +1062,10 @@ function createDelegateSummaryTable() {
       border-top: none;
     }
   `;
-  document.head.appendChild(style); // Agrega el estilo al <head> del documento
+  document.head.appendChild(style); 
 
-  thead.style.borderTop = 'none'; // Elimina el borde superior de la fila del encabezado
-  // Encabezado con botón a la izquierda del texto "State Affiliate"
+  thead.style.borderTop = 'none'; 
+  
   thead.innerHTML = `
   <tr>
     <th style="background-color: #F2F0F9; border-top: none; border: none; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; color: #12385C; text-align: left; vertical-align: middle; width: 30%; padding-left: 12px;">
@@ -1158,7 +1089,6 @@ function createDelegateSummaryTable() {
   </tr>
 `;
 
-  // Resto del código para cargar los datos
   fetch('delegates.json')
     .then(response => response.json())
     .then(data => {
@@ -1220,17 +1150,16 @@ function createDelegateSummaryTable() {
     });
 }
 
-//funcion para ocultar/mostrar tabla summary report
 function toggleMainTable() {
   const tbody = document.querySelector('#table-container table tbody');
   const mainExpandIcon = document.getElementById('main-expand-icon');
 
   if (tbody.style.display === 'none') {
-    tbody.style.display = 'table-row-group'; // Muestra el cuerpo de la tabla
+    tbody.style.display = 'table-row-group'; 
     mainExpandIcon.classList.remove('bi-arrow-right-circle');
     mainExpandIcon.classList.add('bi-arrow-down-circle');
   } else {
-    tbody.style.display = 'none'; // Oculta el cuerpo de la tabla
+    tbody.style.display = 'none'; 
     mainExpandIcon.classList.remove('bi-arrow-down-circle');
     mainExpandIcon.classList.add('bi-arrow-right-circle');
   }
@@ -1238,10 +1167,9 @@ function toggleMainTable() {
 
 //---------------------------------------------------------------COMMITTE REPORT LIST----------------------------------------------------------------
 
-let committees = []; // Variable global para almacenar los datos de los delegados
-const gridOptionsArraycommittee = []; // Opciones de cuadrículas para subtablas
+let committees = []; 
+const gridOptionsArraycommittee = []; 
 
-// Función para cargar los comités y crear la tabla principal
 async function loadCommittee() {
   try {
     const response = await fetch('committees.json');
@@ -1249,16 +1177,14 @@ async function loadCommittee() {
       throw new Error('Error al cargar el JSON');
     }
     const data = await response.json();
-    committees = data.committees; // Asigna los comités a la variable global
+    committees = data.committees; 
 
-    // Renderiza la tabla principal con los datos obtenidos
     createCommitteeReportsTable(committees);
   } catch (error) {
     console.error('Error al cargar los datos:', error);
   }
 }
 
-// Función para obtener los datos de las subtablas visibles
 function getVisibleNestedTablecommitteesData() {
   const allData = [];
 
@@ -1276,21 +1202,19 @@ function getVisibleNestedTablecommitteesData() {
   return allData;
 }
 
-//Función para crear la tabla Delegate Report List
 function createCommitteeReportsTable(committees) {
   const tableContainer = document.getElementById('table-container');
-  tableContainer.innerHTML = ''; // Limpia cualquier contenido previo
+  tableContainer.innerHTML = ''; 
 
   const table = document.createElement('table');
   table.classList.add('table', 'table-striped', 'table-responsive');
 
-  // Estilos de la tabla principal
   table.style.backgroundColor = 'white';
   table.style.borderRadius = '8px';
-  table.style.overflow = 'hidden'; // Asegura que las esquinas redondeadas no se vean interrumpidas
-  table.style.border = '1px solid #C6C2DE'; // Borde violeta en toda la tabla
-  table.style.borderCollapse = 'separate'; // Evita que los bordes de las celdas se fusionen
-  table.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)'; // Agrega un box-shadow suave y redondeado
+  table.style.overflow = 'hidden'; 
+  table.style.border = '1px solid #C6C2DE'; 
+  table.style.borderCollapse = 'separate'; 
+  table.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)'; 
 
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
@@ -1298,7 +1222,6 @@ function createCommitteeReportsTable(committees) {
   committees.forEach((committee, index) => {
     const row = document.createElement('tr');
     
-    // Creamos un objeto con los estilos
     const cellStyle = {
       fontFamily: 'Inter, sans-serif',
       fontSize: '14px',
@@ -1309,20 +1232,17 @@ function createCommitteeReportsTable(committees) {
       boxShadow: 'none',
       padding: '2px 2px',
       height: '2px',
-      borderBottom: '1px solid #C6C2DE' // Borde por defecto
+      borderBottom: '1px solid #C6C2DE'
     };
 
-    // Si es la última fila, eliminamos el borde inferior
     if (index === committees.length - 1) {
-      cellStyle.borderBottom = 'none'; // Elimina el borde inferior de la última fila
+      cellStyle.borderBottom = 'none'; 
     }
 
-    // Convertimos el objeto de estilo a una cadena CSS
     const cellStyleString = Object.entries(cellStyle)
-      .map(([key, value]) => `${key.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${value};`) // Convierte camelCase a kebab-case
+      .map(([key, value]) => `${key.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${value};`)
       .join(' ');
 
-    // Botón expand/collapse y nombre del comité
     row.innerHTML = `
       <td style="${cellStyleString}">
         <button 
@@ -1335,7 +1255,6 @@ function createCommitteeReportsTable(committees) {
       </td>
     `;
 
-    // Fila secundaria para la subtabla
     const nestedRow = document.createElement('tr');
     nestedRow.style.display = 'none';
     nestedRow.innerHTML = `
@@ -1363,85 +1282,82 @@ function createCommitteeReportsTable(committees) {
   tableContainer.appendChild(table);
 }
 
-// Función para alternar la visibilidad de la subtabla y cambiar la flecha con transición
+
 function toggleNestedTableCommites(index) {
     const nestedTable = document.getElementById(`nested-table-${index}`);
-    const nestedRow = nestedTable.closest('tr'); // Obtiene la fila secundaria
+    const nestedRow = nestedTable.closest('tr'); 
     const allNestedTables = document.querySelectorAll('.nested-table');
     const expandButton = document.querySelector(`#expand-icon-${index}`);
 
-    // Ocultar todas las subtablas excepto la actual
     allNestedTables.forEach((table, idx) => {
       const otherRow = table.closest('tr');
       if (idx !== index) {
-        table.style.maxHeight = '0'; // Colapsa las subtablas
+        table.style.maxHeight = '0'; 
         table.style.display = 'none'; 
-        if (otherRow) otherRow.style.display = 'none'; // Oculta la fila secundaria
+        if (otherRow) otherRow.style.display = 'none'; 
         const otherButton = document.querySelector(`#expand-icon-${idx}`);
         if (otherButton) {
           otherButton.classList.remove('bi-arrow-down-circle');
-          otherButton.classList.add('bi-arrow-right-circle'); // Restaurar flecha hacia la derecha
+          otherButton.classList.add('bi-arrow-right-circle'); 
         }
       }
     });
 
-    // Si la subtabla no está visible, la mostramos y creamos la subtabla
     if (nestedTable.style.display === 'none') {
-      nestedRow.style.display = ''; // Muestra la fila secundaria
+      nestedRow.style.display = ''; 
       nestedTable.style.display = 'block';
-      nestedTable.style.maxHeight = '1000px'; // Expande la subtabla con animación
+      nestedTable.style.maxHeight = '1000px'; 
       expandButton.classList.remove('bi-arrow-right-circle');
-      expandButton.classList.add('bi-arrow-down-circle'); // Cambia la flecha hacia abajo
+      expandButton.classList.add('bi-arrow-down-circle'); 
       createNestedTablecommittee(committees[index].details, index);
     } else {
-      nestedTable.style.maxHeight = '0'; // Colapsa la subtabla con animación
+      nestedTable.style.maxHeight = '0'; 
       setTimeout(() => {
-        nestedTable.style.display = 'none'; // Oculta completamente tras la animación
-        nestedRow.style.display = 'none'; // Oculta la fila secundaria
+        nestedTable.style.display = 'none'; 
+        nestedRow.style.display = 'none'; 
       }, 300); 
       expandButton.classList.remove('bi-arrow-down-circle');
-      expandButton.classList.add('bi-arrow-right-circle'); // Cambia la flecha hacia la derecha
+      expandButton.classList.add('bi-arrow-right-circle'); 
     }
 }
-  // Función para crear subtabla
+  
 function createNestedTablecommittee(details, index) {
     const backgroundColors = ['#F2F0F9', '#F8F8F8', '#4F378A1F'];
     const style = document.createElement('style');
     style.innerHTML = `
     .header-background {
       background-color: ${backgroundColors[0]};
-      padding: 20px 10px 20px 15px; /* Ajusta los márgenes */
+      padding: 20px 10px 20px 15px; 
       text-align: left;
       line-height: 1;
       font-family: Inter, sans-serif;
       font-weight: normal;
       color: #12385C;
       display: flex;
-      align-items: center; /* Alinea el contenido verticalmente */
-      justify-content: flex-start; /* Alinea el texto a la izquierda */
-      white-space: nowrap; /* Evita el salto de línea */
-      overflow: hidden; /* Oculta el contenido desbordado */
-      text-overflow: ellipsis; /* Agrega puntos suspensivos si el contenido no cabe */
+      align-items: center; 
+      justify-content: flex-start; 
+      white-space: nowrap; 
+      overflow: hidden; 
+      text-overflow: ellipsis; 
       
     }
-    /* Estilo para los bordes de las filas y celdas */
     .ag-theme-alpine .ag-row {
-      border-bottom: 1px solid #C6C2DE; /* Bordes entre las filas */
+      border-bottom: 1px solid #C6C2DE; 
     }
     .ag-theme-alpine .ag-root-wrapper {
-      border: none; /* Borde externo de la tabla */
+      border: none; 
     }
     .ag-theme-alpine .ag-header-row {
-      border-bottom: none; /* Borde inferior del encabezado */
+      border-bottom: none; 
     }
     .ag-theme-alpine .ag-header {
-      border-bottom: 1px solid #C6C2DE !important; /* Elimina el borde predeterminado del header */
+      border-bottom: 1px solid #C6C2DE !important; 
     }
     .ag-theme-alpine .ag-header-cell {
-      border: none !important; /* Elimina los bordes de las celdas del encabezado */
+      border: none !important; 
     }
     .ag-theme-alpine .ag-header-row {
-      border-bottom: none !important; /* Elimina el borde de la fila de encabezado */
+      border-bottom: none !important;
     }
   `;
 
@@ -1549,20 +1465,19 @@ function createNestedTablecommittee(details, index) {
         headerClass: 'custom-header',
         cellStyle: { 
           backgroundColor: backgroundColors[1],
-          display: 'flex',            // Aplicar flexbox a la celda
-          justifyContent: 'center',   // Centrado horizontal
-          alignItems: 'center',       // Centrado vertical
+          display: 'flex',            
+          justifyContent: 'center',   
+          alignItems: 'center',      
         },
         headerComponent: CustomHeader,
         cellRenderer: function (params) {
           if (!params.value) {
-            // Si no hay valor, no renderiza nada
             return '';
           }
           const button = document.createElement('button');
           const styles = getButtonStyles(params.value);
-          Object.assign(button.style, styles);  // Aplicar estilos al botón
-          button.textContent = styles.textContent; // Establecer el texto del botón
+          Object.assign(button.style, styles);  
+          button.textContent = styles.textContent; 
           return button;
         },
         width: 90,
@@ -1589,7 +1504,7 @@ function createNestedTablecommittee(details, index) {
     domLayout: 'normal',
     defaultColDef: {
       resizable: true,
-      tooltipField: 'headerName', // Agrega un tooltip para mostrar el texto completo al pasar el ratón
+      tooltipField: 'headerName',
     },
     getRowStyle: () => ({
       fontSize: '14px',
@@ -1636,16 +1551,14 @@ function createNestedTablecommittee(details, index) {
   gridOptionsArraycommittee[index] = gridOptions; // Almacena las opciones de la cuadrícula
 }
 
-//--------------------------------------------FIN DE LAS TABLAS----------------------------------------------------------
+//------------------------------------------------------------------------------------------------------
 
-// Cargar los datos y el nav cuando se carga la página
 window.onload = function() {
-  // Cargar JS
   loadResource("js", "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js");
   loadResource("js", "https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js");
   loadResource("js", "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
   loadResource("js", "https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js");
   createAndStyleH1();
-  createNav(); // Llamada a la función para crear el nav
+  createNav(); 
   loadDelegates();
 };
